@@ -19,11 +19,29 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Shaders.cpp" />
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\fragment_shader.glsl" />
     <None Include="shaders\vertex_shader.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="concat.h" />
+    <ClInclude Include="config.h" />
+    <ClInclude Include="cube.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="properties.h" />
+    <ClInclude Include="Shaders.h" />
+    <ClInclude Include="Texture.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -80,15 +98,15 @@
     <OutDir>$(SolutionDir)..\..\Lib\$(PlatformName)$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\..\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
-    <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\External\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\External\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)..\..\Lib\$(PlatformName)$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\..\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
-    <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\External\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\External\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)..\..\Lib\$(PlatformName)$(Configuration)\</OutDir>
@@ -110,11 +128,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\External\glm;$(SolutionDir)..\External\glfw-3.2.1\include;$(SolutionDir)..\External\glew-2.1.0\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\External\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\External\glew-2.1.0\lib\Release\Win32;$(SolutionDir)..\External\glfw-3.2.1\libs\Win32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\External\lib;;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -124,6 +143,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)..\External\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>glew32.lib;glew32s.lib;glfw3.lib;glfw3dll.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -138,13 +158,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\External\glm;$(SolutionDir)..\External\glfw-3.2.1\include;$(SolutionDir)..\External\glew-2.1.0\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\External\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\External\glew-2.1.0\lib\Release\Win32;$(SolutionDir)..\External\glfw-3.2.1\libs\Win32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\External\lib;;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -156,6 +177,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)..\External\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
