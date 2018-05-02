@@ -28,5 +28,5 @@ void main() {
 
 	Normal_cameraspace = (V * M * vec4(vertexNormal_modelspace, 0)).xyz;
 
-	UV = vertexUV;
+	UV = vertexUV * vec2(1.0, -1.0); //Inverse the texture
 }
