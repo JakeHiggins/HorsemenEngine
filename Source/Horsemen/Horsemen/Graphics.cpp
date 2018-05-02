@@ -56,88 +56,51 @@ int Graphics::Init() {
 }
 
 int Graphics::LoadContent() {
-	m_Texture = new Texture();
-	//m_Texture->LoadBMP("..\\..\\..\\Assets\\Textures\\test.bmp");
-	m_Texture->LoadDDS("..\\..\\..\\Assets\\Textures\\grass.dds");
-
-	// Create VAO
-	m_VertexArrayID;
-	glGenVertexArrays(1, &m_VertexArrayID);
-	glBindVertexArray(m_VertexArrayID);
-
-	m_VertexBuffer;
-	glGenBuffers(1, &m_VertexBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_cube_1_buffer), g_cube_1_buffer, GL_STATIC_DRAW);
-
-	m_UVBuffer;
-	glGenBuffers(1, &m_UVBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, m_UVBuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_uv_buffer_data), g_uv_buffer_data, GL_STATIC_DRAW);
-
 	// Compile and load shaders
-	m_ProgramID = m_pShaders->LoadShaders("shaders/vertex_shader.glsl", "shaders/fragment_shader.glsl");
+	m_Handles["ProgramID"] = m_pShaders->LoadShaders("shaders/vertex_shader.glsl", "shaders/fragment_shader.glsl");
 
 	// Load MVP matrix
-	m_MatrixID = glGetUniformLocation(m_ProgramID, "MVP");
+	m_Handles["MatrixID"] = glGetUniformLocation(m_Handles["ProgramID"], "MVP");
+	m_Handles["ModelMatID"] = glGetUniformLocation(m_Handles["ProgramID"], "M");
+	m_Handles["ViewMatID"] = glGetUniformLocation(m_Handles["ProgramID"], "V");
+	m_Handles["TextureID"] = glGetUniformLocation(m_Handles["ProgramID"], "textureSampler");
 
-	m_TextureID = glGetUniformLocation(m_ProgramID, "textureSampler");
+	glUseProgram(m_Handles["ProgramID"]);
+	m_Handles["LightID"] = glGetUniformLocation(m_Handles["ProgramID"], "LightPosition_worldspace");
+
+	m_Models = vector<Model*>();
+	Model* m1 = new Model(vec3(0,-3,0));
+	Model* m2 = new Model(vec3(7,0,0));
+	Model* m3 = new Model(vec3(-5,0,0));
+
+	m1->Init();
+	m2->Init();
+	m3->Init();
+
+	m1->LoadContent("..\\..\\..\\Assets\\Models\\statue.obj", "..\\..\\..\\Assets\\Textures\\statue\\statue_dd.dds");
+	m2->LoadContent("..\\..\\..\\Assets\\Models\\torus.obj", "..\\..\\..\\Assets\\Textures\\white_d.dds");
+	m3->LoadContent("..\\..\\..\\Assets\\Models\\cube.obj", "..\\..\\..\\Assets\\Textures\\obsidian_d.dds");
+
+	m_Models.push_back(m1);
+	m_Models.push_back(m2);
+	m_Models.push_back(m3);
 
 	return 1;
 }
 
-void Graphics::CalculateMVP(Camera* cam) {
-	glm::mat4 Projection = cam->Projection;
-
-	glm::mat4 Model = glm::mat4(1.0f);
-
-	m_MVP = Projection * cam->View * Model;
+void Graphics::Update(float dt) {
+	for (auto &model : m_Models) {
+		model->Update(dt);
+	}
 }
 
 int Graphics::Render(Camera* cam) {
 	// Clear screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	// Use shader
-	glUseProgram(m_ProgramID);
-
-	// Update and send MVP
-	CalculateMVP(cam);
-	glUniformMatrix4fv(m_MatrixID, 1, GL_FALSE, &m_MVP[0][0]);
-
-	// Bind texture
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, m_Texture->Image);
-	glUniform1i(m_TextureID, 0);
-
-	// Bind vertex array
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
-	glVertexAttribPointer(
-		0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
-		3,                  // size
-		GL_FLOAT,           // type
-		GL_FALSE,           // normalized?
-		0,                  // stride
-		(void*)0            // array buffer offset
-	);
-
-	// Bind color array
-	glEnableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, m_UVBuffer);
-	glVertexAttribPointer(
-		1,
-		2,
-		GL_FLOAT,
-		GL_FALSE,
-		0,
-		(void*)0
-	);
-
-	glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
-
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
+	for (auto &model : m_Models) {
+		model->Render(m_Handles, cam, vec3(4, 4, 4));
+	}
 
 	// Swap Buffers
 	glfwSwapBuffers(m_Window);
@@ -147,12 +110,11 @@ int Graphics::Render(Camera* cam) {
 }
 
 void Graphics::Cleanup() {
-	glDeleteBuffers(1, &m_VertexBuffer);
-	glDeleteBuffers(1, &m_UVBuffer);
 	glDeleteProgram(m_ProgramID);
-	glDeleteVertexArrays(1, &m_VertexArrayID);
 
-	m_Texture->Cleanup();
+	for (auto &model : m_Models) {
+		model->Cleanup();
+	}
 
 	glfwTerminate();
 }

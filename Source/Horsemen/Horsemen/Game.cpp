@@ -20,6 +20,7 @@ void Game::LoadContent() {
 }
 
 void Game::Update(float dt) {
+	Graphics::Instance()->Update(dt);
 	Input::Instance()->Update(dt);
 	cam->Update(dt);
 }

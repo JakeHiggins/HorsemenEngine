@@ -300,5 +300,6 @@ __pycache__/
 Temp/*
 Source/External/*
 Lib/*
+Assets/*
 
 # End of https://www.gitignore.io/api/visualstudio

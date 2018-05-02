@@ -24,6 +24,7 @@
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Model.cpp" />
     <ClCompile Include="Shaders.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
@@ -36,12 +37,19 @@
     <ClInclude Include="concat.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="cube.h" />
+    <ClInclude Include="DataStructures\vector4.h" />
+    <ClInclude Include="DataStructures\structures.h" />
+    <ClInclude Include="DataStructures\vector2.h" />
+    <ClInclude Include="DataStructures\vector3.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Model.h" />
     <ClInclude Include="properties.h" />
     <ClInclude Include="Shaders.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Utils\loaders.h" />
+    <ClInclude Include="Utils\math.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

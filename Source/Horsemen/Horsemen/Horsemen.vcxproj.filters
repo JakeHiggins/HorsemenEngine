@@ -22,6 +22,9 @@
     <Filter Include="Header Files\utils">
       <UniqueIdentifier>{bce2e46a-7fa5-4f58-8f2c-9fca01164a50}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DataStructures">
+      <UniqueIdentifier>{a6501be2-3a59-4d90-af48-7ab9866f1553}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -43,6 +46,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
       <Filter>Source Files\rendering</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,6 +89,27 @@
       <Filter>Header Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="properties.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\structures.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\vector2.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\vector3.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="DataStructures\vector4.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\math.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\loaders.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
   </ItemGroup>

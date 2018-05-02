@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <map>
 
 #include "properties.h"
 #include "concat.h"
@@ -10,7 +11,7 @@
 #include "config.h"
 
 #include "cube.h"
-#include "Texture.h"
+#include "Model.h"
 #include "Shaders.h"
 #include "Camera.h"
 
@@ -21,6 +22,7 @@ class Graphics
 	public:
 		int Init();
 		int LoadContent();
+		void Update(float dt);
 		int Render(Camera* cam);
 		void Cleanup();
 
@@ -33,13 +35,12 @@ class Graphics
 		Graphics();
 		Graphics(Graphics const&);
 		Graphics& operator=(Graphics const&);
-		void CalculateMVP(Camera* cam);
 		static Graphics* m_pInstance;
 		Shaders* m_pShaders;
-		GLuint m_VertexBuffer, m_UVBuffer, m_ProgramID, m_MatrixID, m_VertexArrayID, m_TextureID;
+		GLuint m_ProgramID, m_MatrixID, m_ModelMatID, m_ViewMatID, m_TextureID;
 		GLFWwindow* m_Window;
-		Texture* m_Texture;
-		glm::mat4 m_MVP;
+		vector<Model*> m_Models;
+		map<string, GLuint> m_Handles;
 };
 
 #endif
