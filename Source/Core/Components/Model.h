@@ -2,12 +2,11 @@
 #define MODEL_H
 #include <map>
 
-#include "properties.h"
-#include "cube.h"
-#include "Texture.h"
+#include "../Utils/properties.h"
+#include "../Rendering/Texture.h"
 #include "Camera.h"
-#include "Input.h"
-#include "Utils/loaders.h"
+#include "../Input.h"
+#include "../Utils/loaders.h"
 
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>

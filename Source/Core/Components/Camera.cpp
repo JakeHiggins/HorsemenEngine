@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-#include "Graphics.h"
+#include "../Rendering/Graphics.h"
 
 Camera::Camera() {
 }
@@ -82,5 +82,5 @@ void Camera::Update(float dt) {
 }
 
 void Camera::Zoom(GLFWwindow* window, double xoffset, double yoffset) {
-	Input::Instance()->Scroll = yoffset;
+	Input::Instance()->Scroll = (int)yoffset;
 }

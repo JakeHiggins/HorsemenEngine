@@ -1,7 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "Graphics.h"
+#include "Rendering/Graphics.h"
 #include "Input.h"
 
 class Game

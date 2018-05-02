@@ -151,7 +151,7 @@ void Model::Render(map<string, GLuint> handles, Camera* cam, vec3 lightPos) {
 		(void*)0
 	);
 
-	glDrawArrays(GL_TRIANGLES, 0, m_Vertices.size());
+	glDrawArrays(GL_TRIANGLES, 0, (GLsizei)m_Vertices.size());
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

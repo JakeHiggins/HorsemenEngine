@@ -57,7 +57,7 @@ int Graphics::Init() {
 
 int Graphics::LoadContent() {
 	// Compile and load shaders
-	m_Handles["ProgramID"] = m_pShaders->LoadShaders("shaders/vertex_shader.glsl", "shaders/fragment_shader.glsl");
+	m_Handles["ProgramID"] = m_pShaders->LoadShaders("Source/Core/Rendering/Shaders/vertex_shader.glsl", "Source/Core/Rendering/Shaders/fragment_shader.glsl");
 
 	// Load MVP matrix
 	m_Handles["MatrixID"] = glGetUniformLocation(m_Handles["ProgramID"], "MVP");
@@ -77,9 +77,9 @@ int Graphics::LoadContent() {
 	m2->Init();
 	m3->Init();
 
-	m1->LoadContent("..\\..\\..\\Assets\\Models\\statue.obj", "..\\..\\..\\Assets\\Textures\\statue\\statue_dd.dds");
-	m2->LoadContent("..\\..\\..\\Assets\\Models\\torus.obj", "..\\..\\..\\Assets\\Textures\\white_d.dds");
-	m3->LoadContent("..\\..\\..\\Assets\\Models\\cube.obj", "..\\..\\..\\Assets\\Textures\\obsidian_d.dds");
+	m1->LoadContent("Assets/Models/statue.obj", "Assets/Textures/statue/statue_dd.dds");
+	m2->LoadContent("Assets/Models/torus.obj", "Assets/Textures/white_d.dds");
+	m3->LoadContent("Assets/Models/cube.obj", "Assets/Textures/obsidian_d.dds");
 
 	m_Models.push_back(m1);
 	m_Models.push_back(m2);

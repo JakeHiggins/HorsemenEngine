@@ -5,15 +5,13 @@
 #include <stdlib.h>
 #include <map>
 
-#include "properties.h"
-#include "concat.h"
+#include "../Utils/properties.h"
+#include "../Utils/concat.h"
+#include "../Utils/config.h"
 
-#include "config.h"
-
-#include "cube.h"
-#include "Model.h"
+#include "../Components/Model.h"
 #include "Shaders.h"
-#include "Camera.h"
+#include "../Components/Camera.h"
 
 #include <GLFW/glfw3.h>
 

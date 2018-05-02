@@ -1,5 +1,5 @@
 #include "Input.h"
-#include "Graphics.h"
+#include "Rendering/Graphics.h"
 
 Input* Input::m_pInstance = NULL;
 

@@ -4,10 +4,10 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "properties.h"
-#include "config.h"
+#include "../Utils/properties.h"
+#include "../Utils/config.h"
 
-#include "Input.h"
+#include "../Input.h"
 
 using namespace glm;
 

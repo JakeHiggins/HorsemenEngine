@@ -4,7 +4,7 @@
 #include <string>
 #include <stdio.h>
 
-#include "properties.h"
+#include "../Utils/properties.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
