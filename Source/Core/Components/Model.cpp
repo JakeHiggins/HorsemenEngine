@@ -1,7 +1,5 @@
 #include "Model.h"
 
-
-
 Model::Model(vec3 position) {
 	m_Transform = mat4();
 	m_Position = position;
@@ -20,11 +18,11 @@ Model::~Model() {
 }
 
 void Model::Init() {
-	m_Texture = new Texture();
+	m_pTexture = new Texture();
 }
 
 void Model::LoadContent(const char* model, const char* texture) {
-	m_Texture->LoadDDS(texture);
+	m_pTexture->LoadDDS(texture);
 	bool res = LoadObj(model, m_Vertices, m_UVs, m_Normals);
 	if(!res) { printf("ModelLoadError [%s]: Model could not be loaded.\n", model); return; }
 
@@ -46,13 +44,13 @@ void Model::LoadContent(const char* model, const char* texture) {
 }
 
 void Model::Update(float dt) {
-	/*if (Input::IsKeyPressed(GLFW_KEY_1)) {
+	/*if (Input::IsKeyPressed(window, GLFW_KEY_1)) {
 		m_Mode = 1;
 	}
-	if (Input::IsKeyPressed(GLFW_KEY_1)) {
+	if (Input::IsKeyPressed(window, GLFW_KEY_1)) {
 		m_Mode = 2;
 	}
-	if (Input::IsKeyPressed(GLFW_KEY_1)) {
+	if (Input::IsKeyPressed(window, GLFW_KEY_1)) {
 		m_Mode = 3;
 	}
 
@@ -62,32 +60,32 @@ void Model::Update(float dt) {
 	if (m_Mode == 3)
 		target = m_Scale;
 	float move = 0.5f;*/
-	float move = 0.005f;
-	// Move model
-	if (Input::IsKeyPressed(GLFW_KEY_U)) {
-		m_Position.x += move * dt;
-		m_Transform = translate(m_Transform, m_Position);
-	}
-	if (Input::IsKeyPressed(GLFW_KEY_J)) {
-		m_Position.x -= move * dt;
-		m_Transform = translate(m_Transform, m_Position);
-	}
-	if (Input::IsKeyPressed(GLFW_KEY_I)) {
-		m_Position.y += move * dt;
-		m_Transform = translate(m_Transform, m_Position);
-	}
-	if (Input::IsKeyPressed(GLFW_KEY_K)) {
-		m_Position.y -= move * dt;
-		m_Transform = translate(m_Transform, m_Position);
-	}
-	if (Input::IsKeyPressed(GLFW_KEY_O)) {
-		m_Position.z += move * dt;
-		m_Transform = translate(m_Transform, m_Position);
-	}
-	if (Input::IsKeyPressed(GLFW_KEY_L)) {
-		m_Position.z -= move * dt;
-		m_Transform = translate(m_Transform, m_Position);
-	}
+	//float move = 0.005f;
+	//// Move model
+	//if (Input::IsKeyPressed(window, GLFW_KEY_U)) {
+	//	m_Position.x += move * dt;
+	//	m_Transform = translate(m_Transform, m_Position);
+	//}
+	//if (Input::IsKeyPressed(window, GLFW_KEY_J)) {
+	//	m_Position.x -= move * dt;
+	//	m_Transform = translate(m_Transform, m_Position);
+	//}
+	//if (Input::IsKeyPressed(window, GLFW_KEY_I)) {
+	//	m_Position.y += move * dt;
+	//	m_Transform = translate(m_Transform, m_Position);
+	//}
+	//if (Input::IsKeyPressed(window, GLFW_KEY_K)) {
+	//	m_Position.y -= move * dt;
+	//	m_Transform = translate(m_Transform, m_Position);
+	//}
+	//if (Input::IsKeyPressed(window, GLFW_KEY_O)) {
+	//	m_Position.z += move * dt;
+	//	m_Transform = translate(m_Transform, m_Position);
+	//}
+	//if (Input::IsKeyPressed(window, GLFW_KEY_L)) {
+	//	m_Position.z -= move * dt;
+	//	m_Transform = translate(m_Transform, m_Position);
+	//}
 
 	/*mat4 translateM = translate(m_Transform, m_Position);
 	mat4 scaleM = scale(m_Transform, m_Scale);
@@ -112,7 +110,7 @@ void Model::Render(map<string, GLuint> handles, Camera* cam, vec3 lightPos) {
 
 	// Bind texture
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, m_Texture->Image);
+	glBindTexture(GL_TEXTURE_2D, m_pTexture->Image);
 	glUniform1i(handles["TextureID"], 0);
 
 	// Bind vertex array
@@ -163,5 +161,6 @@ void Model::Cleanup() {
 	glDeleteBuffers(1, &m_UVBuffer);
 	glDeleteVertexArrays(1, &m_VertexArrayID);
 
-	m_Texture->Cleanup();
+	m_pTexture->Cleanup();
+	SAFE_DELETE(m_pTexture);
 }

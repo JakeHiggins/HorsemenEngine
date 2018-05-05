@@ -1,19 +1,18 @@
-#include "Game.h"
+#include "HorsemanGame.h"
 
 int main() {
-	Game* game = new Game();
+	HorsemanGame* game = new HorsemanGame();
 
-	game->Init();
-	game->LoadContent();
+	game->Init("Internal Test");
+
+	//ActorFactory f = ActorFactory();
+	//f.CreateActor("Assets/Actors/test.xml");
 
 	double lastTime = glfwGetTime();
 	double currentTime = glfwGetTime();
 	do {
 		currentTime = glfwGetTime();
 		float dt = float(currentTime - lastTime);
-
-		game->Update(dt);
-		game->Render();
 
 		lastTime = currentTime;
 	} while (game->Active());

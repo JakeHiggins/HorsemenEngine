@@ -1,5 +1,4 @@
 #include "Input.h"
-#include "Rendering/Graphics.h"
 
 Input* Input::m_pInstance = NULL;
 
@@ -19,26 +18,25 @@ Input::Input() {
 	m_Scroll = 1;
 }
 
+Input::~Input()
+{
+	SAFE_DELETE(m_pInstance)
+}
+
 void Input::Init(GLFWwindow* window) {
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-}
-
-GLuint Input::IsKeyPressed(GLuint key) {
-	GLFWwindow* window = Graphics::Instance()->Window;
-
-	return glfwGetKey(window, key) == GLFW_PRESS;
 }
 
 GLuint Input::IsKeyPressed(GLFWwindow * window, GLuint key) {
 	return glfwGetKey(window, key) == GLFW_PRESS;
 }
 
-void Input::Update(float dt) {
+void Input::Update(GLFWwindow * window, float dt) {
 	double xpos, ypos;
-	glfwGetCursorPos(Graphics::Instance()->Window, &xpos, &ypos);
+	glfwGetCursorPos(window, &xpos, &ypos);
 
-	glfwSetCursorPos(Graphics::Instance()->Window, WIDTH / 2, HEIGHT / 2);
+	glfwSetCursorPos(window, WIDTH / 2, HEIGHT / 2);
 
 	m_Angles.yaw += m_MouseSpeed * dt * float(WIDTH / 2 - xpos);
 	m_Angles.pitch += m_MouseSpeed * dt * float(HEIGHT / 2 - ypos);

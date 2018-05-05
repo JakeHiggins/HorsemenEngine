@@ -2,6 +2,8 @@
 #define INPUT_H
 
 #include "Utils/properties.h"
+#include "Utils/memory.h"
+#include "Utils/config.h"
 
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
@@ -18,7 +20,7 @@ class Input
 		static GLuint IsKeyPressed(GLuint key);
 		static GLuint IsKeyPressed(GLFWwindow* window, GLuint key);
 		void Init(GLFWwindow* window);
-		void Update(float dt);
+		void Update(GLFWwindow* window, float dt);
 
 		READONLY_PROPERTY(MouseAngle, Angles);
 		GET(Angles) { return m_Angles; };
@@ -30,6 +32,7 @@ class Input
 	private:
 		Input();
 		Input(Input const&);
+		~Input();
 		Input& operator=(Input const&);
 		static Input* m_pInstance;
 		MouseAngle m_Angles;

@@ -17,8 +17,9 @@ public:
 	Camera();
 	~Camera();
 	
-	void Init();
-	void Update(float dt);
+	void Init(GLFWwindow* window);
+	void Update(GLFWwindow* window, float dt);
+	void Cleanup();
 
 	void Zoom(GLFWwindow*, double, double);
 

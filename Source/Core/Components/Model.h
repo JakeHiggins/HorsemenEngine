@@ -1,14 +1,14 @@
 #ifndef MODEL_H
 #define MODEL_H
-#include <map>
 
-#include "../Utils/properties.h"
 #include "../Rendering/Texture.h"
 #include "Camera.h"
 #include "../Input.h"
 #include "../Utils/loaders.h"
+#include "../Utils/properties.h"
 
-#include <GLFW/glfw3.h>
+#include <map>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -24,7 +24,6 @@ public:
 	void Init();
 	void LoadContent(const char* model, const char* texture);
 	void Update(float dt);
-	// void Render(GLuint programID, GLuint textureID, GLuint matrixID, GLuint modelMatID, GLuint viewMatID, Camera* camera);
 	void Render(map<string, GLuint> handles, Camera* cam, vec3 lightPos);
 	void Cleanup();
 
@@ -32,16 +31,13 @@ public:
 	GET(Transform) { return m_Transform; };
 
 private:
-	/*void translate(float x, float y, float z);
-	void scale(float x, float y, float z);
-	void rotate(float yaw, float pitch, float roll);*/
 
 	GLuint m_VertexArrayID, m_VertexBuffer, m_UVBuffer, m_NormalBuffer;
 	mat4 m_Transform;
 	vec3 m_Position, m_Rotation, m_Scale;
 	vector<vec3> m_Vertices, m_Normals;
 	vector<vec2> m_UVs;
-	Texture* m_Texture;
+	Texture* m_pTexture;
 	int m_Mode = 0;
 };
 

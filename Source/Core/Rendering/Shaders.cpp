@@ -61,6 +61,7 @@ GLuint Shaders::LoadShaders(const char* vertexShaderPath, const char* fragmentSh
 		std::vector<char> VertexShaderErrorMessage(infoLogLength + 1);
 		glGetShaderInfoLog(vertexShaderID, infoLogLength, NULL, &VertexShaderErrorMessage[0]);
 		printf("%s\n", &VertexShaderErrorMessage[0]);
+		return 0;
 	}
 
 	// Compile fragment shader
@@ -76,6 +77,7 @@ GLuint Shaders::LoadShaders(const char* vertexShaderPath, const char* fragmentSh
 		std::vector<char> fragmentShaderErrorMessage(infoLogLength + 1);
 		glGetShaderInfoLog(fragmentShaderID, infoLogLength, NULL, &fragmentShaderErrorMessage[0]);
 		printf("%s\n", &fragmentShaderErrorMessage[0]);
+		return 0;
 	}
 
 	// Link the program
@@ -92,6 +94,7 @@ GLuint Shaders::LoadShaders(const char* vertexShaderPath, const char* fragmentSh
 		std::vector<char> programErrorMessage(infoLogLength + 1);
 		glGetProgramInfoLog(programID, infoLogLength, NULL, &programErrorMessage[0]);
 		printf("%s\n", &programErrorMessage[0]);
+		return 0;
 	}
 
 	// Clean up shaders

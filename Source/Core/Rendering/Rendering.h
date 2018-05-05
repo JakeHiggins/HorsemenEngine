@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_H
-#define GRAPHICS_H
+#ifndef RENDERER_H
+#define RENDERER_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,6 +8,7 @@
 #include "../Utils/properties.h"
 #include "../Utils/concat.h"
 #include "../Utils/config.h"
+#include "../Utils/memory.h"
 
 #include "../Components/Model.h"
 #include "Shaders.h"
@@ -15,29 +16,29 @@
 
 #include <GLFW/glfw3.h>
 
-class Graphics
+class Rendering
 {
 	public:
-		int Init();
+		Rendering();
+		~Rendering();
+		int Init(const char* title);
 		int LoadContent();
+		bool LoadShader(const char* program, const char* vertexPath, const char* fragmentPath);
 		void Update(float dt);
 		int Render(Camera* cam);
+		void Begin();
+		void End();
 		void Cleanup();
-
-		static Graphics* Instance();
+		void SetWindowTitle(const char* title);
+		map<string, GLuint> Handles();
 
 		READONLY_PROPERTY(GLFWwindow*, Window);
-		GET(Window) { return m_Window; }
+		GET(Window) { return m_pWindow; }
 
 	private:
-		Graphics();
-		Graphics(Graphics const&);
-		Graphics& operator=(Graphics const&);
-		static Graphics* m_pInstance;
 		Shaders* m_pShaders;
 		GLuint m_ProgramID, m_MatrixID, m_ModelMatID, m_ViewMatID, m_TextureID;
-		GLFWwindow* m_Window;
-		vector<Model*> m_Models;
+		GLFWwindow* m_pWindow;
 		map<string, GLuint> m_Handles;
 };
 
