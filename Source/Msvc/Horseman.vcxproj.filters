@@ -49,9 +49,6 @@
     <ClInclude Include="..\Components\Camera.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\Components\Model.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\Rendering\Texture.h">
       <Filter>Rendering</Filter>
     </ClInclude>
@@ -61,22 +58,34 @@
     <ClInclude Include="..\Rendering\Rendering.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="..\Actors\ActorFactory.h">
+      <Filter>Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Actors\Actor.h">
+      <Filter>Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utils\templates.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Actors\ActorComponent.h">
+      <Filter>Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Components\TransformComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Components\MeshComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Core\HorsemanGame.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="HorsemanStd.cpp" />
-    <ClCompile Include="..\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Input\Input.cpp">
       <Filter>Input</Filter>
     </ClCompile>
     <ClCompile Include="..\Components\Camera.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Components\Model.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="..\Rendering\Texture.cpp">
@@ -87,6 +96,21 @@
     </ClCompile>
     <ClCompile Include="..\Rendering\Rendering.cpp">
       <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Actors\ActorFactory.cpp">
+      <Filter>Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Actors\Actor.cpp">
+      <Filter>Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Actors\ActorComponent.cpp">
+      <Filter>Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Components\TransformComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Components\MeshComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

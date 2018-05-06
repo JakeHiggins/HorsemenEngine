@@ -19,8 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Actors\Actor.h" />
+    <ClInclude Include="..\Actors\ActorComponent.h" />
+    <ClInclude Include="..\Actors\ActorFactory.h" />
     <ClInclude Include="..\Components\Camera.h" />
-    <ClInclude Include="..\Components\Model.h" />
+    <ClInclude Include="..\Components\MeshComponent.h" />
+    <ClInclude Include="..\Components\TransformComponent.h" />
     <ClInclude Include="..\Core\HorsemanGame.h" />
     <ClInclude Include="..\Core\interfaces.h" />
     <ClInclude Include="..\Input\Input.h" />
@@ -28,14 +32,18 @@
     <ClInclude Include="..\Rendering\Shaders.h" />
     <ClInclude Include="..\Rendering\Texture.h" />
     <ClInclude Include="..\Utils\loaders.h" />
+    <ClInclude Include="..\Utils\templates.h" />
     <ClInclude Include="HorsemanStd.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Actors\Actor.cpp" />
+    <ClCompile Include="..\Actors\ActorComponent.cpp" />
+    <ClCompile Include="..\Actors\ActorFactory.cpp" />
     <ClCompile Include="..\Components\Camera.cpp" />
-    <ClCompile Include="..\Components\Model.cpp" />
+    <ClCompile Include="..\Components\MeshComponent.cpp" />
+    <ClCompile Include="..\Components\TransformComponent.cpp" />
     <ClCompile Include="..\Core\HorsemanGame.cpp" />
     <ClCompile Include="..\Input\Input.cpp" />
-    <ClCompile Include="..\main.cpp" />
     <ClCompile Include="..\Rendering\Rendering.cpp" />
     <ClCompile Include="..\Rendering\Shaders.cpp" />
     <ClCompile Include="..\Rendering\Texture.cpp" />
@@ -51,29 +59,30 @@
     <ProjectGuid>{B316A042-DD33-4C1D-BB52-5B78A2875288}</ProjectGuid>
     <RootNamespace>Horsemen</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <ProjectName>Horseman</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -103,7 +112,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(ProjectDir)..\..\Lib\$(PlatformName)$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\..\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)..\..\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
     <IncludePath>$(ProjectDir);$(ProjectDir)..\;$(ProjectDir)..\External\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)..\External\lib;$(LibraryPath)</LibraryPath>
@@ -111,7 +120,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(ProjectDir)..\..\Lib\$(PlatformName)$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\..\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)..\..\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
     <IncludePath>$(ProjectDir);$(ProjectDir)..\;$(ProjectDir)..\External\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)..\External\lib;$(LibraryPath)</LibraryPath>
@@ -119,7 +128,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(ProjectDir)..\..\Lib\$(PlatformName)$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\..\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)..\..\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
     <IncludePath>$(ProjectDir);$(ProjectDir)..\;$(ProjectDir)..\External\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)..\External\lib;$(LibraryPath)</LibraryPath>
@@ -127,7 +136,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(ProjectDir)..\..\Lib\$(PlatformName)$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\..\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
+    <IntDir>$(ProjectDir)..\..\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
     <IncludePath>$(ProjectDir);$(ProjectDir)..\;$(ProjectDir)..\External\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)..\External\lib;$(LibraryPath)</LibraryPath>

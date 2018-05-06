@@ -36,6 +36,7 @@ using glm::mat4;
 
 // Internal includes
 #include "Core/interfaces.h"
+#include "Utils/templates.h"
 
 // Useful #defines
 #define CONCAT_NX(A, B) A ## B

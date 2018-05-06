@@ -1,12 +1,12 @@
 #include "HorsemanStd.h"
-#include "Model.h"
+#include "MeshComponent.h"
 
 #include "Rendering/Texture.h"
 #include "Camera.h"
 #include "Input/Input.h"
 #include "Utils/loaders.h"
 
-Model::Model(vec3 position) {
+MeshComponent::MeshComponent(vec3 position) {
 	m_Transform = mat4();
 	m_Position = position;
 	m_Rotation = vec3(0, 0, 0);
@@ -15,14 +15,14 @@ Model::Model(vec3 position) {
 	m_Transform = translate(m_Transform, position);
 }
 
-Model::~Model() {
+MeshComponent::~MeshComponent() {
 }
 
-void Model::Init() {
+void MeshComponent::Init() {
 	m_pTexture = new Texture();
 }
 
-void Model::LoadContent(const char* model, const char* texture) {
+void MeshComponent::LoadContent(const char* model, const char* texture) {
 	m_pTexture->LoadDDS(texture);
 	bool res = LoadObj(model, m_Vertices, m_UVs, m_Normals);
 	if(!res) { printf("ModelLoadError [%s]: Model could not be loaded.\n", model); return; }
@@ -44,11 +44,11 @@ void Model::LoadContent(const char* model, const char* texture) {
 	glBufferData(GL_ARRAY_BUFFER, m_Normals.size() * sizeof(vec3), &m_Normals[0], GL_STATIC_DRAW);
 }
 
-void Model::Update(float dt) {
+void MeshComponent::Update(float dt) {
 	
 }
 
-void Model::Render(map<string, GLuint> handles, Camera* cam, vec3 lightPos) {
+void MeshComponent::Render(map<string, GLuint> handles, Camera* cam, vec3 lightPos) {
 	// Use shader
 	glUseProgram(handles["ProgramID"]);
 
@@ -110,11 +110,16 @@ void Model::Render(map<string, GLuint> handles, Camera* cam, vec3 lightPos) {
 	glDisableVertexAttribArray(2);
 }
 
-void Model::Cleanup() {
+void MeshComponent::Cleanup() {
 	glDeleteBuffers(1, &m_VertexBuffer);
 	glDeleteBuffers(1, &m_UVBuffer);
 	glDeleteVertexArrays(1, &m_VertexArrayID);
 
 	m_pTexture->Cleanup();
 	SAFE_DELETE(m_pTexture);
+}
+
+void MeshComponent::SetPosition(vec3 pos)
+{
+	m_Position = pos;
 }

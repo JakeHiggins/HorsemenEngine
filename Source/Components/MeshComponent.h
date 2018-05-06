@@ -1,14 +1,16 @@
-#ifndef MODEL_H
-#define MODEL_H
+#ifndef MESHCOMPONENT_H
+#define MESHCOMPONENT_H
+
+#include "Actors/ActorComponent.h"
 
 class Camera;
 class Texture;
 
-class Model
+class MeshComponent : public ActorComponent
 {
 public:
-	Model(vec3 position);
-	~Model();
+	MeshComponent(vec3 position);
+	~MeshComponent();
 
 	void Init();
 	void LoadContent(const char* model, const char* texture);
@@ -16,8 +18,12 @@ public:
 	void Render(map<string, GLuint> handles, Camera* cam, vec3 lightPos);
 	void Cleanup();
 
+	void SetPosition(vec3 pos);
+
 	READONLY_PROPERTY(mat4, Transform);
 	GET(Transform) { return m_Transform; };
+
+	static ActorComponent* __stdcall Create() { return new MeshComponent(vec3(0,0,0)); }
 
 private:
 

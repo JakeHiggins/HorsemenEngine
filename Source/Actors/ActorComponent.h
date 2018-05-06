@@ -4,8 +4,15 @@
 #include "Actor.h"
 
 class ActorComponent {
-public:
+	friend class ActorFactory;
 
+public:
+	virtual ~ActorComponent(void) {}
+	virtual bool Init(rapidxml::xml_node<>* pNode);
+
+private:
+	StrongActorPtr m_pOwner;
+	void SetOwner(StrongActorPtr pOwner) { m_pOwner = pOwner; }
 };
 
 #endif
