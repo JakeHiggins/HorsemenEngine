@@ -1,4 +1,8 @@
+#include "HorsemanStd.h"
 #include "HorsemanGame.h"
+
+#include "Rendering/Rendering.h"
+#include "Input/Input.h"
 
 HorsemanGame::HorsemanGame() {
 	Renderer = new Rendering();

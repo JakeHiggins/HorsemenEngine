@@ -19,54 +19,32 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Components\Camera.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\Components\Model.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\HorsemanGame.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\Input.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\main.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\Rendering\Rendering.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\Rendering\Shaders.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\Rendering\Texture.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="HorsemanStd.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\Components\Camera.h" />
     <ClInclude Include="..\Components\Model.h" />
-    <ClInclude Include="..\HorsemanGame.h" />
-    <ClInclude Include="..\Input.h" />
-    <ClInclude Include="..\interfaces.h" />
+    <ClInclude Include="..\Core\HorsemanGame.h" />
+    <ClInclude Include="..\Core\interfaces.h" />
+    <ClInclude Include="..\Input\Input.h" />
     <ClInclude Include="..\Rendering\Rendering.h" />
     <ClInclude Include="..\Rendering\Shaders.h" />
     <ClInclude Include="..\Rendering\Texture.h" />
     <ClInclude Include="..\Utils\loaders.h" />
     <ClInclude Include="HorsemanStd.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Components\Camera.cpp" />
+    <ClCompile Include="..\Components\Model.cpp" />
+    <ClCompile Include="..\Core\HorsemanGame.cpp" />
+    <ClCompile Include="..\Input\Input.cpp" />
+    <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\Rendering\Rendering.cpp" />
+    <ClCompile Include="..\Rendering\Shaders.cpp" />
+    <ClCompile Include="..\Rendering\Texture.cpp" />
+    <ClCompile Include="HorsemanStd.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -124,36 +102,36 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)\Engine\Lib\$(PlatformName)$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)\Engine\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\Lib\$(PlatformName)$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
-    <IncludePath>$(SolutionDir)\Engine\Source\External\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Engine\Source\External\lib;$(LibraryPath)</LibraryPath>
-    <SourcePath>$(SolutionDir)\Engine\Source;$(SourcePath)</SourcePath>
+    <IncludePath>$(ProjectDir);$(ProjectDir)..\;$(ProjectDir)..\External\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\External\lib;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(ProjectDir)..\;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)\Engine\Lib\$(PlatformName)$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)\Engine\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\Lib\$(PlatformName)$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
-    <IncludePath>$(SolutionDir)\Engine\Source\External\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Engine\Source\External\lib;$(LibraryPath)</LibraryPath>
-    <SourcePath>$(SolutionDir)\Engine\Source;$(SourcePath)</SourcePath>
+    <IncludePath>$(ProjectDir);$(ProjectDir)..\;$(ProjectDir)..\External\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\External\lib;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(ProjectDir)..\;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(ProjectDir)..\..\..\Lib\$(PlatformName)$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\..\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\Lib\$(PlatformName)$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
-    <IncludePath>$(ProjectDir)..\..\External\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)..\..\External\lib;$(LibraryPath)</LibraryPath>
-    <SourcePath>$(ProjectDir)..\..\;$(SourcePath)</SourcePath>
+    <IncludePath>$(ProjectDir);$(ProjectDir)..\;$(ProjectDir)..\External\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\External\lib;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(ProjectDir)..\;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(ProjectDir)..\..\..\Lib\$(PlatformName)$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\..\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\Lib\$(PlatformName)$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
-    <IncludePath>$(ProjectDir)..\..\External\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)..\..\External\lib;$(LibraryPath)</LibraryPath>
-    <SourcePath>$(ProjectDir)..\..\;$(SourcePath)</SourcePath>
+    <IncludePath>$(ProjectDir);$(ProjectDir)..\;$(ProjectDir)..\External\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\External\lib;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(ProjectDir)..\;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -161,12 +139,14 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Engine\Source\External\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\;$(ProjectDir)..\External\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>HorsemanStd.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Engine\Source\External\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\External\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -175,14 +155,14 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\External\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\;$(ProjectDir)..\External\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>HorsemanStd.h</PrecompiledHeaderFile>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <AdditionalDependencies>glew32.lib;glew32s.lib;glfw3.lib;glfw3dll.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\External\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\External\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -193,14 +173,16 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Engine\Source\External\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\;$(ProjectDir)..\External\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>HorsemanStd.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Engine\Source\External\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\External\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -211,7 +193,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\External\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\;$(ProjectDir)..\External\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>HorsemanStd.h</PrecompiledHeaderFile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -220,7 +202,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>glew32.lib;glew32s.lib;glfw3.lib;glfw3dll.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\External\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\External\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

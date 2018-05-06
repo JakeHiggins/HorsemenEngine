@@ -1,3 +1,4 @@
+#include "HorsemanStd.h"
 #include "Input.h"
 
 Input* Input::m_pInstance = NULL;

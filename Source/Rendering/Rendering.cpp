@@ -1,4 +1,8 @@
+#include "HorsemanStd.h"
 #include "Rendering.h"
+
+#include "Shaders.h"
+#include "Components/Camera.h"
 
 Rendering::Rendering() {
 	m_pShaders = new Shaders();

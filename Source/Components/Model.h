@@ -1,19 +1,8 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include "../Rendering/Texture.h"
-#include "Camera.h"
-#include "../Input.h"
-#include "../Utils/loaders.h"
-#include "../Utils/properties.h"
-
-#include <map>
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
-using namespace glm;
-using namespace std;
+class Camera;
+class Texture;
 
 class Model
 {

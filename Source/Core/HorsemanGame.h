@@ -1,10 +1,7 @@
 #ifndef _HORSEMANGAME_H
 #define _HORSEMANGAME_H
 
-#include "Rendering/Rendering.h"
-#include "Input.h"
-#include "Utils/memory.h"
-#include "Utils/properties.h"
+class Rendering;
 
 class HorsemanGame
 {

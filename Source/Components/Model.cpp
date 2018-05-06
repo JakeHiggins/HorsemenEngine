@@ -1,18 +1,19 @@
+#include "HorsemanStd.h"
 #include "Model.h"
+
+#include "Rendering/Texture.h"
+#include "Camera.h"
+#include "Input/Input.h"
+#include "Utils/loaders.h"
 
 Model::Model(vec3 position) {
 	m_Transform = mat4();
 	m_Position = position;
 	m_Rotation = vec3(0, 0, 0);
 	m_Scale = vec3(1, 1, 1);
-	//m_Transform = mat4();
-
-	//m_Transform = translate(m_Transform, m_Position);
 
 	m_Transform = translate(m_Transform, position);
-	
 }
-
 
 Model::~Model() {
 }
@@ -44,54 +45,7 @@ void Model::LoadContent(const char* model, const char* texture) {
 }
 
 void Model::Update(float dt) {
-	/*if (Input::IsKeyPressed(window, GLFW_KEY_1)) {
-		m_Mode = 1;
-	}
-	if (Input::IsKeyPressed(window, GLFW_KEY_1)) {
-		m_Mode = 2;
-	}
-	if (Input::IsKeyPressed(window, GLFW_KEY_1)) {
-		m_Mode = 3;
-	}
-
-	vec3 target = m_Position;
-	if (m_Mode == 2)
-		target = m_Rotation;
-	if (m_Mode == 3)
-		target = m_Scale;
-	float move = 0.5f;*/
-	//float move = 0.005f;
-	//// Move model
-	//if (Input::IsKeyPressed(window, GLFW_KEY_U)) {
-	//	m_Position.x += move * dt;
-	//	m_Transform = translate(m_Transform, m_Position);
-	//}
-	//if (Input::IsKeyPressed(window, GLFW_KEY_J)) {
-	//	m_Position.x -= move * dt;
-	//	m_Transform = translate(m_Transform, m_Position);
-	//}
-	//if (Input::IsKeyPressed(window, GLFW_KEY_I)) {
-	//	m_Position.y += move * dt;
-	//	m_Transform = translate(m_Transform, m_Position);
-	//}
-	//if (Input::IsKeyPressed(window, GLFW_KEY_K)) {
-	//	m_Position.y -= move * dt;
-	//	m_Transform = translate(m_Transform, m_Position);
-	//}
-	//if (Input::IsKeyPressed(window, GLFW_KEY_O)) {
-	//	m_Position.z += move * dt;
-	//	m_Transform = translate(m_Transform, m_Position);
-	//}
-	//if (Input::IsKeyPressed(window, GLFW_KEY_L)) {
-	//	m_Position.z -= move * dt;
-	//	m_Transform = translate(m_Transform, m_Position);
-	//}
-
-	/*mat4 translateM = translate(m_Transform, m_Position);
-	mat4 scaleM = scale(m_Transform, m_Scale);
-	mat4 rotateM = rotate(m_Transform, 10.0f, m_Rotation);
-
-	m_Transform = translateM * rotateM * scaleM;*/
+	
 }
 
 void Model::Render(map<string, GLuint> handles, Camera* cam, vec3 lightPos) {

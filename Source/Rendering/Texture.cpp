@@ -1,3 +1,4 @@
+#include "HorsemanStd.h"
 #include "Texture.h"
 
 Texture::Texture() {
@@ -96,10 +97,6 @@ void Texture::LoadDDS(const char * path) {
 	// Load actual data
 	unsigned char* buffer;
 	unsigned int bufsize;
-
-	//bufferSize = mipMapCount > 1 ? linearSize * 2 : linearSize;
-	//buffer = (unsigned char*)malloc(bufferSize * sizeof(unsigned char));
-	//fread(buffer, 1, bufferSize, file);
 
 	bufsize = mipMapCount > 1 ? linearSize * 2 : linearSize;
 	buffer = (unsigned char*)malloc(bufsize * sizeof(unsigned char));

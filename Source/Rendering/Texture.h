@@ -1,14 +1,6 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
-#include <string>
-#include <stdio.h>
-
-#include "../Utils/properties.h"
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 class Texture
 {
 public:

@@ -1,8 +1,10 @@
+#include "HorsemanStd.h"
 #include "Camera.h"
+
+#include "Input/Input.h"
 
 Camera::Camera() {
 }
-
 
 Camera::~Camera()
 {
@@ -29,16 +31,16 @@ void Camera::Update(GLFWwindow* window, float dt) {
 	MouseAngle angles = Input::Instance()->Angles;
 
 	vec3 forward = vec3(
-		cos(angles.pitch) * sin(angles.yaw),
-		sin(angles.pitch),
-		cos(angles.pitch) * cos(angles.yaw)
+		glm::cos(angles.pitch) * glm::sin(angles.yaw),
+		glm::sin(angles.pitch),
+		glm::cos(angles.pitch) * glm::cos(angles.yaw)
 	);
 
 	// Calculate right vector
 	vec3 right = vec3(
-		sin(angles.yaw - PI / 2.0f),
+		glm::sin(angles.yaw - M_PI / 2.0f),
 		0,
-		cos(angles.yaw - PI / 2.0f)
+		glm::cos(angles.yaw - M_PI / 2.0f)
 	);
 
 	// Strafe forward

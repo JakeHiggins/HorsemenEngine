@@ -1,4 +1,5 @@
-#include "HorsemanGame.h"
+#include "HorsemanStd.h"
+#include "Core/HorsemanGame.h"
 
 int main() {
 	HorsemanGame* game = new HorsemanGame();

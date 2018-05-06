@@ -1,4 +1,8 @@
+#include "HorsemanStd.h"
 #include "Shaders.h"
+
+#include <fstream>
+#include <sstream>
 
 Shaders::Shaders() {
 }
@@ -14,7 +18,7 @@ GLuint Shaders::LoadShaders(const char* vertexShaderPath, const char* fragmentSh
 	GLuint fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 
 	// Read the Vertex Shader from file
-	std::string vertexShaderCode;
+	string vertexShaderCode;
 	std::ifstream vertexShaderStream(vertexShaderPath, std::ios::in);
 
 	if (vertexShaderStream.is_open()) {
@@ -30,7 +34,7 @@ GLuint Shaders::LoadShaders(const char* vertexShaderPath, const char* fragmentSh
 	}
 
 	// Read fragment shader
-	std::string fragmentShaderCode;
+	string fragmentShaderCode;
 	std::ifstream fragmentShaderStream(fragmentShaderPath, std::ios::in);
 
 	if (fragmentShaderStream.is_open()) {

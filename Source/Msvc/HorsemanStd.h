@@ -1,6 +1,7 @@
 #pragma once
 
 // General includes
+#include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
 #include <memory>
@@ -15,10 +16,16 @@
 using std::shared_ptr;
 using std::weak_ptr;
 
+using std::vector;
+using std::map;
+using std::string;
+
 // OpenGL Includes
-#include <GL/GL.h>
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <GL/GL.h>
 
 using glm::vec2;
 using glm::vec3;
@@ -28,7 +35,7 @@ using glm::mat4;
 #include <rapidxml/rapidxml.hpp>
 
 // Internal includes
-#include "../interfaces.h"
+#include "Core/interfaces.h"
 
 // Useful #defines
 #define CONCAT_NX(A, B) A ## B
