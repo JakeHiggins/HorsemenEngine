@@ -20,7 +20,6 @@ StrongActorPtr ActorFactory::CreateActor(const char * actorResource) {
 	std::ifstream resourceStream(actorResource);
 	if (!resourceStream.is_open()) {
 		printf("[Actor Resource ERROR (%s)] Could not load file\n", actorResource);
-		getchar();
 		return StrongActorPtr();
 	}
 

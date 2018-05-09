@@ -19,8 +19,9 @@ bool Actor::Init(rapidxml::xml_node<>* pNode)
 
 void Actor::PostInit()
 {
-	std::cout << "Actor " << m_Id << " has components:" << std::endl;
 	// TODO: Post initialization logic here
+	std::cout << "Actor " << m_Id << " has components:" << std::endl;
+	
 	for (auto comp : m_Components) {
 		auto pComp = comp.second;
 		std::cout << "<" << pComp->VGetName() << ", " << pComp->VGetId() << ">" << std::endl;

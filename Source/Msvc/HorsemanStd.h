@@ -25,11 +25,14 @@ using std::string;
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include <GL/GL.h>
 
 using glm::vec2;
 using glm::vec3;
+using glm::vec4;
 using glm::mat4;
+using glm::quat;
 
 // Include rapidxml
 #include <rapidxml/rapidxml.hpp>

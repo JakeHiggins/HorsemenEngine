@@ -4,21 +4,32 @@
 #include <Actors/Actor.h>
 #include <Components/Camera.h>
 #include <Components/MeshComponent.h>
+#include <Components/TransformComponent.h>
 #include <Input/Input.h>
 #include <Rendering/Rendering.h>
+
+#include <iostream>
 
 Game::Game() : HorsemanGame()
 {
 	m_pCamera = new Camera();
 	m_Models = vector<MeshComponent*>();
 	ActorFactory f = ActorFactory();
-	StrongActorPtr result = f.CreateActor("Assets/Actors/test.xml");
-	if (result == nullptr) {
+	StrongActorPtr actor = f.CreateActor("../../Assets/Actors/test.xml");
+	if (actor == nullptr) {
 		std::printf("[ActorFactory ERROR] something went wrong\n\n");
+		return;
 	}
 	else {
 		std::printf("[ActorFactory INFO] Everything is awesome!\n\n");
 	}
+
+	// Ensure that we can get a component by name and by id
+	shared_ptr<TransformComponent> cName = MakeStrongPtr(actor->GetComponent<TransformComponent>(TransformComponent::g_Name));
+	shared_ptr<TransformComponent> cId = MakeStrongPtr(actor->GetComponent<TransformComponent>(4084754326));
+
+	std::cout << "Component by name with translation: [" << cName->Translation.x << ", " << cName->Translation.y << ", " << cName->Translation.z << "]" << std::endl;
+	std::cout << "Component by id with translation: [" << cId->Translation.x << ", " << cId->Translation.y << ", " << cId->Translation.z << "]" << std::endl;
 }
 
 Game::~Game()
@@ -32,12 +43,12 @@ void Game::Init() {
 }
 
 void Game::LoadContent() {
-	Renderer->LoadShader("ProgramID", "Assets/Shaders/vertex_shader.glsl", "Assets/Shaders/fragment_shader.glsl");
+	Renderer->LoadShader("ProgramID", "../../Assets/Shaders/vertex_shader.glsl", "../../Assets/Shaders/fragment_shader.glsl");
 	Renderer->LoadContent();
 
-	AddModel(vec3(0, -3, 0), "Assets/Models/statue.obj", "Assets/Textures/statue/statue_dd.dds");
-	AddModel(vec3(7, 0, 0), "Assets/Models/torus.obj", "Assets/Textures/white_d.dds");
-	AddModel(vec3(-5, 0, 0), "Assets/Models/cube.obj", "Assets/Textures/obsidian_d.dds");
+	AddModel(vec3(0, -3, 0), "../../Assets/Models/statue.obj", "../../Assets/Textures/statue/statue_dd.dds");
+	AddModel(vec3(7, 0, 0), "../../Assets/Models/torus.obj", "../../Assets/Textures/white_d.dds");
+	AddModel(vec3(-5, 0, 0), "../../Assets/Models/cube.obj", "../../Assets/Textures/obsidian_d.dds");
 }
 
 void Game::Update(float dt) {

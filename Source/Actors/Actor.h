@@ -39,8 +39,8 @@ public:
 	template <class ComponentType>
 	weak_ptr<ComponentType> GetComponent(const char* name) {
 		string str(name);
-		ComponentId id = std::hash<string>{}(name);
-		return GetComponent(id);
+		ComponentId id = (ComponentId)std::hash<string>{}(name);
+		return GetComponent<ComponentType>(id);
 	}
 
 	READONLY_PROPERTY(ActorId, Id);

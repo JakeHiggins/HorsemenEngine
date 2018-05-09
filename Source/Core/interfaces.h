@@ -11,3 +11,5 @@ const ActorId INVALID_ACTOR_ID = 0;
 
 typedef shared_ptr<Actor> StrongActorPtr;
 typedef shared_ptr<ActorComponent> StrongActorComponentPtr;
+
+typedef weak_ptr<ActorComponent> WeakActorComponentPtr;
