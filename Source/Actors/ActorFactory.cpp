@@ -17,23 +17,18 @@ ActorFactory::ActorFactory()
 
 StrongActorPtr ActorFactory::CreateActor(const char * actorResource) {
 	// Read xml file into a vector
-	//std::ifstream resourceStream(actorResource);
 	std::ifstream resourceStream(actorResource);
 	if (!resourceStream.is_open()) {
 		printf("[Actor Resource ERROR (%s)] Could not load file\n", actorResource);
 		getchar();
-		return nullptr;
+		return StrongActorPtr();
 	}
 
 	std::vector<char> buffer((std::istreambuf_iterator<char>(resourceStream)), std::istreambuf_iterator<char>());
 	buffer.push_back('\0');
 
-	StrongActorPtr pActor(new Actor(GetNextActorId()));
 
-	if (!pActor->Init()) {
-		printf("[ActorFactory ERROR (%s)] Actor failed to initialize\n", actorResource);
-		return StrongActorPtr();
-	}
+	StrongActorPtr pActor(new Actor(GetNextActorId()));
 
 	// Parse buffer using rapidxml
 	try {
@@ -43,6 +38,11 @@ StrongActorPtr ActorFactory::CreateActor(const char * actorResource) {
 
 		// Find root node
 		pRoot = doc.first_node("Actor");
+
+		if (!pActor->Init(pRoot)) {
+			printf("[ActorFactory ERROR (%s)] Actor failed to initialize\n", actorResource);
+			GracefulFail();
+		}
 
 		// Loop through components
 		for (rapidxml::xml_node<>* pNode = pRoot->first_node();
@@ -56,7 +56,7 @@ StrongActorPtr ActorFactory::CreateActor(const char * actorResource) {
 			}
 			else {
 				printf("[ActorFactory ERROR (%s)] Component failed to load: %s\n", actorResource, pNode->name());
-				return StrongActorPtr();
+				return GracefulFail();
 			}
 
 			std::cout << "\n" << std::endl;
@@ -65,21 +65,21 @@ StrongActorPtr ActorFactory::CreateActor(const char * actorResource) {
 	catch (const std::runtime_error& e)
 	{
 		printf("[Actor Resource ERROR (%s)] Runtime error: %s\n", actorResource, e.what());
-		return StrongActorPtr();
+		return GracefulFail();
 	}
 	catch (const rapidxml::parse_error& e)
 	{
 		printf("[Actor Resource ERROR (%s)] Parse error: %s\n", actorResource, e.what());
-		return StrongActorPtr();
+		return GracefulFail();
 	}
 	catch (const std::exception& e)
 	{
 		printf("[Actor Resource ERROR (%s)] General error: %s\n", actorResource, e.what());
-		return StrongActorPtr();
+		return GracefulFail();
 	}
 	catch (int e) {
-		printf("[Actor Resource ERROR (%s)] Unknown error occured\n", actorResource);
-		return StrongActorPtr();
+		printf("[Actor Resource ERROR (%s)] Unknown error occured {ErrorCode: %i}\n", actorResource, e);
+		return GracefulFail();
 	}
 
 	pActor->PostInit();
@@ -89,6 +89,11 @@ StrongActorPtr ActorFactory::CreateActor(const char * actorResource) {
 ActorId ActorFactory::GetNextActorId() {
 	m_LastActorId++;
 	return m_LastActorId;
+}
+
+StrongActorPtr ActorFactory::GracefulFail() {
+	m_LastActorId--;
+	return StrongActorPtr();
 }
 
 StrongActorComponentPtr ActorFactory::CreateComponent(rapidxml::xml_node<>* pNode, const char* actorResource) {
@@ -108,7 +113,7 @@ StrongActorComponentPtr ActorFactory::CreateComponent(rapidxml::xml_node<>* pNod
 
 	// Initialize component
 	if (pComponent) {
-		if (!pComponent->Init(pNode)) {
+		if (!pComponent->VInit(pNode)) {
 			printf("[ActoryFactory ERROR (%s)] Component failed to initialize: %s\n", actorResource, name.c_str());
 			return StrongActorComponentPtr();
 		}

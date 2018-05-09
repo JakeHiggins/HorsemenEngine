@@ -8,9 +8,24 @@ class Texture;
 
 class MeshComponent : public ActorComponent
 {
+	GLuint m_VertexArrayID, m_VertexBuffer, m_UVBuffer, m_NormalBuffer;
+	mat4 m_Transform;
+	vec3 m_Position, m_Rotation, m_Scale;
+	vector<vec3> m_Vertices, m_Normals;
+	vector<vec2> m_UVs;
+	Texture* m_pTexture;
+	int m_Mode = 0;
+
 public:
+	static const char* g_Name;
+	virtual const char* VGetName() const { return g_Name; }
+
 	MeshComponent(vec3 position);
 	~MeshComponent();
+
+	virtual bool VInit(rapidxml::xml_node<>* pNode);
+	virtual void VPostInit();
+	virtual void VUpdate(float dt);
 
 	void Init();
 	void LoadContent(const char* model, const char* texture);
@@ -24,16 +39,6 @@ public:
 	GET(Transform) { return m_Transform; };
 
 	static ActorComponent* __stdcall Create() { return new MeshComponent(vec3(0,0,0)); }
-
-private:
-
-	GLuint m_VertexArrayID, m_VertexBuffer, m_UVBuffer, m_NormalBuffer;
-	mat4 m_Transform;
-	vec3 m_Position, m_Rotation, m_Scale;
-	vector<vec3> m_Vertices, m_Normals;
-	vector<vec2> m_UVs;
-	Texture* m_pTexture;
-	int m_Mode = 0;
 };
 
 #endif

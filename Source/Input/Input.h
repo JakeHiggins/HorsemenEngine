@@ -15,29 +15,31 @@ struct MouseAngle {
 
 class Input
 {
-	public:
-		static Input* Instance();
-		static GLuint IsKeyPressed(GLuint key);
-		static GLuint IsKeyPressed(GLFWwindow* window, GLuint key);
-		void Init(GLFWwindow* window);
-		void Update(GLFWwindow* window, float dt);
+	static Input* m_pInstance;
+	MouseAngle m_Angles;
+	float m_MouseSpeed;
+	int m_Scroll;
 
-		READONLY_PROPERTY(MouseAngle, Angles);
-		GET(Angles) { return m_Angles; };
+public:
+	static Input* Instance();
+	static GLuint IsKeyPressed(GLuint key);
+	static GLuint IsKeyPressed(GLFWwindow* window, GLuint key);
+	void Init(GLFWwindow* window);
+	void Update(GLFWwindow* window, float dt);
 
-		PROPERTY(int, Scroll);
-		GET(Scroll) { return m_Scroll; }
-		SET(Scroll) { m_Scroll = value; }
+	READONLY_PROPERTY(MouseAngle, Angles);
+	GET(Angles) { return m_Angles; };
 
-	private:
-		Input();
-		Input(Input const&);
-		~Input();
-		Input& operator=(Input const&);
-		static Input* m_pInstance;
-		MouseAngle m_Angles;
-		float m_MouseSpeed;
-		int m_Scroll;
+	PROPERTY(int, Scroll);
+	GET(Scroll) { return m_Scroll; }
+	SET(Scroll) { m_Scroll = value; }
+
+private:
+	Input();
+	Input(Input const&);
+	~Input();
+	Input& operator=(Input const&);
+	
 };
 
 #endif

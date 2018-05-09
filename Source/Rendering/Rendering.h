@@ -21,28 +21,27 @@ class Shaders;
 
 class Rendering
 {
-	public:
-		Rendering();
-		~Rendering();
-		int Init(const char* title);
-		int LoadContent();
-		bool LoadShader(const char* program, const char* vertexPath, const char* fragmentPath);
-		void Update(float dt);
-		int Render(Camera* cam);
-		void Begin();
-		void End();
-		void Cleanup();
-		void SetWindowTitle(const char* title);
-		map<string, GLuint> Handles();
+	Shaders* m_pShaders;
+	GLuint m_ProgramID, m_MatrixID, m_ModelMatID, m_ViewMatID, m_TextureID;
+	GLFWwindow* m_pWindow;
+	map<string, GLuint> m_Handles;
 
-		READONLY_PROPERTY(GLFWwindow*, Window);
-		GET(Window) { return m_pWindow; }
+public:
+	Rendering();
+	~Rendering();
+	int Init(const char* title);
+	int LoadContent();
+	bool LoadShader(const char* program, const char* vertexPath, const char* fragmentPath);
+	void Update(float dt);
+	int Render(Camera* cam);
+	void Begin();
+	void End();
+	void Cleanup();
+	void SetWindowTitle(const char* title);
+	map<string, GLuint> Handles();
 
-	private:
-		Shaders* m_pShaders;
-		GLuint m_ProgramID, m_MatrixID, m_ModelMatID, m_ViewMatID, m_TextureID;
-		GLFWwindow* m_pWindow;
-		map<string, GLuint> m_Handles;
+	READONLY_PROPERTY(GLFWwindow*, Window);
+	GET(Window) { return m_pWindow; }		
 };
 
 #endif

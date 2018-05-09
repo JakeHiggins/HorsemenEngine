@@ -103,9 +103,6 @@
     <ClCompile Include="..\Actors\Actor.cpp">
       <Filter>Actors</Filter>
     </ClCompile>
-    <ClCompile Include="..\Actors\ActorComponent.cpp">
-      <Filter>Actors</Filter>
-    </ClCompile>
     <ClCompile Include="..\Components\TransformComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>

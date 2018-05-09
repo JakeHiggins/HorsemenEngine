@@ -8,7 +8,6 @@ class ActorFactory {
 	ActorId m_LastActorId;
 
 protected:
-	//GenericObjectFactory<ActorComponent> m_ComponentFactory
 	ActorComponentCreatorMap m_ActorComponentCreators;
 
 public:
@@ -21,10 +20,7 @@ protected:
 
 private:
 	ActorId GetNextActorId();
-
-	/*ActorComponent* CreateTransformComponent() {
-		return new TransformComponent();
-	}*/
+	StrongActorPtr GracefulFail();
 };
 
 #endif

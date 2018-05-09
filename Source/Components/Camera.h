@@ -3,6 +3,9 @@
 
 class Camera
 {
+	vec3 m_Target, m_Position, m_Up;
+	float m_Speed, m_FOV, m_Zoom;
+
 public:
 	Camera();
 	~Camera();
@@ -19,10 +22,6 @@ public:
 
 	READONLY_PROPERTY(mat4, Projection);
 	GET(Projection) { return glm::perspective(glm::radians(m_FOV), WIDTH / HEIGHT, NEAR_DRAW, FAR_DRAW); };
-
-private:
-	vec3 m_Target, m_Position, m_Up;
-	float m_Speed, m_FOV, m_Zoom;
 };
 
 #endif

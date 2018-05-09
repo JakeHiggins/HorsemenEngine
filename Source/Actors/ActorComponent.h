@@ -6,12 +6,23 @@
 class ActorComponent {
 	friend class ActorFactory;
 
+protected:
+	StrongActorPtr m_pOwner;
+
 public:
-	virtual ~ActorComponent(void) {}
-	virtual bool Init(rapidxml::xml_node<>* pNode);
+	virtual ~ActorComponent(void) { m_pOwner.reset(); }
+
+	virtual bool VInit(rapidxml::xml_node<>* pNode) = 0;
+	virtual void VPostInit() { };
+	virtual void Update(float dt) { };
+
+	virtual ComponentId VGetId(void) const {
+		string str(VGetName());
+		return (ComponentId)std::hash<string>{}(str);
+	};
+	virtual const char* VGetName() const = 0;
 
 private:
-	StrongActorPtr m_pOwner;
 	void SetOwner(StrongActorPtr pOwner) { m_pOwner = pOwner; }
 };
 

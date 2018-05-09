@@ -3,6 +3,8 @@
 
 class Texture
 {
+	GLuint m_Image;
+
 public:
 	Texture();
 	~Texture();
@@ -13,9 +15,7 @@ public:
 
 	READONLY_PROPERTY(GLuint, Image);
 	GET(Image) { return m_Image; }
-
-private:
-	GLuint m_Image;
+	
 };
 
 #endif

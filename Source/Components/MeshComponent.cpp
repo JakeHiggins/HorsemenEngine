@@ -6,6 +6,8 @@
 #include "Input/Input.h"
 #include "Utils/loaders.h"
 
+const char* MeshComponent::g_Name = "MeshComponent";
+
 MeshComponent::MeshComponent(vec3 position) {
 	m_Transform = mat4();
 	m_Position = position;
@@ -16,6 +18,19 @@ MeshComponent::MeshComponent(vec3 position) {
 }
 
 MeshComponent::~MeshComponent() {
+}
+
+bool MeshComponent::VInit(rapidxml::xml_node<>* pNode)
+{
+	return true;
+}
+
+void MeshComponent::VPostInit()
+{
+}
+
+void MeshComponent::VUpdate(float dt)
+{
 }
 
 void MeshComponent::Init() {

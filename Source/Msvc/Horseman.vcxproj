@@ -37,7 +37,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Actors\Actor.cpp" />
-    <ClCompile Include="..\Actors\ActorComponent.cpp" />
     <ClCompile Include="..\Actors\ActorFactory.cpp" />
     <ClCompile Include="..\Components\Camera.cpp" />
     <ClCompile Include="..\Components\MeshComponent.cpp" />
