@@ -60,6 +60,8 @@ StrongActorPtr ActorFactory::CreateActor(const char * actorResource) {
 
 			std::cout << "\n" << std::endl;
 		}
+
+		pActor->PostInit();
 	}
 	catch (const std::runtime_error& e)
 	{
@@ -80,8 +82,6 @@ StrongActorPtr ActorFactory::CreateActor(const char * actorResource) {
 		printf("[Actor Resource ERROR (%s)] Unknown error occured {ErrorCode: %i}\n", actorResource, e);
 		return GracefulFail();
 	}
-
-	pActor->PostInit();
 	return pActor;
 }
 
@@ -116,8 +116,6 @@ StrongActorComponentPtr ActorFactory::CreateComponent(rapidxml::xml_node<>* pNod
 			printf("[ActoryFactory ERROR (%s)] Component failed to initialize: %s\n", actorResource, name.c_str());
 			return StrongActorComponentPtr();
 		}
-
-		pComponent->VPostInit();
 	}
 
 	return pComponent;

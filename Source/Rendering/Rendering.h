@@ -1,21 +1,6 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include <map>
-//
-//#include "Utils/properties.h"
-//#include "Utils/concat.h"
-//#include "Utils/config.h"
-//#include "Utils/memory.h"
-//
-//#include "Components/MeshComponent.h"
-//#include "Shaders.h"
-//#include "Components/Camera.h"
-//
-//#include <GLFW/glfw3.h>
-
 class Camera;
 class Shaders;
 

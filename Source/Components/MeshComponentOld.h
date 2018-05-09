@@ -1,45 +1,44 @@
-#ifndef MESHCOMPONENT_H
-#define MESHCOMPONENT_H
+#ifndef MESHCOMPONENTOLD_H
+#define MESHCOMPONENTOLD_H
 
 #include "Actors/ActorComponent.h"
-#include "rapidxml/rapidxml.hpp"
 
 class Camera;
 class Texture;
 
-class MeshComponent : public ActorComponent
+class MeshComponentOld : public ActorComponent
 {
 	GLuint m_VertexArrayID, m_VertexBuffer, m_UVBuffer, m_NormalBuffer;
+	mat4 m_Transform;
+	vec3 m_Position, m_Rotation, m_Scale;
 	vector<vec3> m_Vertices, m_Normals;
 	vector<vec2> m_UVs;
 	Texture* m_pTexture;
-	char* m_TexturePath;
-	char* m_MeshPath;
+	int m_Mode = 0;
 
 public:
 	static const char* g_Name;
 	virtual const char* VGetName() const { return g_Name; }
 
-	MeshComponent();
-	~MeshComponent();
+	MeshComponentOld(vec3 position);
+	~MeshComponentOld();
 
 	virtual bool VInit(rapidxml::xml_node<>* pNode);
 	virtual void VPostInit();
 	virtual void VUpdate(float dt);
 
+	void Init();
+	void LoadContent(const char* model, const char* texture);
+	void Update(float dt);
 	void Render(map<string, GLuint> handles, Camera* cam, vec3 lightPos);
 	void Cleanup();
 
-	static ActorComponent* __stdcall Create() { return new MeshComponent(); }
+	void SetPosition(vec3 pos);
 
-	READONLY_PROPERTY(char*, TexturePath);
-	GET(TexturePath) { return m_TexturePath; };
+	READONLY_PROPERTY(mat4, Transform);
+	GET(Transform) { return m_Transform; };
 
-	READONLY_PROPERTY(char*, MeshPath);
-	GET(MeshPath) { return m_MeshPath; };
-
-private:
-	mat4 GetTransform();
+	static ActorComponent* __stdcall Create() { return new MeshComponentOld(vec3(0,0,0)); }
 };
 
 #endif

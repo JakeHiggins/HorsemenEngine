@@ -1,59 +1,46 @@
 #include "HorsemanStd.h"
-#include "MeshComponent.h"
+#include "MeshComponentOld.h"
 
-#include "Camera.h"
-#include "TransformComponent.h"
-#include "Input/Input.h"
 #include "Rendering/Texture.h"
+#include "Camera.h"
+#include "Input/Input.h"
 #include "Utils/loaders.h"
 
-const char* MeshComponent::g_Name = "MeshComponent";
+const char* MeshComponentOld::g_Name = "MeshComponentOld";
 
-MeshComponent::MeshComponent() {
+MeshComponentOld::MeshComponentOld(vec3 position) {
+	m_Transform = mat4();
+	m_Position = position;
+	m_Rotation = vec3(0, 0, 0);
+	m_Scale = vec3(1, 1, 1);
+
+	m_Transform = translate(m_Transform, position);
 }
 
-MeshComponent::~MeshComponent() {
+MeshComponentOld::~MeshComponentOld() {
 }
 
-bool MeshComponent::VInit(rapidxml::xml_node<>* pNode) {
-	m_pTexture = new Texture();
-
-	try {
-		const char* pTexture = pNode->first_node("Texture")->first_attribute("src")->value();
-		m_TexturePath = new char[strlen(pTexture) + 1];
-		strcpy(m_TexturePath, pTexture);
-
-		const char* pMesh = pNode->first_node("Mesh")->first_attribute("src")->value();
-		m_MeshPath = new char[strlen(pMesh) + 1];
-		strcpy(m_MeshPath, pMesh);
-	}
-	catch (const std::runtime_error& e)
-	{
-		printf("[MeshComponent ERROR] Runtime error: %s\n", e.what());
-		return false;
-	}
-	catch (const rapidxml::parse_error& e)
-	{
-		printf("[MeshComponent ERROR] Parse error: %s\n", e.what());
-		return false;
-	}
-	catch (const std::exception& e)
-	{
-		printf("[MeshComponent ERROR] General error: %s\n", e.what());
-		return false;
-	}
-	catch (int e) {
-		printf("[MeshComponent ERROR] Unknown error occured {ErrorCode: %i}\n", e);
-		return false;
-	}
-
+bool MeshComponentOld::VInit(rapidxml::xml_node<>* pNode)
+{
 	return true;
 }
 
-void MeshComponent::VPostInit() {
-	m_pTexture->LoadDDS(m_TexturePath);
-	bool res = LoadObj(m_MeshPath, m_Vertices, m_UVs, m_Normals);
-	if (!res) { printf("ModelLoadError [%s]: Model could not be loaded.\n", m_MeshPath); return; }
+void MeshComponentOld::VPostInit()
+{
+}
+
+void MeshComponentOld::VUpdate(float dt)
+{
+}
+
+void MeshComponentOld::Init() {
+	m_pTexture = new Texture();
+}
+
+void MeshComponentOld::LoadContent(const char* model, const char* texture) {
+	m_pTexture->LoadDDS(texture);
+	bool res = LoadObj(model, m_Vertices, m_UVs, m_Normals);
+	if(!res) { printf("ModelLoadError [%s]: Model could not be loaded.\n", model); return; }
 
 	// Create VAO
 	glGenVertexArrays(1, &m_VertexArrayID);
@@ -72,20 +59,19 @@ void MeshComponent::VPostInit() {
 	glBufferData(GL_ARRAY_BUFFER, m_Normals.size() * sizeof(vec3), &m_Normals[0], GL_STATIC_DRAW);
 }
 
-void MeshComponent::VUpdate(float dt) {
+void MeshComponentOld::Update(float dt) {
+	
 }
 
-void MeshComponent::Render(map<string, GLuint> handles, Camera* cam, vec3 lightPos) {
-	mat4 transform = GetTransform();
-
+void MeshComponentOld::Render(map<string, GLuint> handles, Camera* cam, vec3 lightPos) {
 	// Use shader
 	glUseProgram(handles["ProgramID"]);
 
 	// Update and send MVP
-	mat4 mvp = cam->Projection * cam->View * transform;
+	mat4 mvp = cam->Projection * cam->View * m_Transform;
 	mat4 view = cam->View;
 	glUniformMatrix4fv(handles["MatrixID"], 1, GL_FALSE, &mvp[0][0]);
-	glUniformMatrix4fv(handles["ModelMatID"], 1, GL_FALSE, &transform[0][0]);
+	glUniformMatrix4fv(handles["ModelMatID"], 1, GL_FALSE, &m_Transform[0][0]);
 	glUniformMatrix4fv(handles["ViewMatID"], 1, GL_FALSE, &view[0][0]);
 
 	// Bind light
@@ -139,7 +125,7 @@ void MeshComponent::Render(map<string, GLuint> handles, Camera* cam, vec3 lightP
 	glDisableVertexAttribArray(2);
 }
 
-void MeshComponent::Cleanup() {
+void MeshComponentOld::Cleanup() {
 	glDeleteBuffers(1, &m_VertexBuffer);
 	glDeleteBuffers(1, &m_UVBuffer);
 	glDeleteVertexArrays(1, &m_VertexArrayID);
@@ -148,7 +134,7 @@ void MeshComponent::Cleanup() {
 	SAFE_DELETE(m_pTexture);
 }
 
-mat4 MeshComponent::GetTransform() {
-	shared_ptr<TransformComponent> pTransform = MakeStrongPtr(m_pOwner->GetComponent<TransformComponent>(TransformComponent::g_Name));
-	return pTransform->Transform;
+void MeshComponentOld::SetPosition(vec3 pos)
+{
+	m_Position = pos;
 }

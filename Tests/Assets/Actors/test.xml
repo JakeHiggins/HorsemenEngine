@@ -5,10 +5,7 @@
 		<Scale x="1" y="1" z="1"/>
 	</TransformComponent>
 	<MeshComponent>
-		<Position x="0" y="0" z="0"/>
-		<Rotation yaw="0" pitch="0" roll="0"/>
-		<Scale x="1" y="1" z="1"/>
-		<Texture src="../../Engine/Assets/Textures/statue/statue_dd.dds"/>
-		<Model src="../../Engine/Assets/Models/statue.obj"/>
+		<Texture src="../../Assets/Textures/statue/statue_dd.dds"/>
+		<Mesh src="../../Assets/Models/statue.obj"/>
 	</MeshComponent>
 </Actor>

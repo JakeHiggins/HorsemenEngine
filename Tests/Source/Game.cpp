@@ -3,33 +3,20 @@
 #include <Actors/ActorFactory.h>
 #include <Actors/Actor.h>
 #include <Components/Camera.h>
+#include <Components/MeshComponentOld.h>
 #include <Components/MeshComponent.h>
 #include <Components/TransformComponent.h>
 #include <Input/Input.h>
 #include <Rendering/Rendering.h>
+#include <Rendering/Texture.h>
 
 #include <iostream>
+#include <fstream>
 
 Game::Game() : HorsemanGame()
 {
 	m_pCamera = new Camera();
-	m_Models = vector<MeshComponent*>();
-	ActorFactory f = ActorFactory();
-	StrongActorPtr actor = f.CreateActor("../../Assets/Actors/test.xml");
-	if (actor == nullptr) {
-		std::printf("[ActorFactory ERROR] something went wrong\n\n");
-		return;
-	}
-	else {
-		std::printf("[ActorFactory INFO] Everything is awesome!\n\n");
-	}
-
-	// Ensure that we can get a component by name and by id
-	shared_ptr<TransformComponent> cName = MakeStrongPtr(actor->GetComponent<TransformComponent>(TransformComponent::g_Name));
-	shared_ptr<TransformComponent> cId = MakeStrongPtr(actor->GetComponent<TransformComponent>(4084754326));
-
-	std::cout << "Component by name with translation: [" << cName->Translation.x << ", " << cName->Translation.y << ", " << cName->Translation.z << "]" << std::endl;
-	std::cout << "Component by id with translation: [" << cId->Translation.x << ", " << cId->Translation.y << ", " << cId->Translation.z << "]" << std::endl;
+	m_Models = vector<MeshComponentOld*>();
 }
 
 Game::~Game()
@@ -43,6 +30,27 @@ void Game::Init() {
 }
 
 void Game::LoadContent() {
+	ActorFactory f = ActorFactory();
+	StrongActorPtr actor = f.CreateActor("../../Assets/Actors/test.xml");
+	if (actor == nullptr) {
+		std::printf("[ActorFactory ERROR] something went wrong\n\n");
+		return;
+	}
+	else {
+		std::printf("[ActorFactory INFO] Everything is awesome!\n\n");
+	}
+
+	// Ensure that we can get a component by name and by id
+	shared_ptr<TransformComponent> cName = MakeStrongPtr(actor->GetComponent<TransformComponent>(TransformComponent::g_Name));
+	shared_ptr<TransformComponent> cId = MakeStrongPtr(actor->GetComponent<TransformComponent>(4084754326));
+	
+	std::cout << "Component by name with translation: [" << cName->Translation.x << ", " << cName->Translation.y << ", " << cName->Translation.z << "]" << std::endl;
+	std::cout << "Component by id with translation: [" << cId->Translation.x << ", " << cId->Translation.y << ", " << cId->Translation.z << "]" << std::endl;
+
+	shared_ptr<MeshComponent> mesh = MakeStrongPtr(actor->GetComponent<MeshComponent>(MeshComponent::g_Name));
+	std::cout << "Mesh Component added with texture path: " << mesh->TexturePath << std::endl;
+	std::cout << "Mesh Component added with mesh path: " << mesh->MeshPath << std::endl;
+
 	Renderer->LoadShader("ProgramID", "../../Assets/Shaders/vertex_shader.glsl", "../../Assets/Shaders/fragment_shader.glsl");
 	Renderer->LoadContent();
 
@@ -81,7 +89,7 @@ void Game::Cleanup() {
 
 void Game::AddModel(vec3 position, const char * modelPath, const char* texturePath)
 {
-	MeshComponent* m = new MeshComponent(position);
+	MeshComponentOld* m = new MeshComponentOld(position);
 	m->Init();
 	m->LoadContent(modelPath, texturePath);
 	m_Models.push_back(m);

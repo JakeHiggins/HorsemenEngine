@@ -6,7 +6,7 @@
 #include <Msvc/HorsemanStd.h>
 
 class Camera;
-class MeshComponent;
+class MeshComponentOld;
 
 class Game : public HorsemanGame
 {
@@ -22,7 +22,7 @@ public:
 
 private:
 	Camera * m_pCamera;
-	vector<MeshComponent*> m_Models;
+	vector<MeshComponentOld*> m_Models;
 };
 
 #endif#pragma once
