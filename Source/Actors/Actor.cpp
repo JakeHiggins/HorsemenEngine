@@ -1,6 +1,7 @@
 #include "HorsemanStd.h"
 #include "Actor.h"
 #include "ActorComponent.h"
+#include <iostream>
 
 Actor::Actor(ActorId id) {
 	m_Id = id;
@@ -18,7 +19,12 @@ bool Actor::Init(rapidxml::xml_node<>* pNode)
 
 void Actor::PostInit()
 {
+	std::cout << "Actor " << m_Id << " has components:" << std::endl;
 	// TODO: Post initialization logic here
+	for (auto comp : m_Components) {
+		auto pComp = comp.second;
+		std::cout << "<" << pComp->VGetName() << ", " << pComp->VGetId() << ">" << std::endl;
+	}
 }
 
 void Actor::Cleanup(void)

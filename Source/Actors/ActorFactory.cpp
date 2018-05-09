@@ -11,8 +11,8 @@
 
 ActorFactory::ActorFactory()
 {
-	m_ActorComponentCreators["TransformComponent"] = &TransformComponent::Create;
-	m_ActorComponentCreators["MeshComponent"] = &MeshComponent::Create;
+	m_ActorComponentCreators[TransformComponent::g_Name] = &TransformComponent::Create;
+	m_ActorComponentCreators[MeshComponent::g_Name] = &MeshComponent::Create;
 }
 
 StrongActorPtr ActorFactory::CreateActor(const char * actorResource) {
@@ -117,6 +117,8 @@ StrongActorComponentPtr ActorFactory::CreateComponent(rapidxml::xml_node<>* pNod
 			printf("[ActoryFactory ERROR (%s)] Component failed to initialize: %s\n", actorResource, name.c_str());
 			return StrongActorComponentPtr();
 		}
+
+		pComponent->VPostInit();
 	}
 
 	return pComponent;
