@@ -75,7 +75,7 @@ void MeshComponent::VPostInit() {
 void MeshComponent::VUpdate(float dt) {
 }
 
-void MeshComponent::Render(map<string, GLuint> handles, Camera* cam, vec3 lightPos) {
+void MeshComponent::VRender(map<string, GLuint> handles, Camera* cam, vec3 lightPos) {
 	mat4 transform = GetTransform();
 
 	// Use shader

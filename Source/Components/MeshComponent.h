@@ -26,8 +26,8 @@ public:
 	virtual bool VInit(rapidxml::xml_node<>* pNode);
 	virtual void VPostInit();
 	virtual void VUpdate(float dt);
+	virtual void VRender(map<string, GLuint> handles, Camera* cam, vec3 lightPos);
 
-	void Render(map<string, GLuint> handles, Camera* cam, vec3 lightPos);
 	void Cleanup();
 
 	static ActorComponent* __stdcall Create() { return new MeshComponent(); }

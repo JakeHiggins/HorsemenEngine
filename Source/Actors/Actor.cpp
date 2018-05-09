@@ -1,6 +1,7 @@
 #include "HorsemanStd.h"
 #include "Actor.h"
 #include "ActorComponent.h"
+#include "Components/Camera.h"
 #include <iostream>
 
 Actor::Actor(ActorId id) {
@@ -36,7 +37,14 @@ void Actor::Update(float dt)
 {
 	for (auto comp : m_Components) {
 		auto pComp = comp.second;
-		pComp->Update(dt);
+		pComp->VUpdate(dt);
+	}
+}
+
+void Actor::Render(map<string, GLuint> handles, Camera * cam, vec3 lightPos) {
+	for (auto comp : m_Components) {
+		auto pComp = comp.second;
+		pComp->VRender(handles, cam, lightPos);
 	}
 }
 

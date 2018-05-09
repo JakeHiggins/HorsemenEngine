@@ -23,6 +23,7 @@ public:
 private:
 	Camera * m_pCamera;
 	vector<MeshComponentOld*> m_Models;
+	StrongActorPtr m_Actor;
 };
 
 #endif#pragma once

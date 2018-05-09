@@ -31,8 +31,8 @@ void Game::Init() {
 
 void Game::LoadContent() {
 	ActorFactory f = ActorFactory();
-	StrongActorPtr actor = f.CreateActor("../../Assets/Actors/test.xml");
-	if (actor == nullptr) {
+	m_Actor = f.CreateActor("../../Assets/Actors/test.xml");
+	if (m_Actor == nullptr) {
 		std::printf("[ActorFactory ERROR] something went wrong\n\n");
 		return;
 	}
@@ -41,13 +41,13 @@ void Game::LoadContent() {
 	}
 
 	// Ensure that we can get a component by name and by id
-	shared_ptr<TransformComponent> cName = MakeStrongPtr(actor->GetComponent<TransformComponent>(TransformComponent::g_Name));
-	shared_ptr<TransformComponent> cId = MakeStrongPtr(actor->GetComponent<TransformComponent>(4084754326));
+	shared_ptr<TransformComponent> cName = MakeStrongPtr(m_Actor->GetComponent<TransformComponent>(TransformComponent::g_Name));
+	shared_ptr<TransformComponent> cId = MakeStrongPtr(m_Actor->GetComponent<TransformComponent>(4084754326));
 	
 	std::cout << "Component by name with translation: [" << cName->Translation.x << ", " << cName->Translation.y << ", " << cName->Translation.z << "]" << std::endl;
 	std::cout << "Component by id with translation: [" << cId->Translation.x << ", " << cId->Translation.y << ", " << cId->Translation.z << "]" << std::endl;
 
-	shared_ptr<MeshComponent> mesh = MakeStrongPtr(actor->GetComponent<MeshComponent>(MeshComponent::g_Name));
+	shared_ptr<MeshComponent> mesh = MakeStrongPtr(m_Actor->GetComponent<MeshComponent>(MeshComponent::g_Name));
 	std::cout << "Mesh Component added with texture path: " << mesh->TexturePath << std::endl;
 	std::cout << "Mesh Component added with mesh path: " << mesh->MeshPath << std::endl;
 
@@ -71,6 +71,8 @@ void Game::Render() {
 	for (auto &model : m_Models) {
 		model->Render(Renderer->Handles(), m_pCamera, vec3(4, 4, 4));
 	}
+
+	m_Actor->Render(Renderer->Handles(), m_pCamera, vec3(4, 4, 4));
 
 	Renderer->End();
 }
