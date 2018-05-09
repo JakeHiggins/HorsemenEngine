@@ -298,7 +298,6 @@ __pycache__/
 # should be stored in the .pubxml.user file.
 
 Temp/*
-Source/External/*
 Lib/*
 Assets/*
 
