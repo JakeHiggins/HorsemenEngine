@@ -12,6 +12,7 @@ class TransformComponent : public ActorComponent {
 	quat m_Rotation;
 	vec3 m_Skew;
 	vec4 m_Perspective;
+	vec3 m_Origin;
 
 public:
 	static const char* g_Name;
@@ -22,10 +23,16 @@ public:
 	virtual bool VInit(rapidxml::xml_node<>* pNode);
 	virtual void VPostInit();
 	virtual void VUpdate(float dt);
+	virtual void VRender(map<string, GLuint> handles, Camera* cam, vec3 lightPos);
+
+	void Move(vec3 position);
 
 	#pragma region Properties
 	READONLY_PROPERTY(mat4, Transform);
 	GET(Transform) { return m_Transform; };
+
+	READONLY_PROPERTY(vec3, Origin);
+	GET(Origin) { return m_Origin; };
 
 	READONLY_PROPERTY(vec3, Translation);
 	GET(Translation) {

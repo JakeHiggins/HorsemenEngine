@@ -1,0 +1,11 @@
+<Actor>
+	<TransformComponent>
+		<Translation x="0" y="-3" z="0"/>
+		<Rotation yaw="0" pitch="0" roll="0"/>
+		<Scale x="1" y="1" z="1"/>
+	</TransformComponent>
+	<MeshComponent>
+		<Texture src="../../Assets/Textures/statue/statue_dd.dds"/>
+		<Mesh src="../../Assets/Models/statue.obj"/>
+	</MeshComponent>
+</Actor>

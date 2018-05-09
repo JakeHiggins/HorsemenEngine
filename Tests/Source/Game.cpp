@@ -16,7 +16,9 @@
 Game::Game() : HorsemanGame()
 {
 	m_pCamera = new Camera();
-	m_Models = vector<MeshComponentOld*>();
+	m_Actors = vector<StrongActorPtr>();
+	m_DemoRadius = 0.3;
+	m_DemoAngle = 0;
 }
 
 Game::~Game()
@@ -30,57 +32,47 @@ void Game::Init() {
 }
 
 void Game::LoadContent() {
-	ActorFactory f = ActorFactory();
-	m_Actor = f.CreateActor("../../Assets/Actors/test.xml");
-	if (m_Actor == nullptr) {
-		std::printf("[ActorFactory ERROR] something went wrong\n\n");
-		return;
-	}
-	else {
-		std::printf("[ActorFactory INFO] Everything is awesome!\n\n");
-	}
-
-	// Ensure that we can get a component by name and by id
-	shared_ptr<TransformComponent> cName = MakeStrongPtr(m_Actor->GetComponent<TransformComponent>(TransformComponent::g_Name));
-	shared_ptr<TransformComponent> cId = MakeStrongPtr(m_Actor->GetComponent<TransformComponent>(4084754326));
-	
-	std::cout << "Component by name with translation: [" << cName->Translation.x << ", " << cName->Translation.y << ", " << cName->Translation.z << "]" << std::endl;
-	std::cout << "Component by id with translation: [" << cId->Translation.x << ", " << cId->Translation.y << ", " << cId->Translation.z << "]" << std::endl;
-
-	shared_ptr<MeshComponent> mesh = MakeStrongPtr(m_Actor->GetComponent<MeshComponent>(MeshComponent::g_Name));
-	std::cout << "Mesh Component added with texture path: " << mesh->TexturePath << std::endl;
-	std::cout << "Mesh Component added with mesh path: " << mesh->MeshPath << std::endl;
-
-	Renderer->LoadShader("ProgramID", "../../Assets/Shaders/vertex_shader.glsl", "../../Assets/Shaders/fragment_shader.glsl");
-	Renderer->LoadContent();
-
-	AddModel(vec3(0, -3, 0), "../../Assets/Models/statue.obj", "../../Assets/Textures/statue/statue_dd.dds");
-	AddModel(vec3(7, 0, 0), "../../Assets/Models/torus.obj", "../../Assets/Textures/white_d.dds");
-	AddModel(vec3(-5, 0, 0), "../../Assets/Models/cube.obj", "../../Assets/Textures/obsidian_d.dds");
+	ActorFactory factory = ActorFactory();
+	AddActor(factory, "../../Assets/Actors/cube.xml");
+	AddActor(factory, "../../Assets/Actors/statue.xml");
+	AddActor(factory, "../../Assets/Actors/torus.xml");
 }
 
 void Game::Update(float dt) {
 	Renderer->Update(dt);
 	Input::Instance()->Update(Renderer->Window, dt);
 	m_pCamera->Update(Renderer->Window, dt);
+
+	//m_DemoAngle += 1;
+	//if (m_DemoAngle == 360)
+	//	m_DemoAngle = 0;
+
+	//float rads = m_DemoAngle * DEG2RAD;
+
+	//for (auto actor : m_Actors) {
+	//	shared_ptr<TransformComponent> transform = MakeStrongPtr(actor->GetComponent<TransformComponent>(TransformComponent::g_Name));
+	//	float x = transform->Origin.x + m_DemoRadius * glm::cos(rads);
+	//	float y = transform->Origin.y + m_DemoRadius * glm::sin(rads);
+	//	vec3 target = vec3(x, y, 0);
+	//	vec3 move = transform->Translation - target;
+	//	transform->Move(move);
+	//	//transform->Move(vec3(0.01f, 0.01f, 0.01f));
+	//}
 }
 
 void Game::Render() {
 	Renderer->Begin();
 
-	for (auto &model : m_Models) {
-		model->Render(Renderer->Handles(), m_pCamera, vec3(4, 4, 4));
+	for (auto actor : m_Actors) {
+		actor->Render(Renderer->Handles(), m_pCamera, vec3(4, 4, 4));
 	}
-
-	m_Actor->Render(Renderer->Handles(), m_pCamera, vec3(4, 4, 4));
 
 	Renderer->End();
 }
 
 void Game::Cleanup() {
-	for (auto &model : m_Models) {
-		model->Cleanup();
-		SAFE_DELETE(model);
+	for (auto actor : m_Actors) {
+		actor->Cleanup();
 	}
 
 	m_pCamera->Cleanup();
@@ -89,10 +81,29 @@ void Game::Cleanup() {
 	HorsemanGame::Cleanup();
 }
 
-void Game::AddModel(vec3 position, const char * modelPath, const char* texturePath)
-{
-	MeshComponentOld* m = new MeshComponentOld(position);
-	m->Init();
-	m->LoadContent(modelPath, texturePath);
-	m_Models.push_back(m);
+void Game::AddActor(ActorFactory factory, const char* actorResource) {
+	StrongActorPtr actor = factory.CreateActor(actorResource);
+	if (actor == nullptr) {
+		std::printf("[ActorFactory ERROR] something went wrong\n\n");
+		return;
+	}
+	else {
+		std::printf("[ActorFactory INFO] Everything is awesome!\n\n");
+	}
+
+	// Ensure that we can get a component by name and by id
+	shared_ptr<TransformComponent> cName = MakeStrongPtr(actor->GetComponent<TransformComponent>(TransformComponent::g_Name));
+	shared_ptr<TransformComponent> cId = MakeStrongPtr(actor->GetComponent<TransformComponent>(4084754326));
+
+	std::cout << "Component by name with translation: [" << cName->Translation.x << ", " << cName->Translation.y << ", " << cName->Translation.z << "]" << std::endl;
+	std::cout << "Component by id with translation: [" << cId->Translation.x << ", " << cId->Translation.y << ", " << cId->Translation.z << "]" << std::endl;
+
+	shared_ptr<MeshComponent> mesh = MakeStrongPtr(actor->GetComponent<MeshComponent>(MeshComponent::g_Name));
+	std::cout << "Mesh Component added with texture path: " << mesh->TexturePath << std::endl;
+	std::cout << "Mesh Component added with mesh path: " << mesh->MeshPath << std::endl;
+
+	Renderer->LoadShader("ProgramID", "../../Assets/Shaders/vertex_shader.glsl", "../../Assets/Shaders/fragment_shader.glsl");
+	Renderer->LoadContent();
+
+	m_Actors.push_back(actor);
 }

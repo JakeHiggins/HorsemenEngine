@@ -29,7 +29,9 @@ bool TransformComponent::VInit(rapidxml::xml_node<>* pNode)
 		);
 
 		m_Transform = glm::translate(m_Transform, translation);
+		glm::decompose(m_Transform, m_Scale, m_Rotation, m_Origin, m_Skew, m_Perspective);
 		m_Transform = glm::scale(m_Transform, scale);
+		glm::decompose(m_Transform, m_Scale, m_Rotation, m_Translation, m_Skew, m_Perspective);
 	}
 	catch (const std::runtime_error& e)
 	{
@@ -62,3 +64,12 @@ void TransformComponent::VPostInit()
 void TransformComponent::VUpdate(float dt)
 {
 }
+
+void TransformComponent::VRender(map<string, GLuint> handles, Camera * cam, vec3 lightPos)
+{
+}
+
+void TransformComponent::Move(vec3 position) {
+	m_Transform = glm::translate(m_Transform, position);
+}
+

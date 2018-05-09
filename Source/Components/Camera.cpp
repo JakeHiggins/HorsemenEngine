@@ -13,7 +13,7 @@ Camera::~Camera()
 void Camera::Init(GLFWwindow* window) {
 	m_Speed = 3.0f;
 	m_Target = vec3(0, 0, 0);
-	m_Position = vec3(0, 1, 13);
+	m_Position = vec3(0, 1, 20);
 	m_Up = vec3(0, 1, 0);
 	m_FOV = FOV - 5 * Input::Instance()->Scroll;
 	m_Zoom = 1;
