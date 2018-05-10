@@ -17,8 +17,7 @@ Game::Game() : HorsemanGame()
 {
 	m_pCamera = new Camera();
 	m_Actors = vector<StrongActorPtr>();
-	m_DemoRadius = 0.3;
-	m_DemoAngle = 0;
+	m_Target = 0;
 }
 
 Game::~Game()
@@ -42,6 +41,25 @@ void Game::Update(float dt) {
 	Renderer->Update(dt);
 	Input::Instance()->Update(Renderer->Window, dt);
 	m_pCamera->Update(Renderer->Window, dt);
+
+	if (Input::Instance()->IsKeyPressed(Renderer->Window, GLFW_KEY_1)) {
+		m_Target = 0;
+	}
+	if (Input::Instance()->IsKeyPressed(Renderer->Window, GLFW_KEY_2)) {
+		m_Target = 1;
+	}
+	if (Input::Instance()->IsKeyPressed(Renderer->Window, GLFW_KEY_3)) {
+		m_Target = 2;
+	}
+
+	if (Input::Instance()->IsKeyPressed(Renderer->Window, GLFW_KEY_I)) {
+		shared_ptr<TransformComponent> transform = MakeStrongPtr(m_Actors[m_Target]->GetComponent<TransformComponent>(TransformComponent::g_Name));
+		transform->Move(vec3(0, 0, -0.01f));
+	}
+	if (Input::Instance()->IsKeyPressed(Renderer->Window, GLFW_KEY_K)) {
+		shared_ptr<TransformComponent> transform = MakeStrongPtr(m_Actors[m_Target]->GetComponent<TransformComponent>(TransformComponent::g_Name));
+		transform->Move(vec3(0, 0, 0.01f));
+	}
 
 	//m_DemoAngle += 1;
 	//if (m_DemoAngle == 360)
