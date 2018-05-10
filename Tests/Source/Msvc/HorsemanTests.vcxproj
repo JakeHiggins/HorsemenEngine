@@ -74,7 +74,7 @@
     <IntDir>$(ProjectDir)..\..\Temp\$(ProjectName)$(PlatformName)$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
     <IncludePath>$(ProjectDir)..\External\include;$(ProjectDir)..\..\..\Source\External\include;$(ProjectDir)..\..\..\Source;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)..\External\lib;$(ProjectDir)..\..\..\Source\External\lib;$(ProjectDir)..\..\..\Lib\x64Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)..\External\lib;$(ProjectDir)..\..\..\Source\External\lib;$(ProjectDir)..\..\..\Lib\Win32Debug;$(LibraryPath)</LibraryPath>
     <SourcePath>$(ProjectDir)..\;$(SourcePath);</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

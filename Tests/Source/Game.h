@@ -24,6 +24,8 @@ public:
 private:
 	Camera * m_pCamera;
 	vector<StrongActorPtr> m_Actors;
+	float m_Min, m_Max;
+	vec3 m_Forward1, m_Forward2, m_Forward3;
 	int m_Target;
 };
 

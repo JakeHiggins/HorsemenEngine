@@ -17,7 +17,12 @@ Game::Game() : HorsemanGame()
 {
 	m_pCamera = new Camera();
 	m_Actors = vector<StrongActorPtr>();
+	m_Min = -5.0f;
+	m_Max = 5.0f;
 	m_Target = 0;
+	m_Forward1 = vec3(0.001f, 0, 0);
+	m_Forward2 = vec3(0, 0.001f, 0);
+	m_Forward3 = vec3(0, 0, 0.001f);
 }
 
 Game::~Game()
@@ -42,7 +47,36 @@ void Game::Update(float dt) {
 	Input::Instance()->Update(Renderer->Window, dt);
 	m_pCamera->Update(Renderer->Window, dt);
 
-	if (Input::Instance()->IsKeyPressed(Renderer->Window, GLFW_KEY_1)) {
+	shared_ptr<TransformComponent> transform1 = MakeStrongPtr(m_Actors[0]->GetComponent<TransformComponent>(TransformComponent::g_Name));
+	shared_ptr<TransformComponent> transform2 = MakeStrongPtr(m_Actors[1]->GetComponent<TransformComponent>(TransformComponent::g_Name));
+	shared_ptr<TransformComponent> transform3 = MakeStrongPtr(m_Actors[2]->GetComponent<TransformComponent>(TransformComponent::g_Name));
+
+	if (transform1->Translation.x >= m_Max) {
+		m_Forward1.x = -0.001f;
+	}
+	else if (transform1->Translation.x <= m_Min) {
+		m_Forward1.x = 0.001f;
+	}
+
+	if (transform2->Translation.y >= m_Max) {
+		m_Forward2.y = -0.001f;
+	}
+	else if (transform2->Translation.y <= m_Min) {
+		m_Forward2.y = 0.001f;
+	}
+
+	if (transform3->Translation.z >= m_Max) {
+		m_Forward3.z = -0.001f;
+	}
+	else if (transform3->Translation.z <= m_Min) {
+		m_Forward3.z = 0.001f;
+	}
+
+	transform1->Move(m_Forward1);
+	transform2->Move(m_Forward2);
+	transform3->Move(m_Forward3);
+
+	/*if (Input::Instance()->IsKeyPressed(Renderer->Window, GLFW_KEY_1)) {
 		m_Target = 0;
 	}
 	if (Input::Instance()->IsKeyPressed(Renderer->Window, GLFW_KEY_2)) {
@@ -52,30 +86,32 @@ void Game::Update(float dt) {
 		m_Target = 2;
 	}
 
-	if (Input::Instance()->IsKeyPressed(Renderer->Window, GLFW_KEY_I)) {
+	if (Input::Instance()->IsKeyPressed(Renderer->Window, GLFW_KEY_U)) {
 		shared_ptr<TransformComponent> transform = MakeStrongPtr(m_Actors[m_Target]->GetComponent<TransformComponent>(TransformComponent::g_Name));
 		transform->Move(vec3(0, 0, -0.01f));
 	}
-	if (Input::Instance()->IsKeyPressed(Renderer->Window, GLFW_KEY_K)) {
+	if (Input::Instance()->IsKeyPressed(Renderer->Window, GLFW_KEY_O)) {
 		shared_ptr<TransformComponent> transform = MakeStrongPtr(m_Actors[m_Target]->GetComponent<TransformComponent>(TransformComponent::g_Name));
 		transform->Move(vec3(0, 0, 0.01f));
 	}
 
-	//m_DemoAngle += 1;
-	//if (m_DemoAngle == 360)
-	//	m_DemoAngle = 0;
+	if (Input::Instance()->IsKeyPressed(Renderer->Window, GLFW_KEY_J)) {
+		shared_ptr<TransformComponent> transform = MakeStrongPtr(m_Actors[m_Target]->GetComponent<TransformComponent>(TransformComponent::g_Name));
+		transform->Move(vec3(-0.01f, 0, 0));
+	}
+	if (Input::Instance()->IsKeyPressed(Renderer->Window, GLFW_KEY_L)) {
+		shared_ptr<TransformComponent> transform = MakeStrongPtr(m_Actors[m_Target]->GetComponent<TransformComponent>(TransformComponent::g_Name));
+		transform->Move(vec3(0.01f, 0, 0));
+	}
 
-	//float rads = m_DemoAngle * DEG2RAD;
-
-	//for (auto actor : m_Actors) {
-	//	shared_ptr<TransformComponent> transform = MakeStrongPtr(actor->GetComponent<TransformComponent>(TransformComponent::g_Name));
-	//	float x = transform->Origin.x + m_DemoRadius * glm::cos(rads);
-	//	float y = transform->Origin.y + m_DemoRadius * glm::sin(rads);
-	//	vec3 target = vec3(x, y, 0);
-	//	vec3 move = transform->Translation - target;
-	//	transform->Move(move);
-	//	//transform->Move(vec3(0.01f, 0.01f, 0.01f));
-	//}
+	if (Input::Instance()->IsKeyPressed(Renderer->Window, GLFW_KEY_I)) {
+		shared_ptr<TransformComponent> transform = MakeStrongPtr(m_Actors[m_Target]->GetComponent<TransformComponent>(TransformComponent::g_Name));
+		transform->Move(vec3(0, 0.01f, 0));
+	}
+	if (Input::Instance()->IsKeyPressed(Renderer->Window, GLFW_KEY_K)) {
+		shared_ptr<TransformComponent> transform = MakeStrongPtr(m_Actors[m_Target]->GetComponent<TransformComponent>(TransformComponent::g_Name));
+		transform->Move(vec3(0, -0.01f, 0));
+	}*/
 }
 
 void Game::Render() {
