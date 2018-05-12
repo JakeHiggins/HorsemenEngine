@@ -8,6 +8,60 @@
 using namespace std;
 using namespace glm;
 
+struct Vertex {
+	vec3 position;
+	vec2 uv;
+	vec3 normal;
+
+	bool operator<(const Vertex other) const {
+		return memcmp((void*)this, (void*)&other, sizeof(Vertex)) > 0;
+	}
+};
+
+bool SimilarIndex(Vertex& vert, map<Vertex, unsigned short>& vertexMap, unsigned short& result) {
+	map<Vertex, unsigned short>::iterator it = vertexMap.find(vert);
+	if (it == vertexMap.end()) {
+		return false;
+	}
+	else {
+		result = it->second;
+		return true;
+	}
+}
+
+void IndexVBO(
+	vector<vec3>& in_vertices,
+	vector<vec2>& in_uvs,
+	vector<vec3>& in_normals,
+
+	vector<unsigned short>& out_indices,
+	vector<vec3>& out_vertices,
+	vector<vec2>& out_uvs,
+	vector<vec3>& out_normals
+) {
+	map<Vertex, unsigned short> vertexMap;
+
+	for (unsigned int i = 0; i < in_vertices.size(); i++) {
+		Vertex vert = { in_vertices[i], in_uvs[i], in_normals[i] };
+
+		unsigned short index;
+		bool found = SimilarIndex(vert, vertexMap, index);
+
+		// similar index is in indices, use it instead
+		if (found) {
+			out_indices.push_back(index);
+		}
+		else {
+			out_vertices.push_back(in_vertices[i]);
+			out_uvs.push_back(in_uvs[i]);
+			out_normals.push_back(in_normals[i]);
+			unsigned short nIndex = (unsigned short)out_vertices.size() - 1;
+			out_indices.push_back(nIndex);
+			vertexMap[vert] = nIndex;
+		}
+	}
+}
+
 static bool LoadObj(const char* path, vector<vec3>& out_vertices, vector<vec2>& out_uvs, vector<vec3>& out_normals) {
 	vector<unsigned int> vertexIndices, uvIndices, normalIndices;
 	vector<vec3> vertices;
@@ -76,6 +130,7 @@ static bool LoadObj(const char* path, vector<vec3>& out_vertices, vector<vec2>& 
 		vec3 normal = normals[normalIndex - 1];
 		out_normals.push_back(normal);
 	}
+
 
 	return true;
 }

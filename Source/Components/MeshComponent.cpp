@@ -52,7 +52,15 @@ bool MeshComponent::VInit(rapidxml::xml_node<>* pNode) {
 
 void MeshComponent::VPostInit() {
 	m_pTexture->LoadTexture(m_TexturePath);
-	bool res = LoadObj(m_MeshPath, m_Vertices, m_UVs, m_Normals);
+
+	vector<vec3> vertices;
+	vector<vec2> uvs;
+	vector<vec3> normals;
+	bool res = LoadObj(m_MeshPath, vertices, uvs, normals);
+
+	// Index model
+	IndexVBO(vertices, uvs, normals, m_Indices, m_Vertices, m_UVs, m_Normals);
+
 	if (!res) { printf("ModelLoadError [%s]: Model could not be loaded.\n", m_MeshPath); return; }
 
 	// Create VAO
@@ -70,6 +78,11 @@ void MeshComponent::VPostInit() {
 	glGenBuffers(1, &m_NormalBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, m_NormalBuffer);
 	glBufferData(GL_ARRAY_BUFFER, m_Normals.size() * sizeof(vec3), &m_Normals[0], GL_STATIC_DRAW);
+
+	// Create VBO
+	glGenBuffers(1, &m_IndexBuffer);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Indices.size() * sizeof(unsigned short), &m_Indices[0], GL_STATIC_DRAW);
 }
 
 void MeshComponent::VUpdate(float dt) {
@@ -132,7 +145,15 @@ void MeshComponent::VRender(map<string, GLuint> handles, Camera* cam, vec3 light
 		(void*)0
 	);
 
-	glDrawArrays(GL_TRIANGLES, 0, (GLsizei)m_Vertices.size());
+	//glDrawArrays(GL_TRIANGLES, 0, (GLsizei)m_Vertices.size());
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
+
+	glDrawElements(
+		GL_TRIANGLES,
+		m_Indices.size(),
+		GL_UNSIGNED_SHORT,
+		(void*)0
+	);
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
@@ -142,6 +163,8 @@ void MeshComponent::VRender(map<string, GLuint> handles, Camera* cam, vec3 light
 void MeshComponent::Cleanup() {
 	glDeleteBuffers(1, &m_VertexBuffer);
 	glDeleteBuffers(1, &m_UVBuffer);
+	glDeleteBuffers(1, &m_NormalBuffer);
+	glDeleteBuffers(1, &m_IndexBuffer);
 	glDeleteVertexArrays(1, &m_VertexArrayID);
 
 	m_pTexture->Cleanup();

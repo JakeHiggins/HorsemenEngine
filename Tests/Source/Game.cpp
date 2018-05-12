@@ -73,8 +73,8 @@ void Game::Update(float dt) {
 
 	transform1->Move(m_Forward1);
 	transform2->Move(m_Forward2);
-	//transform3->Move(m_Forward3);
-	transform3->Translation = transform3->Translation + m_Forward3;
+	transform3->Move(m_Forward3);
+	//transform3->Translation = transform3->Translation + m_Forward3;
 
 	/*if (Input::Instance()->IsKeyPressed(Renderer->Window, GLFW_KEY_1)) {
 		m_Target = 0;

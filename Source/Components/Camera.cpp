@@ -11,7 +11,7 @@ Camera::~Camera()
 }
 
 void Camera::Init(GLFWwindow* window) {
-	m_Speed = 3.0f;
+	m_Speed = 7.0f;
 	m_Target = vec3(0, 0, 0);
 	m_Position = vec3(0, 1, 20);
 	m_Up = vec3(0, 1, 0);

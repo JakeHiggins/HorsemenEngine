@@ -9,9 +9,10 @@ class Texture;
 
 class MeshComponent : public ActorComponent
 {
-	GLuint m_VertexArrayID, m_VertexBuffer, m_UVBuffer, m_NormalBuffer;
+	GLuint m_VertexArrayID, m_VertexBuffer, m_UVBuffer, m_NormalBuffer, m_IndexBuffer;
 	vector<vec3> m_Vertices, m_Normals;
 	vector<vec2> m_UVs;
+	vector<unsigned short> m_Indices;
 	Texture* m_pTexture;
 	char* m_TexturePath;
 	char* m_MeshPath;
