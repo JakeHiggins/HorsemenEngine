@@ -9,6 +9,7 @@ public:
 	Texture();
 	~Texture();
 
+	void LoadTexture(const char* path);
 	void LoadBMP(const char* path);
 	void LoadDDS(const char* path);
 	void Cleanup();

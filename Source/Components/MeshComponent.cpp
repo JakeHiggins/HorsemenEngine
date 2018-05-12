@@ -51,7 +51,7 @@ bool MeshComponent::VInit(rapidxml::xml_node<>* pNode) {
 }
 
 void MeshComponent::VPostInit() {
-	m_pTexture->LoadDDS(m_TexturePath);
+	m_pTexture->LoadTexture(m_TexturePath);
 	bool res = LoadObj(m_MeshPath, m_Vertices, m_UVs, m_Normals);
 	if (!res) { printf("ModelLoadError [%s]: Model could not be loaded.\n", m_MeshPath); return; }
 

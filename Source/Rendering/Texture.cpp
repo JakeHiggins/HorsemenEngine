@@ -1,11 +1,39 @@
 #include "HorsemanStd.h"
 #include "Texture.h"
 
+
 Texture::Texture() {
 }
 
 
 Texture::~Texture() {
+}
+
+void Texture::LoadTexture(const char* path) {
+	string p(path);
+	size_t pos = p.rfind('.');
+	string extension;
+
+	if (pos != string::npos) {
+		extension = p.substr(pos);
+	}
+	else {
+		printf("[Texture Load ERROR (%s)]: File has no extension.\n", path);
+		return;
+	}
+
+	if (extension == ".png" || extension == ".PNG") {
+		printf("[Texture Load ERROR (%s)]: PNG not supported yet, check back later.\n", path);
+	}
+	else if (extension == ".bmp" || extension == ".BMP") {
+		LoadBMP(path);
+	}
+	else if (extension == ".dds" || extension == ".DDS") {
+		LoadDDS(path);
+	}
+	else {
+		printf("[Texture Load ERROR (%s)]: %s not supported yet, check back later.\n", path, extension.c_str());
+	}
 }
 
 void Texture::LoadBMP(const char * path) {
