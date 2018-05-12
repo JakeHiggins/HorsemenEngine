@@ -17,16 +17,16 @@ void Texture::LoadBMP(const char * path) {
 	unsigned char* data;
 
 	FILE* file = fopen(path, "rb");
-	if (!file) { printf("TextureLoadError [%s]: Image could not be loaded.\n", path); return; }
+	if (!file) { printf("[Texture Load ERROR (%s)] Image could not be loaded.\n", path); return; }
 
 	if (fread(header, 1, 54, file) != 54) {
-		printf("TextureLoadError [%s]: Not a BMP file.\n", path);
+		printf("[Texture Load ERROR (%s)] Not a BMP file.\n", path);
 		fclose(file);
 		return;
 	}
 
 	if (header[0] != 'B' || header[1] != 'M') {
-		printf("TextureLoadError [%s]: Not a BMP file.\n", path);
+		printf("[Texture Load ERROR (%s)] Not a BMP file.\n", path);
 		fclose(file);
 		return;
 	}
@@ -74,13 +74,13 @@ void Texture::LoadDDS(const char * path) {
 
 	FILE* file;
 	fopen_s(&file, path, "rb");
-	if (!file) { printf("TextureLoadError [%s]: Image could not be loaded.\n", path); return; }
+	if (!file) { printf("[Texture Load ERROR (%s)] Image could not be loaded.\n", path); return; }
 
 	// Verify file type
 	char filecode[4];
 	fread(filecode, 1, 4, file);
 	if (strncmp(filecode, "DDS ", 4) != 0) {
-		printf("TextureLoadError [%s]: Not a BMP file.\n", path);
+		printf("[Texture Load ERROR (%s)] Not a BMP file.\n", path);
 		fclose(file);
 		return;
 	}
@@ -120,7 +120,7 @@ void Texture::LoadDDS(const char * path) {
 		break;
 	default:
 		free(buffer);
-		printf("TextureLoadError [%s]: unrecognized DDS format: %s\n", path, std::to_string(fourCC).c_str());
+		printf("[Texture Load ERROR (%s)] unrecognized DDS format: %s\n", path, std::to_string(fourCC).c_str());
 		return;
 	}
 
@@ -131,10 +131,26 @@ void Texture::LoadDDS(const char * path) {
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, (mipMapCount == 1) ? 0 : mipMapCount - 1);
+
+	if (mipMapCount > 1) {
+		printf("[Texture Load INFO (%s)] Texture contains mipmaps.\n", path);
+	}
+	else {
+		printf("[Texture Load INFO (%s)] No mipmaps found.\n", path);
+	}
+
 	// Fill mipmaps
 	unsigned int blockSize = (format == GL_COMPRESSED_RGBA_S3TC_DXT1_EXT) ? 8 : 16;
 	unsigned int offset = 0;
 
+	// Load mipmaps
 	for (unsigned int level = 0; level < mipMapCount && (width || height); ++level) {
 		unsigned int size = ((width + 3) / 4) * ((height + 3) / 4) * blockSize;
 
