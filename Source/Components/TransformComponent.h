@@ -27,18 +27,22 @@ public:
 
 	void Move(vec3 position);
 
-	#pragma region Properties
+#pragma region Properties
 	READONLY_PROPERTY(mat4, Transform);
 	GET(Transform) { return m_Transform; };
 
 	READONLY_PROPERTY(vec3, Origin);
 	GET(Origin) { return m_Origin; };
 
-	READONLY_PROPERTY(vec3, Translation);
+	PROPERTY(vec3, Translation);
 	GET(Translation) {
 		glm::decompose(m_Transform, m_Scale, m_Rotation, m_Translation, m_Skew, m_Perspective);
-		return m_Translation; 
-	};
+		return m_Translation;
+	}
+	SET(Translation) { 
+		vec3 delta = m_Translation - value;
+		m_Transform = glm::translate(m_Transform, delta); 
+	}
 
 	READONLY_PROPERTY(vec3, Scale);
 	GET(Scale) {

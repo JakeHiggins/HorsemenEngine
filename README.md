@@ -1,21 +1,9 @@
-#Dependencies
+## Visual Studio Setup
 
-1. glew - 2.1.0
-1. glfw - 3.2.1
-1. glm - 0.9.8.5
+1. Create empty solution
+2. Import `Source/Msvc/Horseman.vcxproj`
+3. Import `Tests/Source/Msvc/HorsemanTests.vcxproj`
+4. Build Horseman first (Can only be built in x64 at this time)
+5. Build HorsemanTest and run  (Can only be built in x64 at this time)
 
-#First time setup
-1. Create Lib directory at top level
-1. Ensure glew32.dll is in %SystemRoot%
-1. Organize the structure of Source/External as follows:
-	1. glew-2.1.0
-		1. <Extract glew 2.1.0 zip here>
-	1. glfw-3.2.1
-		1. include
-		1. libs
-			1. Win32
-				1. <Win32 Binaries>
-			1. x64
-				1. <64 Bit Binaries>
-	1. glm
-		1. <Extract glm zip here>
+NOTE: You may have to change the Visual Studio project settings to have your Windows SDK and Visual Studio version. 
