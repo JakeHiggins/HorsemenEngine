@@ -3,7 +3,6 @@
 #include <Actors/ActorFactory.h>
 #include <Actors/Actor.h>
 #include <Components/Camera.h>
-#include <Components/MeshComponentOld.h>
 #include <Components/MeshComponent.h>
 #include <Components/TransformComponent.h>
 #include <Input/Input.h>

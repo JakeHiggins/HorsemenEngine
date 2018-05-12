@@ -76,9 +76,6 @@
     <ClInclude Include="..\Components\MeshComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\Components\MeshComponentOld.h">
-      <Filter>Components</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Core\HorsemanGame.cpp">
@@ -110,9 +107,6 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="..\Components\MeshComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Components\MeshComponentOld.cpp">
       <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>

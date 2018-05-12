@@ -1,6 +1,7 @@
 #include "HorsemanStd.h"
 #include "Texture.h"
 
+#include <SOIL/SOIL.h>
 
 Texture::Texture() {
 }
@@ -23,7 +24,7 @@ void Texture::LoadTexture(const char* path) {
 	}
 
 	if (extension == ".png" || extension == ".PNG") {
-		printf("[Texture Load ERROR (%s)]: PNG not supported yet, check back later.\n", path);
+		LoadPNG(path);
 	}
 	else if (extension == ".bmp" || extension == ".BMP") {
 		LoadBMP(path);
@@ -202,6 +203,22 @@ void Texture::LoadDDS(const char * path) {
 	}
 
 	free(buffer);
+
+	m_Image = textureID;
+}
+
+void Texture::LoadPNG(const char* path) {
+	GLuint textureID = SOIL_load_OGL_texture(
+		path,
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	);
+
+	if (textureID == 0) {
+		printf("[Texture Load ERROR (%s)] Image could not be loaded.\n", path);
+		return;
+	}
 
 	m_Image = textureID;
 }
