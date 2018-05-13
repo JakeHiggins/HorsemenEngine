@@ -6,13 +6,9 @@
 
 class TransformComponent : public ActorComponent {
 
-	mat4 m_Transform;
-	vec3 m_Translation;
-	vec3 m_Scale;
-	quat m_Rotation;
-	vec3 m_Skew;
-	vec4 m_Perspective;
-	vec3 m_Origin;
+	mat4 m_Transform, m_Identity;
+	vec3 m_Translation, m_Scale, m_RadRot, m_DegRot;
+	bool m_RebuildTransform;
 
 public:
 	static const char* g_Name;
@@ -26,52 +22,40 @@ public:
 	virtual void VRender(map<string, GLuint> handles, Camera* cam, vec3 lightPos);
 
 	void Move(vec3 position);
+	void Rotate(vec3 euler);
+	void Scale(vec3 scale);
 
 #pragma region Properties
 	READONLY_PROPERTY(mat4, Transform);
-	GET(Transform) { return m_Transform; };
-
-	READONLY_PROPERTY(vec3, Origin);
-	GET(Origin) { return m_Origin; };
+	GET(Transform) { return CalculateTransform(); }
 
 	PROPERTY(vec3, Translation);
-	GET(Translation) {
-		glm::decompose(m_Transform, m_Scale, m_Rotation, m_Translation, m_Skew, m_Perspective);
-		return m_Translation;
-	}
-	SET(Translation) { 
-		vec3 delta = m_Translation - value;
-		m_Transform = glm::translate(m_Transform, delta); 
-	}
+	GET(Translation) { return m_Translation; }
+	SET(Translation) { m_Translation = value; m_RebuildTransform = true; }
 
-	READONLY_PROPERTY(vec3, Scale);
-	GET(Scale) {
-		glm::decompose(m_Transform, m_Scale, m_Rotation, m_Translation, m_Skew, m_Perspective);
-		return m_Scale;
-	};
+	READONLY_PROPERTY(vec3, Scalar);
+	GET(Scalar) { return m_Scale; }
+	SET(Scalar) { m_Scale = value; m_RebuildTransform = true; }
 
-	READONLY_PROPERTY(quat, Rotation);
-	GET(Rotation) {
-		glm::decompose(m_Transform, m_Scale, m_Rotation, m_Translation, m_Skew, m_Perspective);
-		return m_Rotation;
-	};
+	// Default Rotation returns Degrees
+	READONLY_PROPERTY(vec3, Rotation);
+	GET(Rotation) { return m_DegRot; }
+	SET(Rotation) { m_DegRot = value; m_RadRot = RotToRad(value); m_RebuildTransform = true; }
 
-	READONLY_PROPERTY(vec3, Skew);
-	GET(Skew) {
-		glm::decompose(m_Transform, m_Scale, m_Rotation, m_Translation, m_Skew, m_Perspective);
-		return m_Skew;
-	};
-
-	READONLY_PROPERTY(vec3, Perspective);
-	GET(Perspective) {
-		glm::decompose(m_Transform, m_Scale, m_Rotation, m_Translation, m_Skew, m_Perspective);
-		return m_Perspective;
-	};
+	READONLY_PROPERTY(vec3, RotationRads);
+	GET(RotationRads) { return m_RadRot; }
+	SET(RotationRads) { m_RadRot = value; m_DegRot = RotToDeg(value); m_RebuildTransform = true; }
 	#pragma endregion
 
 	// Creator for ActorFactory
 	// TODO: Put all these in a single place
 	static ActorComponent* __stdcall Create() { return new TransformComponent(); }
+
+private:
+	vec3 RotToRad(vec3 rot) { return vec3(rot.x * DEG2RAD, rot.y * DEG2RAD, rot.z * DEG2RAD); }
+	vec3 RotToDeg(vec3 rot) { return vec3(rot.x * RAD2DEG, rot.y * RAD2DEG, rot.z * RAD2DEG); }
+
+	mat4 CalculateTransform();
 };
 
 #endif

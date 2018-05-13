@@ -28,10 +28,15 @@ bool TransformComponent::VInit(rapidxml::xml_node<>* pNode)
 			std::atof(pScaleNode->first_attribute("z")->value())
 		);
 
-		m_Transform = glm::translate(m_Transform, translation);
-		glm::decompose(m_Transform, m_Scale, m_Rotation, m_Origin, m_Skew, m_Perspective);
-		m_Transform = glm::scale(m_Transform, scale);
-		glm::decompose(m_Transform, m_Scale, m_Rotation, m_Translation, m_Skew, m_Perspective);
+		m_Translation = translation;
+		m_Scale = scale;
+		m_DegRot = rotation;
+		m_RadRot = RotToRad(rotation);
+
+		m_Identity = mat4(1.0f);
+		m_Transform = mat4(1.0f);
+
+		m_RebuildTransform = true;
 	}
 	catch (const std::runtime_error& e)
 	{
@@ -69,7 +74,34 @@ void TransformComponent::VRender(map<string, GLuint> handles, Camera * cam, vec3
 {
 }
 
-void TransformComponent::Move(vec3 position) {
-	m_Transform = glm::translate(m_Transform, position);
+void TransformComponent::Move(vec3 delta) {
+	m_Translation = m_Translation + delta;
+	m_RebuildTransform = true;
+}
+
+// Assumes degrees
+void TransformComponent::Rotate(vec3 delta) {
+	m_DegRot = m_DegRot + delta;
+	m_RadRot = RotToRad(m_DegRot);
+	m_RebuildTransform = true;
+}
+
+void TransformComponent::Scale(vec3 scale) {
+	m_Scale = m_Scale + scale;
+	m_RebuildTransform = true;
+}
+
+mat4 TransformComponent::CalculateTransform()
+{
+	if (m_RebuildTransform) {
+		mat4 rot = glm::toMat4(quat(m_DegRot));
+		mat4 trans = glm::translate(m_Identity, m_Translation);
+		mat4 scale = glm::scale(m_Identity, m_Scale);
+
+		m_Transform = scale * rot * trans;
+		m_RebuildTransform = false;
+	}
+
+	return m_Transform;
 }
 

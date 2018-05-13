@@ -26,6 +26,7 @@ using std::string;
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
 #include <GL/GL.h>
 
 using glm::vec2;
@@ -50,6 +51,7 @@ using glm::quat;
 
 #define M_PI		3.14159265358979323846
 #define DEG2RAD		M_PI / 180
+#define RAD2DEG		180 / M_PI
 
 #if !defined(SAFE_DELETE)
 #define SAFE_DELETE(x) if(x) delete x; x=NULL;
