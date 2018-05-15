@@ -39,6 +39,7 @@ void Game::LoadContent() {
 	AddActor(factory, "../../Assets/Actors/cube.xml");
 	AddActor(factory, "../../Assets/Actors/statue.xml");
 	AddActor(factory, "../../Assets/Actors/torus.xml");
+	AddActor(factory, "../../Assets/Actors/glass.xml");
 }
 
 void Game::Update(float dt) {

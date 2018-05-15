@@ -1,0 +1,11 @@
+<Actor>
+	<TransformComponent>
+		<Translation x="0" y="0" z="7"/>
+		<Rotation yaw="0" pitch="0" roll="0"/>
+		<Scale x="10" y="10" z="1"/>
+	</TransformComponent>
+	<MeshComponent>
+		<Texture src="../../Assets/Textures/glass_d.png"/>
+		<Mesh src="../../Assets/Models/cube.obj"/>
+	</MeshComponent>
+</Actor>
