@@ -65,10 +65,10 @@ void Game::Update(float dt) {
 	}
 
 	if (transform3->Translation.z >= m_Max) {
-		m_Forward3.z = -0.001f;
+		m_Forward3.z = -10.0f;
 	}
 	else if (transform3->Translation.z <= m_Min) {
-		m_Forward3.z = 0.001f;
+		m_Forward3.z = 10.0f;
 	}
 
 	transform1->Scale(m_Forward2);

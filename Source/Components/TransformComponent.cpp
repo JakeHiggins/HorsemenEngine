@@ -98,7 +98,7 @@ mat4 TransformComponent::CalculateTransform()
 		mat4 trans = glm::translate(m_Identity, m_Translation);
 		mat4 scale = glm::scale(m_Identity, m_Scale);
 
-		m_Transform = scale * rot * trans;
+		m_Transform = scale * trans * rot;
 		m_RebuildTransform = false;
 	}
 
