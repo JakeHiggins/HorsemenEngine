@@ -6,19 +6,19 @@ in vec3 Normal_cameraspace;
 in vec3 EyeDirection_cameraspace;
 in vec3 LightDirection_cameraspace;
 
-out vec3 color;
+out vec4 color;
 
 uniform sampler2D textureSampler;
 uniform mat4 MV;
 uniform vec3 LightPosition_worldspace;
 
 void main() {
-	vec3 LightColor = vec3(1, 1, 1);
+	vec4 LightColor = vec4(1, 1, 1, 1);
 	float LightPower = 50.0f;
 
-	vec3 MaterialDiffuseColor = texture(textureSampler, UV).rgb;
-	vec3 MaterialAmbientColor = vec3(0.1, 0.1, 0.1) * MaterialDiffuseColor;
-	vec3 MaterialSpecularColor = vec3(0.3, 0.3, 0.3);
+	vec4 MaterialDiffuseColor = texture(textureSampler, UV).rgba;
+	vec4 MaterialAmbientColor = vec4(0.1, 0.1, 0.1, 1) * MaterialDiffuseColor;
+	vec4 MaterialSpecularColor = vec4(0.3, 0.3, 0.3, 1);
 
 	float distance = length(LightPosition_worldspace - Position_worldspace);
 
@@ -32,7 +32,6 @@ void main() {
 
 	float cosAlpha = clamp(dot(E, R), 0, 1);
 
-	//color = texture(textureSampler, UV).rgb;
 	color = 
 		MaterialAmbientColor + 
 		MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance * distance) + 
