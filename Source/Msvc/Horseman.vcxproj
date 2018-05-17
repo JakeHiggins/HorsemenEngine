@@ -28,6 +28,7 @@
     <ClInclude Include="..\Core\HorsemanGame.h" />
     <ClInclude Include="..\Core\interfaces.h" />
     <ClInclude Include="..\Input\Input.h" />
+    <ClInclude Include="..\Rendering\Font.h" />
     <ClInclude Include="..\Rendering\Rendering.h" />
     <ClInclude Include="..\Rendering\Shaders.h" />
     <ClInclude Include="..\Rendering\Texture.h" />
@@ -43,6 +44,7 @@
     <ClCompile Include="..\Components\TransformComponent.cpp" />
     <ClCompile Include="..\Core\HorsemanGame.cpp" />
     <ClCompile Include="..\Input\Input.cpp" />
+    <ClCompile Include="..\Rendering\Font.cpp" />
     <ClCompile Include="..\Rendering\Rendering.cpp" />
     <ClCompile Include="..\Rendering\Shaders.cpp" />
     <ClCompile Include="..\Rendering\Texture.cpp" />

@@ -76,6 +76,9 @@
     <ClInclude Include="..\Components\MeshComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\Rendering\Font.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Core\HorsemanGame.cpp">
@@ -108,6 +111,9 @@
     </ClCompile>
     <ClCompile Include="..\Components\MeshComponent.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Rendering\Font.cpp">
+      <Filter>Rendering</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

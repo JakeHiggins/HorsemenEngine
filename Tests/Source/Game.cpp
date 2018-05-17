@@ -6,6 +6,7 @@
 #include <Components/MeshComponent.h>
 #include <Components/TransformComponent.h>
 #include <Input/Input.h>
+#include <Rendering/Font.h>
 #include <Rendering/Rendering.h>
 #include <Rendering/Texture.h>
 
@@ -22,10 +23,14 @@ Game::Game() : HorsemanGame()
 	m_Forward1 = vec3(0.001f, 0, 0);
 	m_Forward2 = vec3(0, 0.001f, 0);
 	m_Forward3 = vec3(0, 0, 0.001f);
+
+	m_pFont = new Font();
 }
 
 Game::~Game()
 {
+	SAFE_DELETE(m_pCamera);
+	SAFE_DELETE(m_pFont);
 }
 
 void Game::Init() {
@@ -40,6 +45,11 @@ void Game::LoadContent() {
 	AddActor(factory, "../../Assets/Actors/statue.xml");
 	AddActor(factory, "../../Assets/Actors/torus.xml");
 	AddActor(factory, "../../Assets/Actors/glass.xml");
+
+	Renderer->LoadShader("ProgramID", "../../Assets/Shaders/vertex_shader.glsl", "../../Assets/Shaders/fragment_shader.glsl");
+	Renderer->LoadContent();
+
+	m_pFont->LoadFont("../../Assets/Fonts/consolas.png", "../../Assets/Shaders/vert_font.glsl", "../../Assets/Shaders/frag_font.glsl");
 }
 
 void Game::Update(float dt) {
@@ -85,6 +95,8 @@ void Game::Render() {
 		actor->Render(Renderer->Handles(), m_pCamera, vec3(4, 4, 4));
 	}
 
+	m_pFont->Print("Hello World", 5, 700, 32);
+
 	Renderer->End();
 }
 
@@ -94,7 +106,7 @@ void Game::Cleanup() {
 	}
 
 	m_pCamera->Cleanup();
-	SAFE_DELETE(m_pCamera);
+	m_pFont->Cleanup();
 
 	HorsemanGame::Cleanup();
 }
@@ -119,9 +131,6 @@ void Game::AddActor(ActorFactory factory, const char* actorResource) {
 	shared_ptr<MeshComponent> mesh = MakeStrongPtr(actor->GetComponent<MeshComponent>(MeshComponent::g_Name));
 	std::cout << "Mesh Component added with texture path: " << mesh->TexturePath << std::endl;
 	std::cout << "Mesh Component added with mesh path: " << mesh->MeshPath << std::endl;
-
-	Renderer->LoadShader("ProgramID", "../../Assets/Shaders/vertex_shader.glsl", "../../Assets/Shaders/fragment_shader.glsl");
-	Renderer->LoadContent();
 
 	m_Actors.push_back(actor);
 }

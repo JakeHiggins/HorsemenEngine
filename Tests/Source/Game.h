@@ -8,6 +8,7 @@
 class Camera;
 class MeshComponentOld;
 class ActorFactory;
+class Font;
 
 class Game : public HorsemanGame
 {
@@ -23,6 +24,7 @@ public:
 
 private:
 	Camera * m_pCamera;
+	Font* m_pFont;
 	vector<StrongActorPtr> m_Actors;
 	float m_Min, m_Max;
 	vec3 m_Forward1, m_Forward2, m_Forward3;
