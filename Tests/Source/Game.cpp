@@ -34,7 +34,7 @@ Game::~Game()
 }
 
 void Game::Init() {
-	HorsemanGame::Init("Game 1");
+	HorsemanGame::Init("Horseman Tests");
 	Input::Instance()->Init(Renderer->Window);
 	m_pCamera->Init(Renderer->Window);
 }
