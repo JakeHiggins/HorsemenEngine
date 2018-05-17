@@ -13,8 +13,8 @@ int main() {
 		double currentTime = glfwGetTime();
 		nbFrames++;
 		if (currentTime - lastTimer >= 1.0) {
-			printf("%f ms/frame\n", 1000 / double(nbFrames));
-			printf("%i FPS\n", nbFrames);
+			//printf("%f ms/frame\n", 1000 / double(nbFrames));
+			//printf("%i FPS\n", nbFrames);
 			nbFrames = 0;
 			lastTimer += 1;
 		}

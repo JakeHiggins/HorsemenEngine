@@ -148,12 +148,18 @@ void MeshComponent::VRender(map<string, GLuint> handles, Camera* cam, vec3 light
 	//glDrawArrays(GL_TRIANGLES, 0, (GLsizei)m_Vertices.size());
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
 
+	// Enable blending
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glDrawElements(
 		GL_TRIANGLES,
 		m_Indices.size(),
 		GL_UNSIGNED_SHORT,
 		(void*)0
 	);
+
+	glDisable(GL_BLEND);
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
