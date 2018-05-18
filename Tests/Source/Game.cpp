@@ -44,7 +44,7 @@ void Game::LoadContent() {
 	AddActor(factory, "../../Assets/Actors/cube.xml");
 	AddActor(factory, "../../Assets/Actors/statue.xml");
 	AddActor(factory, "../../Assets/Actors/torus.xml");
-	AddActor(factory, "../../Assets/Actors/glass.xml");
+	//AddActor(factory, "../../Assets/Actors/glass.xml");
 
 	Renderer->LoadShader("ProgramID", "../../Assets/Shaders/vertex_shader.glsl", "../../Assets/Shaders/fragment_shader.glsl");
 	Renderer->LoadContent();
@@ -82,9 +82,9 @@ void Game::Update(float dt) {
 		m_Forward3.z = 10.0f;
 	}
 
-	transform1->Scale(m_Forward2);
+	/*transform1->Scale(m_Forward2);
 	transform2->Move(m_Forward1);
-	transform3->Rotate(m_Forward3);
+	transform3->Rotate(m_Forward3);*/
 	
 }
 

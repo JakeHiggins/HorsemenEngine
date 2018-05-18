@@ -33,11 +33,15 @@ void IndexVBO(
 	vector<vec3>& in_vertices,
 	vector<vec2>& in_uvs,
 	vector<vec3>& in_normals,
+	vector<vec3>& in_tangents,
+	vector<vec3>& in_bitangents,
 
 	vector<unsigned short>& out_indices,
 	vector<vec3>& out_vertices,
 	vector<vec2>& out_uvs,
-	vector<vec3>& out_normals
+	vector<vec3>& out_normals,
+	vector<vec3>& out_tangents,
+	vector<vec3>& out_bitangents
 ) {
 	map<Vertex, unsigned short> vertexMap;
 
@@ -50,11 +54,18 @@ void IndexVBO(
 		// similar index is in indices, use it instead
 		if (found) {
 			out_indices.push_back(index);
+
+			// Average the tangents and bitangents
+			out_tangents[index] += in_tangents[i];
+			out_bitangents[index] += in_bitangents[i];
 		}
 		else {
 			out_vertices.push_back(in_vertices[i]);
 			out_uvs.push_back(in_uvs[i]);
 			out_normals.push_back(in_normals[i]);
+			out_tangents.push_back(in_tangents[i]);
+			out_bitangents.push_back(in_bitangents[i]);
+
 			unsigned short nIndex = (unsigned short)out_vertices.size() - 1;
 			out_indices.push_back(nIndex);
 			vertexMap[vert] = nIndex;
@@ -133,6 +144,47 @@ static bool LoadObj(const char* path, vector<vec3>& out_vertices, vector<vec2>& 
 
 
 	return true;
+}
+
+static void ComputeTangedBasis(
+	vector<vec3>& vertices,
+	vector<vec2>& uvs,
+	vector<vec3>& normals,
+
+	vector<vec3>& out_tangents,
+	vector<vec3>& out_bitangents
+) {
+	for (unsigned int i = 0; i < vertices.size(); i += 3) {
+		vec3& v0 = vertices[i + 0];
+		vec3& v1 = vertices[i + 1];
+		vec3& v2 = vertices[i + 2];
+		
+		vec2& uv0 = uvs[i + 0];
+		vec2& uv1 = uvs[i + 1];
+		vec2& uv2 = uvs[i + 2];
+		
+		vec3& n0 = normals[i + 0];
+		vec3& n1 = normals[i + 1];
+		vec3& n2 = normals[i + 2];
+		
+		vec3 deltaPos1 = v1 - v0;
+		vec3 deltaPos2 = v2 - v0;
+
+		vec2 deltaUV1 = uv1 - uv0;
+		vec2 deltaUV2 = uv2 - uv0;
+		
+		float r = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
+		vec3 tangent = (deltaPos1 * deltaUV2.y - deltaPos2 * deltaUV1.y) * r;
+		vec3 bitangent = (deltaPos2 * deltaUV1.x - deltaPos1 * deltaUV2.x) * r;
+
+		out_tangents.push_back(tangent);
+		out_tangents.push_back(tangent);
+		out_tangents.push_back(tangent);
+
+		out_bitangents.push_back(bitangent);
+		out_bitangents.push_back(bitangent);
+		out_bitangents.push_back(bitangent);
+	}
 }
 
 #endif

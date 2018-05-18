@@ -1,4 +1,5 @@
 #include "HorsemanStd.h"
+#include "HorsemanStd.h"
 #include "Rendering.h"
 
 #include "Shaders.h"
@@ -60,6 +61,8 @@ int Rendering::LoadContent() {
 	m_Handles["ModelMatID"] = glGetUniformLocation(m_Handles["ProgramID"], "M");
 	m_Handles["ViewMatID"] = glGetUniformLocation(m_Handles["ProgramID"], "V");
 	m_Handles["TextureID"] = glGetUniformLocation(m_Handles["ProgramID"], "textureSampler");
+	m_Handles["NormalID"] = glGetUniformLocation(m_Handles["ProgramID"], "normalTextureSampler");
+	m_Handles["MV3x3ID"] = glGetUniformLocation(m_Handles["ProgramID"], "MV3x3");
 
 	glUseProgram(m_Handles["ProgramID"]);
 	m_Handles["LightID"] = glGetUniformLocation(m_Handles["ProgramID"], "LightPosition_worldspace");

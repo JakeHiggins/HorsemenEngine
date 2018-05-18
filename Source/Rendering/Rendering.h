@@ -7,7 +7,7 @@ class Shaders;
 class Rendering
 {
 	Shaders* m_pShaders;
-	GLuint m_ProgramID, m_MatrixID, m_ModelMatID, m_ViewMatID, m_TextureID;
+	GLuint m_ProgramID, m_MatrixID, m_ModelMatID, m_ViewMatID, m_TextureID, m_MV3x3MatID;
 	GLFWwindow* m_pWindow;
 	map<string, GLuint> m_Handles;
 

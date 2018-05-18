@@ -8,20 +8,14 @@ Actor::Actor(ActorId id) {
 	m_Id = id;
 }
 
-Actor::~Actor(void)
-{
+Actor::~Actor(void) {
 }
 
-bool Actor::Init(rapidxml::xml_node<>* pNode)
-{
-	// TODO: Initialization logic here
+bool Actor::Init(rapidxml::xml_node<>* pNode) {
 	return true;
 }
 
-void Actor::PostInit()
-{
-	// TODO: Post initialization logic here
-	
+void Actor::PostInit() {	
 	for (auto comp : m_Components) {
 		auto pComp = comp.second;
 		pComp->VPostInit();
@@ -48,7 +42,6 @@ void Actor::Render(map<string, GLuint> handles, Camera * cam, vec3 lightPos) {
 	}
 }
 
-void Actor::AddComponent(StrongActorComponentPtr pComponent)
-{
+void Actor::AddComponent(StrongActorComponentPtr pComponent) {
 	m_Components[pComponent->VGetId()] = pComponent;
 }

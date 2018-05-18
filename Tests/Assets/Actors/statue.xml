@@ -5,7 +5,8 @@
 		<Scale x="1" y="1" z="1"/>
 	</TransformComponent>
 	<MeshComponent>
-		<Texture src="../../Assets/Textures/statue/statue_dd.dds"/>
+		<Texture src="../../Assets/Textures/statue/statue_d.dds"/>
+		<Normal src="../../Assets/Textures/status/statue_n.dds"/>
 		<Mesh src="../../Assets/Models/statue.obj"/>
 	</MeshComponent>
 </Actor>
