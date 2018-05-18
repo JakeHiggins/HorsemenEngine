@@ -20,8 +20,8 @@ Game::Game() : HorsemanGame()
 	m_Min = -5.0f;
 	m_Max = 5.0f;
 	m_Target = 0;
-	m_Forward1 = vec3(0.001f, 0, 0);
-	m_Forward2 = vec3(0, 0.001f, 0);
+	m_Forward1 = vec3(0, 0, 0.01f);
+	m_Forward2 = vec3(0.001f, 0.001f, 0.001f);
 	m_Forward3 = vec3(0, 0, 0.001f);
 
 	m_pFont = new Font();
@@ -44,7 +44,8 @@ void Game::LoadContent() {
 	AddActor(factory, "../../Assets/Actors/cube.xml");
 	AddActor(factory, "../../Assets/Actors/statue.xml");
 	AddActor(factory, "../../Assets/Actors/torus.xml");
-	//AddActor(factory, "../../Assets/Actors/glass.xml");
+	AddActor(factory, "../../Assets/Actors/lightbulb.xml");
+	AddActor(factory, "../../Assets/Actors/glass.xml");
 
 	Renderer->LoadShader("ProgramID", "../../Assets/Shaders/vertex_shader.glsl", "../../Assets/Shaders/fragment_shader.glsl");
 	Renderer->LoadContent();
@@ -61,18 +62,22 @@ void Game::Update(float dt) {
 	shared_ptr<TransformComponent> transform2 = MakeStrongPtr(m_Actors[1]->GetComponent<TransformComponent>(TransformComponent::g_Name));
 	shared_ptr<TransformComponent> transform3 = MakeStrongPtr(m_Actors[2]->GetComponent<TransformComponent>(TransformComponent::g_Name));
 
-	if (transform2->Translation.x >= m_Max) {
-		m_Forward1.x = -0.001f;
+	if (transform2->Translation.z >= m_Max) {
+		m_Forward1.z = -0.01f;
 	}
-	else if (transform2->Translation.x <= m_Min) {
-		m_Forward1.x = 0.001f;
+	else if (transform2->Translation.z <= m_Min) {
+		m_Forward1.z = 0.01f;
 	}
 
 	if (transform1->Scalar.y >= m_Max/4) {
+		m_Forward2.x = -0.001f;
 		m_Forward2.y = -0.001f;
+		m_Forward2.z = -0.001f;
 	}
-	else if (transform1->Scalar.y <= m_Min/4) {
+	else if (transform1->Scalar.y <= 0.2f) {
+		m_Forward2.x = 0.001f;
 		m_Forward2.y = 0.001f;
+		m_Forward2.z = 0.001f;
 	}
 
 	if (transform3->Translation.z >= m_Max) {
@@ -82,9 +87,10 @@ void Game::Update(float dt) {
 		m_Forward3.z = 10.0f;
 	}
 
-	/*transform1->Scale(m_Forward2);
+	transform1->Scale(m_Forward2);
+	//transform1->Scalar = vec3(0.1f, 0.1f, 0.1f);
 	transform2->Move(m_Forward1);
-	transform3->Rotate(m_Forward3);*/
+	transform3->Rotate(m_Forward3);
 	
 }
 
@@ -92,7 +98,7 @@ void Game::Render() {
 	Renderer->Begin();
 
 	for (auto actor : m_Actors) {
-		actor->Render(Renderer->Handles(), m_pCamera, vec3(4, 4, 4));
+		actor->Render(Renderer->Handles(), m_pCamera, vec3(0, 3, 0));
 	}
 
 	m_pFont->Print("Hello World", 5, 700, 32);
