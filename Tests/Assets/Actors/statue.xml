@@ -6,7 +6,7 @@
 	</TransformComponent>
 	<MeshComponent>
 		<Texture src="../../Assets/Textures/statue/statue_d.dds"/>
-		<Normal src="../../Assets/Textures/status/statue_n.dds"/>
+		<Normal src="../../Assets/Textures/statue/statue_n.dds"/>
 		<Mesh src="../../Assets/Models/statue.obj"/>
 	</MeshComponent>
 </Actor>

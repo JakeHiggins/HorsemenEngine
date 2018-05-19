@@ -63,8 +63,6 @@ int Rendering::LoadContent() {
 	m_Handles["TextureID"] = glGetUniformLocation(m_Handles["ProgramID"], "textureSampler");
 	m_Handles["NormalID"] = glGetUniformLocation(m_Handles["ProgramID"], "normalTextureSampler");
 	m_Handles["MV3x3ID"] = glGetUniformLocation(m_Handles["ProgramID"], "MV3x3");
-
-	glUseProgram(m_Handles["ProgramID"]);
 	m_Handles["LightID"] = glGetUniformLocation(m_Handles["ProgramID"], "LightPosition_worldspace");
 
 	return 1;

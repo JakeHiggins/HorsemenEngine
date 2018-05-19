@@ -12,6 +12,8 @@ out vec4 color;
 
 uniform sampler2D textureSampler;
 uniform sampler2D normalTextureSampler;
+uniform mat4 V;
+uniform mat4 M;
 uniform mat4 MV;
 uniform vec3 LightPosition_worldspace;
 
@@ -23,7 +25,7 @@ void main() {
 	vec4 MaterialAmbientColor = vec4(0.1, 0.1, 0.1, 1) * MaterialDiffuseColor;
 	vec4 MaterialSpecularColor = vec4(0.3, 0.3, 0.3, 1);
 
-	vec3 TextureNormal_tangentspace = normalize(texture(normalTextureSampler, UV).rgb * 2.0 - 1.0);
+	vec3 TextureNormal_tangentspace = normalize(texture(normalTextureSampler, vec2(UV.x, -UV.y)).rgb * 2.0 - 1.0);
 
 	float distance = length(LightPosition_worldspace - Position_worldspace);
 

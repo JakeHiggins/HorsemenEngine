@@ -118,7 +118,12 @@ void MeshComponent::VRender(map<string, GLuint> handles, Camera* cam, vec3 light
 	mat4 transform = GetTransform();
 
 	// Use shader
+	//if (m_RenderNormal) {
 	glUseProgram(handles["ProgramID"]);
+	//}
+	//else {
+	//	glUseProgram(handles["ProgramID"]);
+	//}
 
 	// Update and send MVP
 	mat4 mvp = cam->Projection * cam->View * transform;
@@ -205,8 +210,8 @@ void MeshComponent::VRender(map<string, GLuint> handles, Camera* cam, vec3 light
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
 
 	// Enable blending
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glDrawElements(
 		GL_TRIANGLES,

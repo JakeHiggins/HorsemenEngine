@@ -20,7 +20,7 @@ Game::Game() : HorsemanGame()
 	m_Min = -5.0f;
 	m_Max = 5.0f;
 	m_Target = 0;
-	m_Forward1 = vec3(0, 0, 0.01f);
+	m_Forward1 = vec3(0, 0, 0.001f);
 	m_Forward2 = vec3(0.001f, 0.001f, 0.001f);
 	m_Forward3 = vec3(0, 0, 0.001f);
 
@@ -47,7 +47,8 @@ void Game::LoadContent() {
 	AddActor(factory, "../../Assets/Actors/lightbulb.xml");
 	AddActor(factory, "../../Assets/Actors/glass.xml");
 
-	Renderer->LoadShader("ProgramID", "../../Assets/Shaders/vertex_shader.glsl", "../../Assets/Shaders/fragment_shader.glsl");
+	Renderer->LoadShader("ProgramID", "../../Assets/Shaders/vert_normals.glsl", "../../Assets/Shaders/frag_normals.glsl");
+	Renderer->LoadShader("NormalProgram", "../../Assets/Shaders/vert_normals.glsl", "../../Assets/Shaders/frag_normals.glsl");
 	Renderer->LoadContent();
 
 	m_pFont->LoadFont("../../Assets/Fonts/consolas.png", "../../Assets/Shaders/vert_font.glsl", "../../Assets/Shaders/frag_font.glsl");
@@ -63,10 +64,10 @@ void Game::Update(float dt) {
 	shared_ptr<TransformComponent> transform3 = MakeStrongPtr(m_Actors[2]->GetComponent<TransformComponent>(TransformComponent::g_Name));
 
 	if (transform2->Translation.z >= m_Max) {
-		m_Forward1.z = -0.01f;
+		m_Forward1.z = -0.001f;
 	}
 	else if (transform2->Translation.z <= m_Min) {
-		m_Forward1.z = 0.01f;
+		m_Forward1.z = 0.001f;
 	}
 
 	if (transform1->Scalar.y >= m_Max/4) {
