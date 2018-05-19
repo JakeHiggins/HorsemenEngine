@@ -10,8 +10,8 @@ in vec3 EyeDirection_tangentspace;
 
 out vec4 color;
 
-uniform sampler2D textureSampler;
-uniform sampler2D normalTextureSampler;
+uniform sampler2D DiffuseTextureSampler;
+uniform sampler2D NormalTextureSampler;
 uniform mat4 V;
 uniform mat4 M;
 uniform mat4 MV;
@@ -21,11 +21,11 @@ void main() {
 	vec4 LightColor = vec4(1, 1, 1, 1);
 	float LightPower = 50.0f;
 
-	vec4 MaterialDiffuseColor = texture(textureSampler, UV).rgba;
+	vec4 MaterialDiffuseColor = texture(DiffuseTextureSampler, UV).rgba;
 	vec4 MaterialAmbientColor = vec4(0.1, 0.1, 0.1, 1) * MaterialDiffuseColor;
 	vec4 MaterialSpecularColor = vec4(0.3, 0.3, 0.3, 1);
 
-	vec3 TextureNormal_tangentspace = normalize(texture(normalTextureSampler, vec2(UV.x, -UV.y)).rgb * 2.0 - 1.0);
+	vec3 TextureNormal_tangentspace = normalize(texture(NormalTextureSampler, vec2(UV.x, -UV.y)).rgb * 2.0 - 1.0);
 
 	float distance = length(LightPosition_worldspace - Position_worldspace);
 

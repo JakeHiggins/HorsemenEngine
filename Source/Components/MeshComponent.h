@@ -6,6 +6,7 @@
 
 class Camera;
 class Texture;
+class Shader;
 
 class MeshComponent : public ActorComponent
 {
@@ -15,8 +16,7 @@ class MeshComponent : public ActorComponent
 	vector<unsigned short> m_Indices;
 	Texture* m_pTexture, *m_pNormal;
 	bool m_RenderNormal;
-	char* m_TexturePath, *m_NormalPath;
-	char* m_MeshPath;
+	char* m_TexturePath, *m_NormalPath, *m_MeshPath, *m_Shader;
 
 public:
 	static const char* g_Name;
@@ -28,7 +28,7 @@ public:
 	virtual bool VInit(rapidxml::xml_node<>* pNode);
 	virtual void VPostInit();
 	virtual void VUpdate(float dt);
-	virtual void VRender(map<string, GLuint> handles, Camera* cam, vec3 lightPos);
+	virtual void VRender(map<string, Shader*> shaders, Camera* cam, vec3 lightPos);
 
 	void Cleanup();
 

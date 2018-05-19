@@ -2,11 +2,11 @@
 #include "Font.h"
 
 #include "Texture.h"
-#include "Shaders.h"
+#include "Shader.h"
 
 Font::Font() {
 	m_pTexture = new Texture();
-	m_pShaders = new Shaders();
+	m_pShaders = new Shader();
 }
 
 Font::~Font() {

@@ -45,17 +45,16 @@ void Game::LoadContent() {
 	AddActor(factory, "../../Assets/Actors/statue.xml");
 	AddActor(factory, "../../Assets/Actors/torus.xml");
 	AddActor(factory, "../../Assets/Actors/lightbulb.xml");
-	AddActor(factory, "../../Assets/Actors/glass.xml");
+	//AddActor(factory, "../../Assets/Actors/glass.xml");
 
-	Renderer->LoadShader("ProgramID", "../../Assets/Shaders/vert_normals.glsl", "../../Assets/Shaders/frag_normals.glsl");
-	Renderer->LoadShader("NormalProgram", "../../Assets/Shaders/vert_normals.glsl", "../../Assets/Shaders/frag_normals.glsl");
+	Renderer->RegisterShader("SimpleShader", "../../Assets/Shaders/vert_normals.glsl", "../../Assets/Shaders/frag_normals.glsl");
+	Renderer->RegisterShader("NormalsShader", "../../Assets/Shaders/vert_normals.glsl", "../../Assets/Shaders/frag_normals.glsl");
 	Renderer->LoadContent();
 
 	m_pFont->LoadFont("../../Assets/Fonts/consolas.png", "../../Assets/Shaders/vert_font.glsl", "../../Assets/Shaders/frag_font.glsl");
 }
 
 void Game::Update(float dt) {
-	Renderer->Update(dt);
 	Input::Instance()->Update(Renderer->Window, dt);
 	m_pCamera->Update(Renderer->Window, dt);
 
@@ -88,10 +87,10 @@ void Game::Update(float dt) {
 		m_Forward3.z = 10.0f;
 	}
 
-	transform1->Scale(m_Forward2);
+	//transform1->Scale(m_Forward2);
 	//transform1->Scalar = vec3(0.1f, 0.1f, 0.1f);
-	transform2->Move(m_Forward1);
-	transform3->Rotate(m_Forward3);
+	//transform2->Move(m_Forward1);
+	//transform3->Rotate(m_Forward3);
 	
 }
 
@@ -99,7 +98,7 @@ void Game::Render() {
 	Renderer->Begin();
 
 	for (auto actor : m_Actors) {
-		actor->Render(Renderer->Handles(), m_pCamera, vec3(0, 3, 0));
+		actor->Render(Renderer->Shaders(), m_pCamera, vec3(0, 6, 0));
 	}
 
 	m_pFont->Print("Hello World", 5, 700, 32);

@@ -2,11 +2,11 @@
 #define FONT_H
 
 class Texture;
-class Shaders;
+class Shader;
 
 class Font {
 	Texture* m_pTexture;
-	Shaders* m_pShaders;
+	Shader* m_pShaders;
 	GLuint m_VertexBufferID, m_UVBufferID, m_ShaderID, m_UniformID;
 	char* m_CachedText;
 	vector<vec2> m_Vertices, m_UVs;

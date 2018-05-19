@@ -2,28 +2,24 @@
 #define RENDERER_H
 
 class Camera;
-class Shaders;
+class Shader;
 
 class Rendering
 {
-	Shaders* m_pShaders;
-	GLuint m_ProgramID, m_MatrixID, m_ModelMatID, m_ViewMatID, m_TextureID, m_MV3x3MatID;
 	GLFWwindow* m_pWindow;
-	map<string, GLuint> m_Handles;
+	map<string, Shader*> m_Shaders;
 
 public:
 	Rendering();
 	~Rendering();
 	int Init(const char* title);
 	int LoadContent();
-	bool LoadShader(const char* program, const char* vertexPath, const char* fragmentPath);
-	void Update(float dt);
-	int Render(Camera* cam);
+	bool RegisterShader(const char* program, const char* vertexPath, const char* fragmentPath);
 	void Begin();
 	void End();
 	void Cleanup();
 	void SetWindowTitle(const char* title);
-	map<string, GLuint> Handles();
+	map<string, Shader*> Shaders();
 
 	READONLY_PROPERTY(GLFWwindow*, Window);
 	GET(Window) { return m_pWindow; }		

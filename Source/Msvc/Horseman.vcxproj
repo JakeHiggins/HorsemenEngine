@@ -30,7 +30,7 @@
     <ClInclude Include="..\Input\Input.h" />
     <ClInclude Include="..\Rendering\Font.h" />
     <ClInclude Include="..\Rendering\Rendering.h" />
-    <ClInclude Include="..\Rendering\Shaders.h" />
+    <ClInclude Include="..\Rendering\Shader.h" />
     <ClInclude Include="..\Rendering\Texture.h" />
     <ClInclude Include="..\Utils\loaders.h" />
     <ClInclude Include="..\Utils\templates.h" />
@@ -46,7 +46,7 @@
     <ClCompile Include="..\Input\Input.cpp" />
     <ClCompile Include="..\Rendering\Font.cpp" />
     <ClCompile Include="..\Rendering\Rendering.cpp" />
-    <ClCompile Include="..\Rendering\Shaders.cpp" />
+    <ClCompile Include="..\Rendering\Shader.cpp" />
     <ClCompile Include="..\Rendering\Texture.cpp" />
     <ClCompile Include="HorsemanStd.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

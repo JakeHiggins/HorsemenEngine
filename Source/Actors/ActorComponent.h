@@ -15,7 +15,7 @@ public:
 	virtual bool VInit(rapidxml::xml_node<>* pNode) = 0;
 	virtual void VPostInit() { }
 	virtual void VUpdate(float dt) { }
-	virtual void VRender(map<string, GLuint> handles, Camera* cam, vec3 lightPos) { }
+	virtual void VRender(map<string, Shader*> shaders, Camera* cam, vec3 lightPos) { }
 
 	virtual ComponentId VGetId(void) const {
 		string str(VGetName());

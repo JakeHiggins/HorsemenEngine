@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "TransformComponent.h"
 #include "Input/Input.h"
+#include "Rendering/Shader.h"
 #include "Rendering/Texture.h"
 #include "Utils/loaders.h"
 
@@ -35,6 +36,10 @@ bool MeshComponent::VInit(rapidxml::xml_node<>* pNode) {
 		const char* pMesh = pNode->first_node("Mesh")->first_attribute("src")->value();
 		m_MeshPath = new char[strlen(pMesh) + 1];
 		strcpy(m_MeshPath, pMesh);
+
+		const char* pShader = pNode->first_node("Shader")->first_attribute("id")->value();
+		m_Shader = new char[strlen(pShader) + 1];
+		strcpy(m_Shader, pShader);
 	}
 	catch (const std::runtime_error& e)
 	{
@@ -114,16 +119,14 @@ void MeshComponent::VPostInit() {
 void MeshComponent::VUpdate(float dt) {
 }
 
-void MeshComponent::VRender(map<string, GLuint> handles, Camera* cam, vec3 lightPos) {
+void MeshComponent::VRender(map<string, Shader*> shaders, Camera* cam, vec3 lightPos) {
 	mat4 transform = GetTransform();
 
+	GLuint program = shaders[m_Shader]->Program;
+	map<string, GLuint> handles = shaders[m_Shader]->Handles();
+
 	// Use shader
-	//if (m_RenderNormal) {
-	glUseProgram(handles["ProgramID"]);
-	//}
-	//else {
-	//	glUseProgram(handles["ProgramID"]);
-	//}
+	glUseProgram(program);
 
 	// Update and send MVP
 	mat4 mvp = cam->Projection * cam->View * transform;

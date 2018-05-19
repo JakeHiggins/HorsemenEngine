@@ -1,18 +1,18 @@
 #include "HorsemanStd.h"
-#include "Shaders.h"
+#include "Shader.h"
 
 #include <fstream>
 #include <sstream>
 
-Shaders::Shaders() {
+Shader::Shader() {
 }
 
 
-Shaders::~Shaders() {
+Shader::~Shader() {
 }
 
 
-GLuint Shaders::LoadShaders(const char* vertexShaderPath, const char* fragmentShaderPath) {
+bool Shader::LoadShaders(const char* vertexShaderPath, const char* fragmentShaderPath) {
 	// Create the shaders
 	GLuint vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
@@ -30,7 +30,7 @@ GLuint Shaders::LoadShaders(const char* vertexShaderPath, const char* fragmentSh
 	else {
 		printf("Failed to open vertex shader %s", vertexShaderPath);
 		getchar();
-		return 0;
+		return false;
 	}
 
 	// Read fragment shader
@@ -46,7 +46,7 @@ GLuint Shaders::LoadShaders(const char* vertexShaderPath, const char* fragmentSh
 	else {
 		printf("Failed to open fragment shader %s", fragmentShaderPath);
 		getchar();
-		return 0;
+		return false;
 	}
 
 	GLint result = GL_FALSE;
@@ -65,7 +65,7 @@ GLuint Shaders::LoadShaders(const char* vertexShaderPath, const char* fragmentSh
 		std::vector<char> VertexShaderErrorMessage(infoLogLength + 1);
 		glGetShaderInfoLog(vertexShaderID, infoLogLength, NULL, &VertexShaderErrorMessage[0]);
 		printf("%s\n", &VertexShaderErrorMessage[0]);
-		return 0;
+		return false;
 	}
 
 	// Compile fragment shader
@@ -81,7 +81,7 @@ GLuint Shaders::LoadShaders(const char* vertexShaderPath, const char* fragmentSh
 		std::vector<char> fragmentShaderErrorMessage(infoLogLength + 1);
 		glGetShaderInfoLog(fragmentShaderID, infoLogLength, NULL, &fragmentShaderErrorMessage[0]);
 		printf("%s\n", &fragmentShaderErrorMessage[0]);
-		return 0;
+		return false;
 	}
 
 	// Link the program
@@ -98,7 +98,7 @@ GLuint Shaders::LoadShaders(const char* vertexShaderPath, const char* fragmentSh
 		std::vector<char> programErrorMessage(infoLogLength + 1);
 		glGetProgramInfoLog(programID, infoLogLength, NULL, &programErrorMessage[0]);
 		printf("%s\n", &programErrorMessage[0]);
-		return 0;
+		return false;
 	}
 
 	// Clean up shaders
@@ -108,5 +108,26 @@ GLuint Shaders::LoadShaders(const char* vertexShaderPath, const char* fragmentSh
 	glDeleteShader(vertexShaderID);
 	glDeleteShader(fragmentShaderID);
 
-	return programID;
+	m_ProgramID = programID;
+
+	return true;
+}
+
+void Shader::RegisterHandles() {
+	m_Handles["MatrixID"] = glGetUniformLocation(m_ProgramID, "MVP");
+	m_Handles["ModelMatID"] = glGetUniformLocation(m_ProgramID, "M");
+	m_Handles["ViewMatID"] = glGetUniformLocation(m_ProgramID, "V");
+	m_Handles["TextureID"] = glGetUniformLocation(m_ProgramID, "DiffuseTextureSampler");
+	m_Handles["NormalID"] = glGetUniformLocation(m_ProgramID, "NormalTextureSampler");
+	m_Handles["MV3x3ID"] = glGetUniformLocation(m_ProgramID, "MV3x3");
+	m_Handles["LightID"] = glGetUniformLocation(m_ProgramID, "LightPosition_worldspace");
+}
+
+void Shader::Cleanup() {
+	glDeleteProgram(m_ProgramID);
+}
+
+map<string, GLuint> Shader::Handles()
+{
+	return m_Handles;
 }
