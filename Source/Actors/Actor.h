@@ -2,6 +2,7 @@
 #define ACTOR_H
 
 class Camera;
+class Shader;
 
 class Actor {
 	friend class ActorFactory;
@@ -19,7 +20,7 @@ public:
 	void PostInit(void);
 	void Cleanup(void);
 	void Update(float dt);
-	void Render(map<string, GLuint> handles, Camera* cam, vec3 lightPos);
+	void Render(map<string, Shader*> shaders, Camera* cam, vec3 lightPos);
 
 	template <class ComponentType>
 	weak_ptr<ComponentType> GetComponent(ComponentId id) {

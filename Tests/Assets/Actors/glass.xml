@@ -6,6 +6,7 @@
 	</TransformComponent>
 	<MeshComponent>
 		<Texture src="../../Assets/Textures/glass_d.png"/>
+		<Shader id="SimpleShader"/>
 		<Mesh src="../../Assets/Models/cube.obj"/>
 	</MeshComponent>
 </Actor>

@@ -2,16 +2,16 @@
 #include "Font.h"
 
 #include "Texture.h"
-#include "Shaders.h"
+#include "Shader.h"
 
 Font::Font() {
 	m_pTexture = new Texture();
-	m_pShaders = new Shaders();
+	m_pShader = new Shader();
 }
 
 Font::~Font() {
 	SAFE_DELETE(m_pTexture);
-	SAFE_DELETE(m_pShaders);
+	SAFE_DELETE(m_pShader);
 }
 
 void Font::LoadFont(const char * path, const char* vShader, const char* fShader) {
@@ -20,9 +20,9 @@ void Font::LoadFont(const char * path, const char* vShader, const char* fShader)
 	glGenBuffers(1, &m_VertexBufferID);
 	glGenBuffers(1, &m_UVBufferID);
 
-	m_ShaderID = m_pShaders->LoadShaders(vShader, fShader);
+	bool result = m_pShader->LoadShaders(vShader, fShader);
 
-	m_UniformID = glGetUniformLocation(m_ShaderID, "textureSampler");
+	m_UniformID = glGetUniformLocation(m_pShader->Program, "textureSampler");
 }
 
 void Font::Print(const char * text, int x, int y, int size) {
@@ -34,7 +34,7 @@ void Font::Print(const char * text, int x, int y, int size) {
 	glBindBuffer(GL_ARRAY_BUFFER, m_UVBufferID);
 	glBufferData(GL_ARRAY_BUFFER, m_UVs.size() * sizeof(vec2), &m_UVs[0], GL_STATIC_DRAW);
 
-	glUseProgram(m_ShaderID);
+	glUseProgram(m_pShader->Program);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_pTexture->Image);
@@ -63,8 +63,7 @@ void Font::Cleanup() {
 	glDeleteBuffers(1, &m_UVBufferID);
 
 	m_pTexture->Cleanup();
-
-	glDeleteProgram(m_ShaderID);
+	m_pShader->Cleanup();
 }
 
 void Font::CacheStatement(const char * text, int x, int y, int size) {

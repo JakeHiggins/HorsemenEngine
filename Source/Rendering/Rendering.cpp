@@ -1,11 +1,11 @@
 #include "HorsemanStd.h"
+#include "HorsemanStd.h"
 #include "Rendering.h"
 
-#include "Shaders.h"
+#include "Shader.h"
 #include "Components/Camera.h"
 
 Rendering::Rendering() {
-	m_pShaders = new Shaders();
 }
 
 Rendering::~Rendering()
@@ -56,38 +56,19 @@ int Rendering::Init(const char* title) {
 
 int Rendering::LoadContent() {
 	// Load MVP matrix
-	m_Handles["MatrixID"] = glGetUniformLocation(m_Handles["ProgramID"], "MVP");
-	m_Handles["ModelMatID"] = glGetUniformLocation(m_Handles["ProgramID"], "M");
-	m_Handles["ViewMatID"] = glGetUniformLocation(m_Handles["ProgramID"], "V");
-	m_Handles["TextureID"] = glGetUniformLocation(m_Handles["ProgramID"], "textureSampler");
-
-	glUseProgram(m_Handles["ProgramID"]);
-	m_Handles["LightID"] = glGetUniformLocation(m_Handles["ProgramID"], "LightPosition_worldspace");
+	/**/
 
 	return 1;
 }
 
-bool Rendering::LoadShader(const char* program, const char* vertexPath, const char* fragmentPath) {
-	GLuint result = m_pShaders->LoadShaders(vertexPath, fragmentPath);
-	if (result == 0) {
-		return false;
+bool Rendering::RegisterShader(const char* program, const char* vertexPath, const char* fragmentPath) {
+	Shader* s = new Shader();
+	bool result = s->LoadShaders(vertexPath, fragmentPath);
+	if (result) {
+		s->RegisterHandles();
+		m_Shaders[program] = s;
 	}
-	m_Handles[program] = result;
-	return true;
-}
-
-void Rendering::Update(float dt) {
-}
-
-int Rendering::Render(Camera* cam) {
-	// Clear screen
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	// Swap Buffers
-	glfwSwapBuffers(m_pWindow);
-	glfwPollEvents();
-
-	return 1;
+	return result;
 }
 
 void Rendering::Begin() {
@@ -102,11 +83,11 @@ void Rendering::End() {
 }
 
 void Rendering::Cleanup() {
-	glDeleteProgram(m_ProgramID);
+	for (auto shader : m_Shaders) {
+		shader.second->Cleanup();
+	}
 
 	glfwTerminate();
-
-	SAFE_DELETE(m_pShaders);
 }
 
 void Rendering::SetWindowTitle(const char * title)
@@ -114,7 +95,7 @@ void Rendering::SetWindowTitle(const char * title)
 	glfwSetWindowTitle(m_pWindow, title);
 }
 
-map<string, GLuint> Rendering::Handles()
+map<string, Shader*> Rendering::Shaders()
 {
-	return m_Handles;
+	return m_Shaders;
 }

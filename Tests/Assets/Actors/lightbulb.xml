@@ -1,0 +1,12 @@
+<Actor>
+	<TransformComponent>
+		<Translation x="0" y="6" z="0"/>
+		<Rotation yaw="0" pitch="0" roll="0"/>
+		<Scale x="0.2" y="0.2" z="0.2"/>
+	</TransformComponent>
+	<MeshComponent>
+		<Mesh src="../../Assets/Models/lightbulb.obj"/>
+		<Texture src="../../Assets/Textures/lightbulb_d.png"/>
+		<Shader id="SimpleShader"/>
+	</MeshComponent>
+</Actor>

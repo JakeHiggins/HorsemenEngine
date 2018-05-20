@@ -33,16 +33,16 @@ public:
 	GET(Translation) { return m_Translation; }
 	SET(Translation) { m_Translation = value; m_RebuildTransform = true; }
 
-	READONLY_PROPERTY(vec3, Scalar);
+	PROPERTY(vec3, Scalar);
 	GET(Scalar) { return m_Scale; }
 	SET(Scalar) { m_Scale = value; m_RebuildTransform = true; }
 
 	// Default Rotation returns Degrees
-	READONLY_PROPERTY(vec3, Rotation);
+	PROPERTY(vec3, Rotation);
 	GET(Rotation) { return m_DegRot; }
 	SET(Rotation) { m_DegRot = value; m_RadRot = RotToRad(value); m_RebuildTransform = true; }
 
-	READONLY_PROPERTY(vec3, RotationRads);
+	PROPERTY(vec3, RotationRads);
 	GET(RotationRads) { return m_RadRot; }
 	SET(RotationRads) { m_RadRot = value; m_DegRot = RotToDeg(value); m_RebuildTransform = true; }
 	#pragma endregion

@@ -52,9 +52,6 @@
     <ClInclude Include="..\Rendering\Texture.h">
       <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="..\Rendering\Shaders.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="..\Rendering\Rendering.h">
       <Filter>Rendering</Filter>
     </ClInclude>
@@ -79,6 +76,9 @@
     <ClInclude Include="..\Rendering\Font.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="..\Rendering\Shader.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Core\HorsemanGame.cpp">
@@ -92,9 +92,6 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="..\Rendering\Texture.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Rendering\Shaders.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
     <ClCompile Include="..\Rendering\Rendering.cpp">
@@ -113,6 +110,9 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="..\Rendering\Font.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Rendering\Shader.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
   </ItemGroup>
