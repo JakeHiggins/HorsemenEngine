@@ -135,6 +135,7 @@ void MeshComponent::VRender(map<string, Shader*> shaders, Camera* cam, vec3 ligh
 	glUniformMatrix4fv(handles["MatrixID"], 1, GL_FALSE, &mvp[0][0]);
 	glUniformMatrix4fv(handles["ModelMatID"], 1, GL_FALSE, &transform[0][0]);
 	glUniformMatrix4fv(handles["ViewMatID"], 1, GL_FALSE, &view[0][0]);
+	glUniformMatrix4fv(handles["ViewMatID"], 1, GL_FALSE, &view[0][0]);
 	glUniformMatrix3fv(handles["MV3x3ID"], 1, GL_FALSE, &modelView[0][0]);
 
 	// Bind light
@@ -145,7 +146,7 @@ void MeshComponent::VRender(map<string, Shader*> shaders, Camera* cam, vec3 ligh
 	glBindTexture(GL_TEXTURE_2D, m_pTexture->Image);
 	glUniform1i(handles["TextureID"], 0);
 
-	glActiveTexture(GL_TEXTURE0);
+	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, m_pNormal->Image);
 	glUniform1i(handles["NormalID"], 1);
 
@@ -209,7 +210,6 @@ void MeshComponent::VRender(map<string, Shader*> shaders, Camera* cam, vec3 ligh
 		(void*)0
 	);
 
-	//glDrawArrays(GL_TRIANGLES, 0, (GLsizei)m_Vertices.size());
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
 
 	// Enable blending

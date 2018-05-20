@@ -163,10 +163,6 @@ static void ComputeTangedBasis(
 		vec2& uv1 = uvs[i + 1];
 		vec2& uv2 = uvs[i + 2];
 		
-		vec3& n0 = normals[i + 0];
-		vec3& n1 = normals[i + 1];
-		vec3& n2 = normals[i + 2];
-		
 		vec3 deltaPos1 = v1 - v0;
 		vec3 deltaPos2 = v2 - v0;
 

@@ -6,8 +6,8 @@ class Shader;
 
 class Font {
 	Texture* m_pTexture;
-	Shader* m_pShaders;
-	GLuint m_VertexBufferID, m_UVBufferID, m_ShaderID, m_UniformID;
+	Shader* m_pShader;
+	GLuint m_VertexBufferID, m_UVBufferID, m_UniformID;
 	char* m_CachedText;
 	vector<vec2> m_Vertices, m_UVs;
 

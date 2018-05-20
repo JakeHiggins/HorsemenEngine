@@ -5,9 +5,9 @@
 		<Scale x="1" y="1" z="1"/>
 	</TransformComponent>
 	<MeshComponent>
-		<Texture src="../../Assets/Textures/laval_d.png"/>
-		<Normal src="../../Assets/Textures/laval_n.png"/>
+		<Texture src="../../Assets/Textures/missing_d.png"/>
+		<Normal src="../../Assets/Textures/lava_n.png"/>
 		<Shader id="NormalShader"/>
-		<Mesh src="../../Assets/Models/cube.obj"/>
+		<Mesh src="../../Assets/Models/cube_uni.obj"/>
 	</MeshComponent>
 </Actor>

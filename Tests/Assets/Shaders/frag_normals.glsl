@@ -25,7 +25,7 @@ void main() {
 	vec4 MaterialAmbientColor = vec4(0.1, 0.1, 0.1, 1) * MaterialDiffuseColor;
 	vec4 MaterialSpecularColor = vec4(0.3, 0.3, 0.3, 1);
 
-	vec3 TextureNormal_tangentspace = normalize(texture(NormalTextureSampler, vec2(UV.x, -UV.y)).rgb * 2.0 - 1.0);
+	vec3 TextureNormal_tangentspace = normalize(texture(NormalTextureSampler, UV).rgb * 2.0 - 1.0);
 
 	float distance = length(LightPosition_worldspace - Position_worldspace);
 

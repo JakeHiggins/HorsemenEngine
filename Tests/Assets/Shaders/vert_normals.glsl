@@ -31,7 +31,7 @@ void main() {
 	vec3 LightPosition_cameraspace = (V * vec4(LightPosition_worldspace, 1)).xyz;
 	LightDirection_cameraspace = LightPosition_cameraspace + EyeDirection_cameraspace;
 
-	UV = vertexUV * vec2(1.0, -1.0); //Inverse the texture
+	UV = vertexUV; //Inverse the texture
 
 	vec3 vertexTangent_cameraspace = MV3x3 * vertexTangent_modelspace;
 	vec3 vertexBitangent_cameraspace = MV3x3 * vertexBitangent_modelspace;
