@@ -11,6 +11,13 @@ Shader::Shader() {
 Shader::~Shader() {
 }
 
+// Included shader types
+#define HSHADER_STANDARD_ID 0
+#define HSHADER_STANDARD_BUMP_ID 1
+#define HSHADER_PATH "Assets/Shaders/"
+#define HSHADER_STANDARD_EXT "standard"
+#define HSHADER_STANDARD_BUMP_EXT "standard_bump"
+
 
 bool Shader::LoadShaders(const char* vertexShaderPath, const char* fragmentShaderPath) {
 	// Create the shaders
