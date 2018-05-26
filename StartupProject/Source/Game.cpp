@@ -25,7 +25,7 @@ Game::~Game() {
 }
 
 void Game::Init() {
-	HorsemanGame::Init("Horseman Game");
+	HorsemanGame::Init("horseman_config.txt", "Horseman Game");
 	Input::Instance()->Init(Renderer->Window);
 	m_pCamera->Init(Renderer->Window);
 }

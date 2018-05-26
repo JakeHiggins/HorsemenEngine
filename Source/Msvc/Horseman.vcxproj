@@ -32,6 +32,7 @@
     <ClInclude Include="..\Rendering\Rendering.h" />
     <ClInclude Include="..\Rendering\Shader.h" />
     <ClInclude Include="..\Rendering\Texture.h" />
+    <ClInclude Include="..\Utils\config.h" />
     <ClInclude Include="..\Utils\loaders.h" />
     <ClInclude Include="..\Utils\templates.h" />
     <ClInclude Include="HorsemanStd.h" />

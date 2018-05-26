@@ -40,7 +40,11 @@ using glm::quat;
 
 // Internal includes
 #include "Core/interfaces.h"
+#include "Utils/config.h"
 #include "Utils/templates.h"
+
+// Config object
+extern HorsemanConfig config;
 
 // Useful #defines
 #define CONCAT_NX(A, B) A ## B
@@ -74,10 +78,3 @@ using glm::quat;
 
 #define GET(n) property__tmp_type_##n property__get_##n()
 #define SET(n) void property__set_##n(const property__tmp_type_##n& value)
-
-// Global config variables
-extern const float FOV;
-extern const float WIDTH;
-extern const float HEIGHT;
-extern const float NEAR_DRAW;
-extern const float FAR_DRAW;
