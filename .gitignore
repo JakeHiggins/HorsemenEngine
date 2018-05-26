@@ -302,5 +302,7 @@ Assets/*
 
 Tests/Temp/*
 Tests/Lib/*
+StartupProject/Temp/*
+StartupProject/Lib/*
 
 # End of https://www.gitignore.io/api/visualstudio

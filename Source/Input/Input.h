@@ -1,14 +1,6 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-//#include "Utils/properties.h"
-//#include "Utils/memory.h"
-//#include "Utils/config.h"
-//
-//#include "GL/glew.h"
-//#include "GLFW/glfw3.h"
-//#include "glm/glm.hpp"
-
 struct MouseAngle {
 	float yaw, pitch;
 };
