@@ -1,0 +1,13 @@
+<Actor>
+	<TransformComponent>
+		<Translation x="0" y="-2" z="-2"/>
+		<Rotation yaw="0" pitch="0" roll="0"/>
+		<Scale x="1" y="1" z="1"/>
+	</TransformComponent>
+	<MeshComponent>
+		<Texture src="../../Assets/Textures/lava_d.png"/>
+		<Normal src="../../Assets/Textures/lava_n.png"/>
+		<Shader id="NormalShader"/>
+		<Mesh src="../../Assets/Models/cube.obj"/>
+	</MeshComponent>
+</Actor>

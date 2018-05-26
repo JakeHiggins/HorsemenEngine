@@ -37,8 +37,8 @@ void Input::Update(GLFWwindow * window, float dt) {
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
 
-	glfwSetCursorPos(window, WIDTH / 2, HEIGHT / 2);
+	glfwSetCursorPos(window, config.ScreenWidth / 2, config.ScreenHeight / 2);
 
-	m_Angles.yaw += m_MouseSpeed * dt * float(WIDTH / 2 - xpos);
-	m_Angles.pitch += m_MouseSpeed * dt * float(HEIGHT / 2 - ypos);
+	m_Angles.yaw += m_MouseSpeed * dt * float(config.ScreenWidth / 2 - xpos);
+	m_Angles.pitch += m_MouseSpeed * dt * float(config.ScreenHeight / 2 - ypos);
 }

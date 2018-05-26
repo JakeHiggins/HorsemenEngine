@@ -26,7 +26,14 @@ int Rendering::Init(const char* title) {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Create an OpenGL Window
-	m_pWindow = glfwCreateWindow((int)WIDTH, (int)HEIGHT, title, NULL, NULL);
+	if (config.DisplayMode == 1) {
+		m_pWindow = glfwCreateWindow((int)config.ScreenWidth, (int)config.ScreenHeight, title, glfwGetPrimaryMonitor(), NULL);
+	}
+	else {
+		m_pWindow = glfwCreateWindow((int)config.ScreenWidth, (int)config.ScreenHeight, title, NULL, NULL);
+	}
+
+
 	if (m_pWindow == NULL) {
 		fprintf(stderr, "Failed to open GLFW window.\n");
 		getchar();

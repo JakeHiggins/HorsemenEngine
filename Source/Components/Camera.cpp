@@ -15,7 +15,7 @@ void Camera::Init(GLFWwindow* window) {
 	m_Target = vec3(0, 0, 0);
 	m_Position = vec3(0, 1, 20);
 	m_Up = vec3(0, 1, 0);
-	m_FOV = FOV - 5 * Input::Instance()->Scroll;
+	m_FOV = config.FOV - 5 * Input::Instance()->Scroll;
 	m_Zoom = 1;
 
 
@@ -78,7 +78,7 @@ void Camera::Update(GLFWwindow* window, float dt) {
 	m_Target = m_Position + forward;
 
 	// Adjust FOV
-	m_FOV = FOV - 5 * Input::Instance()->Scroll;
+	m_FOV = config.FOV - 5 * Input::Instance()->Scroll;
 }
 
 void Camera::Cleanup()

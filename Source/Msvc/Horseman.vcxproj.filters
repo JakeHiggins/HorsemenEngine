@@ -79,6 +79,9 @@
     <ClInclude Include="..\Rendering\Shader.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="..\Utils\config.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Core\HorsemanGame.cpp">

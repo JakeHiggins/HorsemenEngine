@@ -21,7 +21,7 @@ public:
 	GET(View) { return glm::lookAt(m_Position, m_Target, m_Up); };
 
 	READONLY_PROPERTY(mat4, Projection);
-	GET(Projection) { return glm::perspective(glm::radians(m_FOV), WIDTH / HEIGHT, NEAR_DRAW, FAR_DRAW); };
+	GET(Projection) { return glm::perspective(glm::radians(m_FOV), config.ScreenWidth / config.ScreenHeight, config.NearDraw, config.FarDraw); };
 };
 
 #endif
