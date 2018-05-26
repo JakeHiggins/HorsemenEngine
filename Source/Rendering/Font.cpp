@@ -58,6 +58,14 @@ void Font::Print(const char * text, int x, int y, int size) {
 	glDisableVertexAttribArray(1);
 }
 
+void Font::Print(string text, int x, int y, int size) { Print(text.c_str(), x, y, size); }
+
+void Font::Print(double text, int x, int y, int size) { Print(toCString(text), x, y, size); }
+
+void Font::Print(int text, int x, int y, int size) { Print(toCString(text), x, y, size); }
+
+void Font::Print(float text, int x, int y, int size) { Print(toCString(text), x, y, size); }
+
 void Font::Cleanup() {
 	glDeleteBuffers(1, &m_VertexBufferID);
 	glDeleteBuffers(1, &m_UVBufferID);

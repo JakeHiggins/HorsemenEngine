@@ -17,6 +17,14 @@ public:
 	void LoadFont(const char* path, const char* vShader, const char* fShader);
 	void Print(const char* text, int x, int y, int size);
 
+	void Print(string text, int x, int y, int size);
+
+	void Print(double text, int x, int y, int size);
+
+	void Print(int text, int x, int y, int size);
+
+	void Print(float text, int x, int y, int size);
+
 	void Cleanup();
 
 private:
