@@ -14,8 +14,8 @@ MaterialComponent::~MaterialComponent() {
 
 bool MaterialComponent::VInit(rapidxml::xml_node<>* pNode)
 {
-	m_ImagePaths["diffuse"] = nullptr;
-	m_ImagePaths["normal"] = nullptr;
+	m_ImagePaths.insert(std::pair<const char*, string>("diffuse", config.EngineAssets + string("/Textures/missing_d.png")));
+	m_ImagePaths.insert(std::pair<const char*, string>("normal", config.EngineAssets + string("/Textures/missing_n.png")));
 
 	m_pShader = new Shader();
 
@@ -31,20 +31,54 @@ bool MaterialComponent::VInit(rapidxml::xml_node<>* pNode)
 		}
 
 		// Custom shader
-		if (pNode->first_node("Shader")->first_attribute("src") != nullptr) {
-			const char* pShader = pNode->first_node("Shader")->first_attribute("src")->value();
-			m_ShaderPath = new char[strlen(pShader) + 1];
-			strcpy(m_ShaderPath, pShader);
+		if (pNode->first_node("Shader")->first_attribute("vshader") != nullptr && pNode->first_node("Shader")->first_attribute("fshader")) {
+			const char* pVShader = pNode->first_node("Shader")->first_attribute("vshader")->value();
+			const char* pFShader = pNode->first_node("Shader")->first_attribute("fshader")->value();
+			m_VShaderPath = new char[strlen(pVShader) + 1];
+			strcpy(m_VShaderPath, pVShader);
+			m_FShaderPath = new char[strlen(pFShader) + 1];
+			strcpy(m_FShaderPath, pFShader);
 		}
 		// Included shader
 		else if (pNode->first_node("Shader")->first_attribute("id") != nullptr) {
 			const char* pShader = pNode->first_node("Shader")->first_attribute("id")->value();
-			
+			if (pShader == "bump_diffuse") {
+				m_VShaderPath = new char[strlen(config.EngineAssets.c_str()) + 34];
+				strcpy(m_VShaderPath, config.EngineAssets.c_str());
+				strcat(m_VShaderPath, "/Shaders/vert_bump_diffuse.glsl");
+
+				m_FShaderPath = new char[strlen(config.EngineAssets.c_str()) + 34];
+				strcpy(m_FShaderPath, config.EngineAssets.c_str());
+				strcat(m_FShaderPath, "/Shaders/frag_bump_diffuse.glsl");
+			}
+			else if (pShader == "transparent") {
+				m_VShaderPath = new char[strlen(config.EngineAssets.c_str()) + 33];
+				strcpy(m_VShaderPath, config.EngineAssets.c_str());
+				strcat(m_VShaderPath, "/Shaders/vert_transparent.glsl");
+
+				m_FShaderPath = new char[strlen(config.EngineAssets.c_str()) + 33];
+				strcpy(m_FShaderPath, config.EngineAssets.c_str());
+				strcat(m_FShaderPath, "/Shaders/frag_transparent.glsl");
+			}
+			else {
+				m_VShaderPath = new char[strlen(config.EngineAssets.c_str()) + 29];
+				strcpy(m_VShaderPath, config.EngineAssets.c_str());
+				strcat(m_VShaderPath, "/Shaders/vert_diffuse.glsl");
+
+				m_FShaderPath = new char[strlen(config.EngineAssets.c_str()) + 29];
+				strcpy(m_FShaderPath, config.EngineAssets.c_str());
+				strcat(m_FShaderPath, "/Shaders/frag_diffuse.glsl");
+			}
 		}
 		// Load standard shader
-		// TODO: Add standard shader ID to the component for future loading
 		else {
-			
+			m_VShaderPath = new char[strlen(config.EngineAssets.c_str()) + 29];
+			strcpy(m_VShaderPath, config.EngineAssets.c_str());
+			strcat(m_VShaderPath, "/Shaders/vert_diffuse.glsl");
+
+			m_FShaderPath = new char[strlen(config.EngineAssets.c_str()) + 29];
+			strcpy(m_FShaderPath, config.EngineAssets.c_str());
+			strcat(m_FShaderPath, "/Shaders/frag_diffuse.glsl");
 		}
 	}
 	catch (const std::runtime_error& e)
@@ -67,7 +101,7 @@ bool MaterialComponent::VInit(rapidxml::xml_node<>* pNode)
 		return false;
 	}
 
-	return false;
+	return true;
 }
 
 void MaterialComponent::VPostInit()

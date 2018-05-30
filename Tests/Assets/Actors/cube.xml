@@ -10,4 +10,9 @@
 		<Shader id="NormalShader"/>
 		<Mesh src="../../Assets/Models/cube_uni.obj"/>
 	</MeshComponent>
+	<MaterialComponent>
+		<Diffuse src="../../Assets/Textures/missing_d.png"/>
+		<Normal src="../../Assets/Textures/lava_n.png"/>
+		<Shader id="bump_diffuse"/>
+	</MaterialComponent>
 </Actor>

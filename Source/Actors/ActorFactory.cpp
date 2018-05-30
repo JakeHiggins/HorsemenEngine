@@ -4,6 +4,7 @@
 #include "Actor.h"
 #include "ActorComponent.h"
 #include "Components/TransformComponent.h"
+#include "Components/MaterialComponent.h"
 #include "Components/MeshComponent.h"
 #include <iostream>
 #include <fstream>
@@ -13,6 +14,7 @@ ActorFactory::ActorFactory()
 {
 	m_ActorComponentCreators[TransformComponent::g_Name] = &TransformComponent::Create;
 	m_ActorComponentCreators[MeshComponent::g_Name] = &MeshComponent::Create;
+	m_ActorComponentCreators[MaterialComponent::g_Name] = &MaterialComponent::Create;
 }
 
 StrongActorPtr ActorFactory::CreateActor(const char * actorResource) {

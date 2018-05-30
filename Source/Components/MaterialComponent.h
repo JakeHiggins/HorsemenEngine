@@ -8,9 +8,9 @@ class Shader;
 
 class MaterialComponent : public ActorComponent {
 	Shader* m_pShader;
-	map<string, Texture> m_Textures;
-	map<string, string> m_ImagePaths;
-	char* m_ShaderPath;
+	map<const char*, Texture> m_Textures;
+	map<const char*, string> m_ImagePaths;
+	char* m_VShaderPath, *m_FShaderPath;
 
 public:
 	static const char* g_Name;
