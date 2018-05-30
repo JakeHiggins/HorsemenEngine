@@ -11,7 +11,9 @@ HorsemanGame::HorsemanGame() {
 HorsemanGame::~HorsemanGame() {
 }
 
-void HorsemanGame::Init(const char* title) {
+void HorsemanGame::Init(const char* configPath, const char* title) {
+	bool result = config.LoadHorsemanConfig(configPath);
+	if (!result) { return; }
 	Renderer->Init(title);
 }
 

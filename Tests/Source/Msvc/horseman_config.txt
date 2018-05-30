@@ -1,0 +1,10 @@
+fieldOfView 45
+screenWidth	1920
+screenHeight 1080
+
+# Display mode 
+# 0 - Windowed
+# 1 - Fullscreen
+displayMode = 0
+
+engineAssetsDir ../../Assets
