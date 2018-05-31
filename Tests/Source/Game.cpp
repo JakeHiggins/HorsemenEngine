@@ -40,7 +40,7 @@ void Game::LoadContent() {
 	//AddActor(factory, "../../Assets/Actors/lightbulb.xml");
 	AddActor(factory, "../../Assets/Actors/glass.xml");
 
-	m_pFont->LoadFont("../../Assets/Fonts/consolas.png", "../../Assets/Shaders/vert_font.glsl", "../../Assets/Shaders/frag_font.glsl");
+	m_pFont->LoadFont("consolas");
 }
 
 void Game::Update(float dt) {

@@ -35,7 +35,10 @@ void Game::LoadContent() {
 	AddActor(factory, "../../Assets/Actors/cube.xml");
 	Renderer->LoadContent();
 
-	m_pFont->LoadFont("../../Assets/Fonts/consolas.png", "../../Assets/Shaders/vert_font.glsl", "../../Assets/Shaders/frag_font.glsl");
+	bool result = m_pFont->LoadFont("consolas");
+	if (!result) {
+		printf("Font not found");
+	}
 }
 
 void Game::Update(float dt) {
