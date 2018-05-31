@@ -124,7 +124,7 @@ void Shader::RegisterHandles() {
 	m_Handles["MatrixID"] = glGetUniformLocation(m_ProgramID, "MVP");
 	m_Handles["ModelMatID"] = glGetUniformLocation(m_ProgramID, "M");
 	m_Handles["ViewMatID"] = glGetUniformLocation(m_ProgramID, "V");
-	m_Handles["TextureID"] = glGetUniformLocation(m_ProgramID, "DiffuseTextureSampler");
+	m_Handles["DiffuseID"] = glGetUniformLocation(m_ProgramID, "DiffuseTextureSampler");
 	m_Handles["NormalID"] = glGetUniformLocation(m_ProgramID, "NormalTextureSampler");
 	m_Handles["MV3x3ID"] = glGetUniformLocation(m_ProgramID, "MV3x3");
 	m_Handles["LightID"] = glGetUniformLocation(m_ProgramID, "LightPosition_worldspace");

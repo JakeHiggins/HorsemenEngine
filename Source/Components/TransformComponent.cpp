@@ -70,7 +70,7 @@ void TransformComponent::VUpdate(float dt)
 {
 }
 
-void TransformComponent::VRender(map<string, GLuint> handles, Camera * cam, vec3 lightPos)
+void TransformComponent::VRender(Camera * cam, vec3 lightPos)
 {
 }
 

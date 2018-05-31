@@ -52,10 +52,10 @@ void Game::Render() {
 	Renderer->Begin();
 
 	for (auto actor : m_Actors) {
-		actor->Render(Renderer->Shaders(), m_pCamera, vec3(0, 6, 0));
+		actor->Render(m_pCamera, vec3(0, 6, 0));
 	}
 
-	m_pFont->Print("Hello World", 5, 700, 32);
+	m_pFont->Print(std::to_string(FPS).c_str(), 5, 700, 32);
 
 	Renderer->End();
 }

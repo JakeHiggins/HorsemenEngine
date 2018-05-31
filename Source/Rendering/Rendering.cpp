@@ -67,16 +67,6 @@ int Rendering::LoadContent() {
 	return 1;
 }
 
-bool Rendering::RegisterShader(const char* program, const char* vertexPath, const char* fragmentPath) {
-	Shader* s = new Shader();
-	bool result = s->LoadShaders(vertexPath, fragmentPath);
-	if (result) {
-		s->RegisterHandles();
-		m_Shaders[program] = s;
-	}
-	return result;
-}
-
 void Rendering::Begin() {
 	// Clear screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -89,19 +79,10 @@ void Rendering::End() {
 }
 
 void Rendering::Cleanup() {
-	for (auto shader : m_Shaders) {
-		shader.second->Cleanup();
-	}
-
 	glfwTerminate();
 }
 
 void Rendering::SetWindowTitle(const char * title)
 {
 	glfwSetWindowTitle(m_pWindow, title);
-}
-
-map<string, Shader*> Rendering::Shaders()
-{
-	return m_Shaders;
 }

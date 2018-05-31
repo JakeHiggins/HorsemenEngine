@@ -22,7 +22,7 @@ public:
 	virtual bool VInit(rapidxml::xml_node<>* pNode);
 	virtual void VPostInit();
 	virtual void VUpdate(float dt);
-	virtual void VRender(map<string, Shader*> shaders, Camera* cam, vec3 lightPos);
+	virtual void VRender(Camera* cam, vec3 lightPos);
 
 	void Cleanup();
 	void BindTextures();

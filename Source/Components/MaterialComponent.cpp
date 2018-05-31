@@ -117,7 +117,7 @@ void MaterialComponent::VUpdate(float dt)
 {
 }
 
-void MaterialComponent::VRender(map<string, Shader*> shaders, Camera * cam, vec3 lightPos) {
+void MaterialComponent::VRender(Camera * cam, vec3 lightPos) {
 
 }
 

@@ -96,7 +96,7 @@ void MeshComponent::VPostInit() {
 void MeshComponent::VUpdate(float dt) {
 }
 
-void MeshComponent::VRender(map<string, Shader*> shaders, Camera* cam, vec3 lightPos) {
+void MeshComponent::VRender(Camera* cam, vec3 lightPos) {
 	mat4 transform = GetTransform();
 
 	GLuint program = GetMaterial()->GetShader()->Program;
