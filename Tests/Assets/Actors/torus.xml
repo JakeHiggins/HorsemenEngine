@@ -5,8 +5,8 @@
 		<Scale x="1" y="1" z="1"/>
 	</TransformComponent>
 	<MeshComponent>
-		<Texture src="../../Assets/Textures/white_d.dds"/>
-		<Shader id="SimpleShader"/>
 		<Mesh src="../../Assets/Models/torus.obj"/>
 	</MeshComponent>
+	<MaterialComponent>
+	</MaterialComponent>
 </Actor>

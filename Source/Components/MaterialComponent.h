@@ -8,7 +8,7 @@ class Shader;
 
 class MaterialComponent : public ActorComponent {
 	Shader* m_pShader;
-	map<const char*, Texture> m_Textures;
+	map<const char*, Texture*> m_Textures;
 	map<const char*, string> m_ImagePaths;
 	char* m_VShaderPath, *m_FShaderPath;
 
@@ -25,8 +25,15 @@ public:
 	virtual void VRender(map<string, Shader*> shaders, Camera* cam, vec3 lightPos);
 
 	void Cleanup();
+	void BindTextures();
+	Shader* GetShader() { 
+		return m_pShader; 
+	}
 
 	static ActorComponent* __stdcall Create() { return new MaterialComponent(); }
+
+private:
+	void LoadDefaultShader();
 };
 
 #endif

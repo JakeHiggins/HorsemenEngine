@@ -5,7 +5,7 @@
 #include "rapidxml/rapidxml.hpp"
 
 class Camera;
-class Texture;
+class MaterialComponent;
 class Shader;
 
 class MeshComponent : public ActorComponent
@@ -14,9 +14,7 @@ class MeshComponent : public ActorComponent
 	vector<vec3> m_Vertices, m_Normals, m_Tangents, m_Bitangents;
 	vector<vec2> m_UVs;
 	vector<unsigned short> m_Indices;
-	Texture* m_pTexture, *m_pNormal;
-	bool m_RenderNormal;
-	char* m_TexturePath, *m_NormalPath, *m_MeshPath, *m_Shader;
+	char* m_MeshPath;
 
 public:
 	static const char* g_Name;
@@ -34,14 +32,12 @@ public:
 
 	static ActorComponent* __stdcall Create() { return new MeshComponent(); }
 
-	READONLY_PROPERTY(char*, TexturePath);
-	GET(TexturePath) { return m_TexturePath; };
-
 	READONLY_PROPERTY(char*, MeshPath);
 	GET(MeshPath) { return m_MeshPath; };
 
 private:
 	mat4 GetTransform();
+	shared_ptr<MaterialComponent> GetMaterial();
 };
 
 #endif

@@ -8,7 +8,7 @@ in vec3 LightDirection_cameraspace;
 in vec3 LightDirection_tangentspace;
 in vec3 EyeDirection_tangentspace;
 
-out vec4 color;
+out vec3 color;
 
 uniform sampler2D DiffuseTextureSampler;
 uniform sampler2D NormalTextureSampler;
@@ -18,12 +18,12 @@ uniform mat4 MV;
 uniform vec3 LightPosition_worldspace;
 
 void main() {
-	vec4 LightColor = vec4(1, 1, 1, 1);
+	vec3 LightColor = vec3(1, 1, 1);
 	float LightPower = 50.0f;
 
-	vec4 MaterialDiffuseColor = texture(DiffuseTextureSampler, UV).rgba;
-	vec4 MaterialAmbientColor = vec4(0.1, 0.1, 0.1, 1) * MaterialDiffuseColor;
-	vec4 MaterialSpecularColor = vec4(0.3, 0.3, 0.3, 1);
+	vec3 MaterialDiffuseColor = texture(DiffuseTextureSampler, UV).rgb;
+	vec3 MaterialAmbientColor = vec3(0.1, 0.1, 0.1) * MaterialDiffuseColor;
+	vec3 MaterialSpecularColor = vec3(0.3, 0.3, 0.3);
 
 	vec3 TextureNormal_tangentspace = normalize(texture(NormalTextureSampler, UV).rgb * 2.0 - 1.0);
 

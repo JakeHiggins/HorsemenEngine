@@ -1,8 +1,9 @@
 #include "HorsemanStd.h"
 #include "MeshComponent.h"
 
-#include "Camera.h"
-#include "TransformComponent.h"
+#include "Components/Camera.h"
+#include "Components/MaterialComponent.h"
+#include "Components/TransformComponent.h"
 #include "Input/Input.h"
 #include "Rendering/Shader.h"
 #include "Rendering/Texture.h"
@@ -11,35 +12,16 @@
 const char* MeshComponent::g_Name = "MeshComponent";
 
 MeshComponent::MeshComponent() {
-	m_RenderNormal = false;
 }
 
 MeshComponent::~MeshComponent() {
 }
 
 bool MeshComponent::VInit(rapidxml::xml_node<>* pNode) {
-	m_pTexture = new Texture();
-	m_pNormal = new Texture();
-
 	try {
-		const char* pTexture = pNode->first_node("Texture")->first_attribute("src")->value();
-		m_TexturePath = new char[strlen(pTexture) + 1];
-		strcpy(m_TexturePath, pTexture);
-
-		m_RenderNormal = pNode->first_node("Normal") != nullptr;
-		if (m_RenderNormal) {
-			const char* pNormal = pNode->first_node("Normal")->first_attribute("src")->value();
-			m_NormalPath = new char[strlen(pNormal) + 1];
-			strcpy(m_NormalPath, pNormal);
-		}
-
 		const char* pMesh = pNode->first_node("Mesh")->first_attribute("src")->value();
 		m_MeshPath = new char[strlen(pMesh) + 1];
 		strcpy(m_MeshPath, pMesh);
-
-		const char* pShader = pNode->first_node("Shader")->first_attribute("id")->value();
-		m_Shader = new char[strlen(pShader) + 1];
-		strcpy(m_Shader, pShader);
 	}
 	catch (const std::runtime_error& e)
 	{
@@ -65,11 +47,6 @@ bool MeshComponent::VInit(rapidxml::xml_node<>* pNode) {
 }
 
 void MeshComponent::VPostInit() {
-	m_pTexture->LoadTexture(m_TexturePath);
-	if (m_RenderNormal) {
-		m_pNormal->LoadTexture(m_NormalPath);
-	}
-
 	vector<vec3> vertices;
 	vector<vec2> uvs;
 	vector<vec3> normals;
@@ -122,8 +99,8 @@ void MeshComponent::VUpdate(float dt) {
 void MeshComponent::VRender(map<string, Shader*> shaders, Camera* cam, vec3 lightPos) {
 	mat4 transform = GetTransform();
 
-	GLuint program = shaders[m_Shader]->Program;
-	map<string, GLuint> handles = shaders[m_Shader]->Handles();
+	GLuint program = GetMaterial()->GetShader()->Program;
+	map<string, GLuint> handles = GetMaterial()->GetShader()->Handles();
 
 	// Use shader
 	glUseProgram(program);
@@ -141,14 +118,7 @@ void MeshComponent::VRender(map<string, Shader*> shaders, Camera* cam, vec3 ligh
 	// Bind light
 	glUniform3f(handles["LightID"], lightPos.x, lightPos.y, lightPos.z);
 
-	// Bind texture
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, m_pTexture->Image);
-	glUniform1i(handles["TextureID"], 0);
-
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, m_pNormal->Image);
-	glUniform1i(handles["NormalID"], 1);
+	GetMaterial()->BindTextures();
 
 	// Bind vertex array
 	glEnableVertexAttribArray(0);
@@ -213,8 +183,8 @@ void MeshComponent::VRender(map<string, Shader*> shaders, Camera* cam, vec3 ligh
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
 
 	// Enable blending
-	//glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glDrawElements(
 		GL_TRIANGLES,
@@ -223,7 +193,7 @@ void MeshComponent::VRender(map<string, Shader*> shaders, Camera* cam, vec3 ligh
 		(void*)0
 	);
 
-	//glDisable(GL_BLEND);
+	glDisable(GL_BLEND);
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
@@ -241,15 +211,13 @@ void MeshComponent::Cleanup() {
 	glDeleteBuffers(1, &m_BitangentBuffer);
 
 	glDeleteVertexArrays(1, &m_VertexArrayID);
-
-	m_pTexture->Cleanup();
-	m_pNormal->Cleanup();
-
-	SAFE_DELETE(m_pTexture);
-	SAFE_DELETE(m_pNormal);
 }
 
 mat4 MeshComponent::GetTransform() {
 	shared_ptr<TransformComponent> pTransform = MakeStrongPtr(m_pOwner->GetComponent<TransformComponent>(TransformComponent::g_Name));
 	return pTransform->Transform;
+}
+
+shared_ptr<MaterialComponent> MeshComponent::GetMaterial() {
+	return MakeStrongPtr(m_pOwner->GetComponent<MaterialComponent>(MaterialComponent::g_Name));
 }

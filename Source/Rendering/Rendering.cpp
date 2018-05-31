@@ -63,7 +63,6 @@ int Rendering::Init(const char* title) {
 
 int Rendering::LoadContent() {
 	// Load MVP matrix
-	/**/
 
 	return 1;
 }
