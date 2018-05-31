@@ -7,4 +7,4 @@ screenHeight 1080
 # 1 - Fullscreen
 displayMode = 0
 
-engineAssetsDir ../../Assets
+engineAssetsDir ../../../Assets

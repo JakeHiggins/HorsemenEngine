@@ -298,8 +298,6 @@ __pycache__/
 
 Temp/*
 Lib/*
-Assets/*
-
 Tests/Temp/*
 Tests/Lib/*
 StartupProject/Temp/*

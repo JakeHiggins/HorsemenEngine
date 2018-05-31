@@ -20,7 +20,7 @@ public:
 	void PostInit(void);
 	void Cleanup(void);
 	void Update(float dt);
-	void Render(map<string, Shader*> shaders, Camera* cam, vec3 lightPos);
+	void Render(Camera* cam, vec3 lightPos);
 
 	template <class ComponentType>
 	weak_ptr<ComponentType> GetComponent(ComponentId id) {

@@ -19,7 +19,7 @@ public:
 	virtual bool VInit(rapidxml::xml_node<>* pNode);
 	virtual void VPostInit();
 	virtual void VUpdate(float dt);
-	virtual void VRender(map<string, GLuint> handles, Camera* cam, vec3 lightPos);
+	virtual void VRender(Camera* cam, vec3 lightPos);
 
 	void Move(vec3 position);
 	void Rotate(vec3 euler);

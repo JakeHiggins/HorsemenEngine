@@ -6,12 +6,15 @@
 #include <Msvc/HorsemanStd.h>
 
 class Camera;
-class MeshComponentOld;
 class ActorFactory;
 class Font;
 
 class Game : public HorsemanGame
 {
+	Camera * m_pCamera;
+	Font* m_pFont;
+	vector<StrongActorPtr> m_Actors;
+
 public:
 	Game();
 	virtual ~Game();
@@ -20,15 +23,13 @@ public:
 	void Update(float dt);
 	void Render();
 	void Cleanup();
-	void AddActor(ActorFactory factory, const char* actorResource);
+
+	// Frames Per Second and Milliseconds Per Frame
+	int FPS;
+	double MSPF;
 
 private:
-	Camera * m_pCamera;
-	Font* m_pFont;
-	vector<StrongActorPtr> m_Actors;
-	float m_Min, m_Max;
-	vec3 m_Forward1, m_Forward2, m_Forward3;
-	int m_Target;
+	void AddActor(ActorFactory factory, const char* actorResource);
 };
 
 #endif#pragma once

@@ -36,10 +36,10 @@ void Actor::Update(float dt)
 	}
 }
 
-void Actor::Render(map<string, Shader*> shaders, Camera * cam, vec3 lightPos) {
+void Actor::Render(Camera * cam, vec3 lightPos) {
 	for (auto comp : m_Components) {
 		auto pComp = comp.second;
-		pComp->VRender(shaders, cam, lightPos);
+		pComp->VRender(cam, lightPos);
 	}
 }
 

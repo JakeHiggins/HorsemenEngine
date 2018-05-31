@@ -82,6 +82,9 @@
     <ClInclude Include="..\Utils\config.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\Components\MaterialComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Core\HorsemanGame.cpp">
@@ -117,6 +120,9 @@
     </ClCompile>
     <ClCompile Include="..\Rendering\Shader.cpp">
       <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Components\MaterialComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

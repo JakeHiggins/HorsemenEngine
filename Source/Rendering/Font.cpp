@@ -22,7 +22,19 @@ void Font::LoadFont(const char * path, const char* vShader, const char* fShader)
 
 	bool result = m_pShader->LoadShaders(vShader, fShader);
 
-	m_UniformID = glGetUniformLocation(m_pShader->Program, "textureSampler");
+	m_UniformID = glGetUniformLocation(m_pShader->Program, "DiffuseTextureSampler");
+}
+
+bool Font::LoadFont(const char* name) {
+	if (string("consolas").compare(name) == 0) {
+		string path = config.EngineAssets + string("/Fonts/consolas.png");
+		string vert = config.EngineAssets + string("/Shaders/vert_debug_font.glsl");
+		string frag = config.EngineAssets + string("/Shaders/frag_debug_font.glsl");
+		LoadFont(path.c_str(), vert.c_str(), frag.c_str());
+		return true;
+	}
+
+	return false;
 }
 
 void Font::Print(const char * text, int x, int y, int size) {

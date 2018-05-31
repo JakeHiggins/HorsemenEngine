@@ -23,6 +23,7 @@
     <ClInclude Include="..\Actors\ActorComponent.h" />
     <ClInclude Include="..\Actors\ActorFactory.h" />
     <ClInclude Include="..\Components\Camera.h" />
+    <ClInclude Include="..\Components\MaterialComponent.h" />
     <ClInclude Include="..\Components\MeshComponent.h" />
     <ClInclude Include="..\Components\TransformComponent.h" />
     <ClInclude Include="..\Core\HorsemanGame.h" />
@@ -41,6 +42,7 @@
     <ClCompile Include="..\Actors\Actor.cpp" />
     <ClCompile Include="..\Actors\ActorFactory.cpp" />
     <ClCompile Include="..\Components\Camera.cpp" />
+    <ClCompile Include="..\Components\MaterialComponent.cpp" />
     <ClCompile Include="..\Components\MeshComponent.cpp" />
     <ClCompile Include="..\Components\TransformComponent.cpp" />
     <ClCompile Include="..\Core\HorsemanGame.cpp" />

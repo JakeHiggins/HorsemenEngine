@@ -33,12 +33,12 @@ void Game::Init() {
 void Game::LoadContent() {
 	ActorFactory factory = ActorFactory();
 	AddActor(factory, "../../Assets/Actors/cube.xml");
-
-	Renderer->RegisterShader("SimpleShader", "../../Assets/Shaders/vert_simple.glsl", "../../Assets/Shaders/frag_simple.glsl");
-	Renderer->RegisterShader("NormalShader", "../../Assets/Shaders/vert_normals.glsl", "../../Assets/Shaders/frag_normals.glsl");
 	Renderer->LoadContent();
 
-	m_pFont->LoadFont("../../Assets/Fonts/consolas.png", "../../Assets/Shaders/vert_font.glsl", "../../Assets/Shaders/frag_font.glsl");
+	bool result = m_pFont->LoadFont("consolas");
+	if (!result) {
+		printf("Font not found");
+	}
 }
 
 void Game::Update(float dt) {
@@ -50,7 +50,7 @@ void Game::Render() {
 	Renderer->Begin();
 
 	for (auto actor : m_Actors) {
-		actor->Render(Renderer->Shaders(), m_pCamera, vec3(0, 6, 0));
+		actor->Render(m_pCamera, vec3(0, 6, 0));
 	}
 
 	m_pFont->Print(std::to_string(FPS).c_str(), 5, 700, 32);
