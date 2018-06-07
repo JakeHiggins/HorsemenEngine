@@ -13,3 +13,8 @@ typedef shared_ptr<Actor> StrongActorPtr;
 typedef shared_ptr<ActorComponent> StrongActorComponentPtr;
 
 typedef weak_ptr<ActorComponent> WeakActorComponentPtr;
+
+typedef map<string, int> ZipContentsMap;
+typedef unsigned long dword;
+typedef unsigned short word;
+typedef unsigned char byte;

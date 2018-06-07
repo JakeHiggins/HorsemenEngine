@@ -31,6 +31,9 @@
     <Filter Include="Input">
       <UniqueIdentifier>{d0c423c7-ecd6-47ab-8c86-2cdab55f07e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{ca29368c-ed59-4754-89e4-8f1155726d2b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Core\interfaces.h">
@@ -85,6 +88,9 @@
     <ClInclude Include="..\Components\MaterialComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\Resources\ZipFile.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Core\HorsemanGame.cpp">
@@ -123,6 +129,9 @@
     </ClCompile>
     <ClCompile Include="..\Components\MaterialComponent.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Resources\ZipFile.cpp">
+      <Filter>Resources</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

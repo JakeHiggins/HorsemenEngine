@@ -8,12 +8,14 @@
 class Camera;
 class ActorFactory;
 class Font;
+class ZipFile;
 
 class Game : public HorsemanGame
 {
 	Camera * m_pCamera;
 	Font* m_pFont;
 	vector<StrongActorPtr> m_Actors;
+	ZipFile* m_pResources;
 
 public:
 	Game();

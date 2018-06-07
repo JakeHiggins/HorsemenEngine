@@ -33,6 +33,7 @@
     <ClInclude Include="..\Rendering\Rendering.h" />
     <ClInclude Include="..\Rendering\Shader.h" />
     <ClInclude Include="..\Rendering\Texture.h" />
+    <ClInclude Include="..\Resources\ZipFile.h" />
     <ClInclude Include="..\Utils\config.h" />
     <ClInclude Include="..\Utils\loaders.h" />
     <ClInclude Include="..\Utils\templates.h" />
@@ -51,6 +52,7 @@
     <ClCompile Include="..\Rendering\Rendering.cpp" />
     <ClCompile Include="..\Rendering\Shader.cpp" />
     <ClCompile Include="..\Rendering\Texture.cpp" />
+    <ClCompile Include="..\Resources\ZipFile.cpp" />
     <ClCompile Include="HorsemanStd.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

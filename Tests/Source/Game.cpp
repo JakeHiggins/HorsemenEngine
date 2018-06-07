@@ -9,6 +9,7 @@
 #include <Rendering/Font.h>
 #include <Rendering/Rendering.h>
 #include <Rendering/Texture.h>
+#include <Resources/ZipFile.h>
 
 #include <iostream>
 #include <fstream>
@@ -18,6 +19,7 @@ Game::Game() : HorsemanGame()
 	m_pCamera = new Camera();
 	m_Actors = vector<StrongActorPtr>();
 	m_pFont = new Font();
+	m_pResources = new ZipFile();
 }
 
 Game::~Game()
@@ -28,19 +30,21 @@ Game::~Game()
 
 void Game::Init() {
 	HorsemanGame::Init("horseman_config.txt", "Horseman Tests");
+	m_pResources->Init("Assets.zip");
+
 	Input::Instance()->Init(Renderer->Window);
 	m_pCamera->Init(Renderer->Window);
 }
 
 void Game::LoadContent() {
-	ActorFactory factory = ActorFactory();
-	AddActor(factory, "../../Assets/Actors/cube.xml");
-	AddActor(factory, "../../Assets/Actors/statue.xml");
-	AddActor(factory, "../../Assets/Actors/torus.xml");
-	//AddActor(factory, "../../Assets/Actors/lightbulb.xml");
-	AddActor(factory, "../../Assets/Actors/glass.xml");
+	//ActorFactory factory = ActorFactory();
+	//AddActor(factory, "../../Assets/Actors/cube.xml");
+	//AddActor(factory, "../../Assets/Actors/statue.xml");
+	//AddActor(factory, "../../Assets/Actors/torus.xml");
+	////AddActor(factory, "../../Assets/Actors/lightbulb.xml");
+	//AddActor(factory, "../../Assets/Actors/glass.xml");
 
-	m_pFont->LoadFont("consolas");
+	//m_pFont->LoadFont("consolas");
 }
 
 void Game::Update(float dt) {
@@ -51,22 +55,22 @@ void Game::Update(float dt) {
 void Game::Render() {
 	Renderer->Begin();
 
-	for (auto actor : m_Actors) {
-		actor->Render(m_pCamera, vec3(0, 6, 0));
-	}
+	//for (auto actor : m_Actors) {
+	//	actor->Render(m_pCamera, vec3(0, 6, 0));
+	//}
 
-	m_pFont->Print(std::to_string(FPS).c_str(), 5, 700, 32);
+	//m_pFont->Print(std::to_string(FPS).c_str(), 5, 700, 32);
 
 	Renderer->End();
 }
 
 void Game::Cleanup() {
-	for (auto actor : m_Actors) {
-		actor->Cleanup();
-	}
+	//for (auto actor : m_Actors) {
+	//	actor->Cleanup();
+	//}
 
 	m_pCamera->Cleanup();
-	m_pFont->Cleanup();
+	//m_pFont->Cleanup();
 
 	HorsemanGame::Cleanup();
 }
