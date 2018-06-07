@@ -85,6 +85,9 @@
     <ClInclude Include="..\Components\MaterialComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\Components\LightComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Core\HorsemanGame.cpp">
@@ -122,6 +125,9 @@
       <Filter>Rendering</Filter>
     </ClCompile>
     <ClCompile Include="..\Components\MaterialComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Components\LightComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>

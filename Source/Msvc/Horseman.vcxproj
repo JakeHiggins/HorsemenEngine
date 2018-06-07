@@ -23,6 +23,7 @@
     <ClInclude Include="..\Actors\ActorComponent.h" />
     <ClInclude Include="..\Actors\ActorFactory.h" />
     <ClInclude Include="..\Components\Camera.h" />
+    <ClInclude Include="..\Components\LightComponent.h" />
     <ClInclude Include="..\Components\MaterialComponent.h" />
     <ClInclude Include="..\Components\MeshComponent.h" />
     <ClInclude Include="..\Components\TransformComponent.h" />
@@ -42,6 +43,7 @@
     <ClCompile Include="..\Actors\Actor.cpp" />
     <ClCompile Include="..\Actors\ActorFactory.cpp" />
     <ClCompile Include="..\Components\Camera.cpp" />
+    <ClCompile Include="..\Components\LightComponent.cpp" />
     <ClCompile Include="..\Components\MaterialComponent.cpp" />
     <ClCompile Include="..\Components\MeshComponent.cpp" />
     <ClCompile Include="..\Components\TransformComponent.cpp" />
