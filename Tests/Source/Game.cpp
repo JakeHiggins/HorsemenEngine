@@ -31,6 +31,9 @@ Game::~Game()
 void Game::Init() {
 	HorsemanGame::Init("horseman_config.txt", "Horseman Tests");
 	m_pResources->Init("Assets.zip");
+	for (int i = 0; i < m_pResources->Entries; i++) {
+		printf("%s (%i bytes)\n", m_pResources->GetFilename(i), m_pResources->GetFileLen(i));
+	}
 
 	Input::Instance()->Init(Renderer->Window);
 	m_pCamera->Init(Renderer->Window);

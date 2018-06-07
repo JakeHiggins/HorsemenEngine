@@ -14,7 +14,7 @@ public:
 	void End();
 
 	int GetNumFiles() const { return m_Entries; }
-	string GetFilename(int i) const;
+	char* GetFilename(int i) const;
 	int GetFileLen(int i) const;
 	bool ReadFile(int i, void *pBuf);
 
@@ -22,6 +22,9 @@ public:
 	// std::optional<int> Find(const std::string &path) const;
 
 	ZipContentsMap m_ZipContentsMap;
+
+	READONLY_PROPERTY(int, Entries);
+	GET(Entries) { return m_Entries; }
 
 private:
 	struct TZipDirHeader;
